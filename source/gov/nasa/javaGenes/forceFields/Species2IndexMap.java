@@ -21,20 +21,25 @@ package gov.nasa.javaGenes.forceFields;
 import java.util.Hashtable;
 
 /**
-used to convert a Species object to a array index for fast processing.
-*/
+ * used to convert a Species object to a array index for fast processing.
+ */
 public class Species2IndexMap {
-protected Hashtable table = new Hashtable();
-/**
-enter a species and index into the map
-*/
-public void setMap(Species species, int index) {
-  table.put(species,new java.lang.Integer(index));
-}
-public int getIndex(Species species) {
-  int index = ((java.lang.Integer)table.get(species)).intValue();
-  return index;
-}
-public int size() { return table.size();}
+    protected Hashtable table = new Hashtable();
+
+    /**
+     * enter a species and index into the map
+     */
+    public void setMap(Species species, int index) {
+        table.put(species, new java.lang.Integer(index));
+    }
+
+    public int getIndex(Species species) {
+        int index = ((java.lang.Integer) table.get(species)).intValue();
+        return index;
+    }
+
+    public int size() {
+        return table.size();
+    }
 }
 

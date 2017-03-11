@@ -17,35 +17,48 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
+
 import gov.nasa.alsUtility.Error;
 
 /**
-This is used as a superclass by OneBody, TwoBody, and ThreeBody
-*/
+ * This is used as a superclass by OneBody, TwoBody, and ThreeBody
+ */
 public class Body extends MultiBody {
-/**
-the species of this body (second body in TwoBody, third body in ThreeBody)
-*/
-public Species species;
+    /**
+     * the species of this body (second body in TwoBody, third body in ThreeBody)
+     */
+    public Species species;
 
-/**
-the species index.  Used for speed.
-*/
-public int speciesIndex = -1;
+    /**
+     * the species index.  Used for speed.
+     */
+    public int speciesIndex = -1;
 
-public Body(Species s) {
-    super(s.toString());
-    species = s;
-}
-/**
-used to set the species index
-*/
-protected void setSpeciesIndex(Species2IndexMap map) {
-  speciesIndex = map.getIndex(species);
-}
-public void scaleLengthsBy(double scaleFactor) {Error.notImplemented();}
-public boolean withinCutoff(Potential form) {Error.notImplemented(); return true;}
-public String tabSeparatedString() {Error.notImplemented(); return "";}
+    public Body(Species s) {
+        super(s.toString());
+        species = s;
+    }
+
+    /**
+     * used to set the species index
+     */
+    protected void setSpeciesIndex(Species2IndexMap map) {
+        speciesIndex = map.getIndex(species);
+    }
+
+    public void scaleLengthsBy(double scaleFactor) {
+        Error.notImplemented();
+    }
+
+    public boolean withinCutoff(Potential form) {
+        Error.notImplemented();
+        return true;
+    }
+
+    public String tabSeparatedString() {
+        Error.notImplemented();
+        return "";
+    }
 
 }
 

@@ -18,44 +18,44 @@
 //
 package gov.nasa.javaGenes.main;
 
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.FieldRecordText;
 import gov.nasa.alsUtility.Utility;
 
 // depends on the output format used by Anna Pryor's program
 public class FindMinimumInTsdFile {
-static String separator = "\t";
+    static String separator = "\t";
 
-public static void main(String[] arguments) {
-    if (arguments.length < 3) {
-        System.out.println("format: java gov.nasa.javaGenes.main startToken endToken filename.tsd ...");
-        System.exit(-1);
+    public static void main(String[] arguments) {
+        if (arguments.length < 3) {
+            System.out.println("format: java gov.nasa.javaGenes.main startToken endToken filename.tsd ...");
+            System.exit(-1);
+        }
+        String startToken = arguments[0];
+        String endToken = arguments[1];
+        for (int f = 2; f < arguments.length; f++) {
+            boolean checking = false;
+            FieldRecordText in = new FieldRecordText(arguments[f], separator);
+            double minimum = Double.MAX_VALUE;
+            while (true) {
+                String[] line = in.readLine();
+                if (line == null)
+                    break;
+                for (int i = 0; i < line.length; i++) {
+                    if (line[i].equals(startToken))
+                        checking = true;
+                    else if (line[i].equals(endToken))
+                        checking = false;
+                    if (checking) {
+                        try {
+                            double value = Utility.string2double(line[i]);
+                            if (value < minimum)
+                                minimum = value;
+                        } catch (Exception e) {
+                        } // handles non-doubles in the file
+                    }
+                }
+            }
+            System.out.println(minimum + "");
+        }
     }
-	String startToken = arguments[0];
-	String endToken = arguments[1];
-	for(int f = 2; f < arguments.length; f++) {
-		boolean checking = false;
-		FieldRecordText in = new FieldRecordText(arguments[f],separator);
-		double minimum = Double.MAX_VALUE;
-		while(true) {
-			String[] line = in.readLine();
-			if (line == null)
-				break;
-			for(int i = 0; i < line.length; i++) {
-				if (line[i].equals(startToken))
-					checking = true;
-				else if (line[i].equals(endToken))
-					checking = false;
-				if (checking) {
-					try {
-						double value = Utility.string2double(line[i]);
-						if (value < minimum)
-							minimum = value;
-					} catch (Exception e) {} // handles non-doubles in the file
-				}
-			}
-		}
-		System.out.println(minimum+"");
-	}
-}
 }

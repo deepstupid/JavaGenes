@@ -18,16 +18,18 @@
 //
 //  Created by Al Globus on Wed Jan 29 2003.
 package gov.nasa.javaGenes.hillClimbing;
+
 import gov.nasa.javaGenes.core.Individual;
 
-public class RestartAfterNChildrenWithoutImprovement  extends RestartEveryNChildren {
-public RestartAfterNChildrenWithoutImprovement(int numberOfConsecutiveChildrenWithoutImprovementBetweenRestarts) {
-    super(numberOfConsecutiveChildrenWithoutImprovementBetweenRestarts);
-}
-void childCreated(Individual kid, Individual parent) {
-    if (kid.fitterThan(parent)) 
-        count = 0;
-    else
-        count++;
-}
+public class RestartAfterNChildrenWithoutImprovement extends RestartEveryNChildren {
+    public RestartAfterNChildrenWithoutImprovement(int numberOfConsecutiveChildrenWithoutImprovementBetweenRestarts) {
+        super(numberOfConsecutiveChildrenWithoutImprovementBetweenRestarts);
+    }
+
+    void childCreated(Individual kid, Individual parent) {
+        if (kid.fitterThan(parent))
+            count = 0;
+        else
+            count++;
+    }
 }

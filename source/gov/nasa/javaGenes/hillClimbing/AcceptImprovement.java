@@ -23,7 +23,7 @@ import gov.nasa.javaGenes.core.Fitness;
 
 public class AcceptImprovement extends Accepter {
 
-public boolean accept(Fitness kid,Fitness parent) {
-    return kid.fitterThan(parent);
-}
+    public boolean accept(Fitness kid, Fitness parent) {
+        return kid.fitterThan(parent);
+    }
 }

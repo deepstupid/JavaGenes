@@ -19,65 +19,81 @@
 package gov.nasa.alsUtility;
 
 
-import java.io.PrintWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.IO;
+import java.io.PrintWriter;
 
 /**
-create a file and add text to it from time to time
-*/
+ * create a file and add text to it from time to time
+ */
 public class EasyFile {
-protected String filename;
-protected PrintWriter file;
+    protected String filename;
+    protected PrintWriter file;
+    private boolean first = true;
 
-/**
-@param f the filename
-@param append if true, add to existing file. Otherwise create new file.
-*/
-    public
-EasyFile (String f) {
-    filename = f;
-    file = IO.getPrintWriter(filename);
-}
+    /**
+     * @param f      the filename
+     * @param append if true, add to existing file. Otherwise create new file.
+     */
+    public EasyFile(String f) {
+        filename = f;
+        file = IO.getPrintWriter(filename);
+    }
 
-public boolean containsData(){
-	File it = new File(filename);
-	return it.exists() && it.length() > 0;
-}
-    public void
-print (String s) {file.print (s);}
-    public void
-println (String s) {file.println (s);}
-    public void
-println () {file.println ();}
-    public void
-close() {file.close(); file = null;}
-public void flush() {file.flush();}
+    public boolean containsData() {
+        File it = new File(filename);
+        return it.exists() && it.length() > 0;
+    }
 
-private boolean first = true;
-/**
-print d with a comma between it and all other entries
-*/
     public void
-printComaSeparated (double d) {
-    if (first) first = false;
-    else       print (",");
-    print (d + "");
-}
-/**
-print a with the form x,y
-*/
+    print(String s) {
+        file.print(s);
+    }
+
     public void
-printComaSeparatedXYLine (double x, double y) {
-    println (x + "," + y);
-}
-/**
-close the file if necessary
-*/
+    println(String s) {
+        file.println(s);
+    }
+
+    public void
+    println() {
+        file.println();
+    }
+
+    public void
+    close() {
+        file.close();
+        file = null;
+    }
+
+    public void flush() {
+        file.flush();
+    }
+
+    /**
+     * print d with a comma between it and all other entries
+     */
+    public void
+    printComaSeparated(double d) {
+        if (first) first = false;
+        else print(",");
+        print(d + "");
+    }
+
+    /**
+     * print a with the form x,y
+     */
+    public void
+    printComaSeparatedXYLine(double x, double y) {
+        println(x + "," + y);
+    }
+
+    /**
+     * close the file if necessary
+     */
     protected void
-finalize() throws Throwable {super.finalize(); if (file != null) close();}
+    finalize() throws Throwable {
+        super.finalize();
+        if (file != null) close();
+    }
 }
 

@@ -21,17 +21,17 @@ package gov.nasa.javaGenes.chemistry;
 
 public class Pyridine extends Molecule {
 
-public Pyridine() {
-    for(int i = 0; i < 5; i++)
-        add(new Atom(6));
-    add(new Atom(7));
+    public Pyridine() {
+        for (int i = 0; i < 5; i++)
+            add(new Atom(6));
+        add(new Atom(7));
 
-    // aromatic ring
-    makeBond(1, 2, 1);
-    makeBond(2, 3, 2);
-    makeBond(3, 4, 1);
-    makeBond(4, 5, 2);
-    makeBond(5, 6, 1);
-    makeBond(6, 1, 2);
-}
+        // aromatic ring
+        makeBond(1, 2, 1);
+        makeBond(2, 3, 2);
+        makeBond(3, 4, 1);
+        makeBond(4, 5, 2);
+        makeBond(5, 6, 1);
+        makeBond(6, 1, 2);
+    }
 }

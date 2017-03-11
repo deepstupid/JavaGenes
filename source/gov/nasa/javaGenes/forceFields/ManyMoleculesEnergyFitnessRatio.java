@@ -20,11 +20,12 @@ package gov.nasa.javaGenes.forceFields;
 
 
 public class ManyMoleculesEnergyFitnessRatio extends ManyMoleculesEnergyFitness {
-public ManyMoleculesEnergyFitnessRatio(Potential p, ManyMultiBodiesForOneEnergy m) {
-  super(p,m);
-}
-protected double calculateDistance(double energy, double targetEnergy) {
-  if (targetEnergy == 0) return energy;
-  return Math.abs((energy-targetEnergy)/targetEnergy);
-}
+    public ManyMoleculesEnergyFitnessRatio(Potential p, ManyMultiBodiesForOneEnergy m) {
+        super(p, m);
+    }
+
+    protected double calculateDistance(double energy, double targetEnergy) {
+        if (targetEnergy == 0) return energy;
+        return Math.abs((energy - targetEnergy) / targetEnergy);
+    }
 }

@@ -21,48 +21,53 @@ package gov.nasa.javaGenes.core;
 import gov.nasa.alsUtility.Utility;
 
 /**
-implements steady state breeding
-*/
+ * implements steady state breeding
+ */
 public class BreederSteadyState extends Breeder {
 
-public BreederSteadyState(Parameters p) {super(p);}
-
-public Population breed (Population parents, int kidsPerGeneration) {
-     while (generationNotComplete(kidsPerGeneration)){
-      ChildMaker maker = childMakerProvider.getChildMaker(getTotalNumberOfKidsProduced());
-      Individual[] theParents = new Individual[maker.numberOfParents()];
-      for(int i = 0; i < theParents.length; i++){
-            do {
-                if (useTournament())
-                    theParents[i] = tournament(parents,null);
-                else
-                    theParents[i] = pickOne(parents);
-            } while(!Utility.areDifferent(theParents,true));
-      }
-      if (debug) {
-        Utility.debugPrintln("Parents:");
-        for(int i = 0; i < theParents.length; i++)
-          Utility.debugPrintln(theParents[i].toString());
-      }
-      Evolvable[] c = maker.makeChildren(theParents);
-      for(int i = 0; i < c.length; i++){
-        if (generationNotComplete(kidsPerGeneration)){
-            Individual individual = parents.makeIndividual(c[i],getFitnessFunction());
-            parents.setIndividual(antiTournamentGetIndex(parents),individual);
-            maker.results(individual,theParents);
-            newChild(individual);
-        }
-      }
-      if (debug) {
-        Utility.debugPrintln("Children:");
-        for(int i = 0; i < c.length; i++)
-          Utility.debugPrintln(c[i].toString());
-      }
-      Checkpointer.ok();
+    public BreederSteadyState(Parameters p) {
+        super(p);
     }
-    generationIsComplete();
-    return parents;
-}
-public String toString() {return "BreederSteadyState";}
+
+    public Population breed(Population parents, int kidsPerGeneration) {
+        while (generationNotComplete(kidsPerGeneration)) {
+            ChildMaker maker = childMakerProvider.getChildMaker(getTotalNumberOfKidsProduced());
+            Individual[] theParents = new Individual[maker.numberOfParents()];
+            for (int i = 0; i < theParents.length; i++) {
+                do {
+                    if (useTournament())
+                        theParents[i] = tournament(parents, null);
+                    else
+                        theParents[i] = pickOne(parents);
+                } while (!Utility.areDifferent(theParents, true));
+            }
+            if (debug) {
+                Utility.debugPrintln("Parents:");
+                for (int i = 0; i < theParents.length; i++)
+                    Utility.debugPrintln(theParents[i].toString());
+            }
+            Evolvable[] c = maker.makeChildren(theParents);
+            for (int i = 0; i < c.length; i++) {
+                if (generationNotComplete(kidsPerGeneration)) {
+                    Individual individual = parents.makeIndividual(c[i], getFitnessFunction());
+                    parents.setIndividual(antiTournamentGetIndex(parents), individual);
+                    maker.results(individual, theParents);
+                    newChild(individual);
+                }
+            }
+            if (debug) {
+                Utility.debugPrintln("Children:");
+                for (int i = 0; i < c.length; i++)
+                    Utility.debugPrintln(c[i].toString());
+            }
+            Checkpointer.ok();
+        }
+        generationIsComplete();
+        return parents;
+    }
+
+    public String toString() {
+        return "BreederSteadyState";
+    }
 }
 

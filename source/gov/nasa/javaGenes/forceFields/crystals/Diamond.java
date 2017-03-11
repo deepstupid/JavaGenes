@@ -19,17 +19,18 @@
 package gov.nasa.javaGenes.forceFields.crystals;
 
 public class Diamond extends CubicCell {
-static final private double[][] diamondUniqueAtomLocations = {
-    {0,   0,   0},
-    {0.25,0.25,0.25},
-    {0.5, 0.5, 0},
-    {0.75,0.75,0.25},
-    {0.5, 0,   0.5},
-    {0.75,0.25,0.75},
-    {0,   0.5, 0.5},
-    {0.25,0.75,0.75},
-};
-public Diamond(String element, double maxDistanceFromUniqueAtoms) {
-    super(element,maxDistanceFromUniqueAtoms,diamondUniqueAtomLocations);
-}
+    static final private double[][] diamondUniqueAtomLocations = {
+            {0, 0, 0},
+            {0.25, 0.25, 0.25},
+            {0.5, 0.5, 0},
+            {0.75, 0.75, 0.25},
+            {0.5, 0, 0.5},
+            {0.75, 0.25, 0.75},
+            {0, 0.5, 0.5},
+            {0.25, 0.75, 0.75},
+    };
+
+    public Diamond(String element, double maxDistanceFromUniqueAtoms) {
+        super(element, maxDistanceFromUniqueAtoms, diamondUniqueAtomLocations);
+    }
 }

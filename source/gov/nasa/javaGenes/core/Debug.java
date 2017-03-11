@@ -20,5 +20,5 @@
 package gov.nasa.javaGenes.core;
 
 public class Debug {
-final public static boolean debug = false; // set false for operations
+    final public static boolean debug = false; // set false for operations
 }

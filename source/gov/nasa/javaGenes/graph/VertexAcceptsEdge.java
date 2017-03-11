@@ -21,23 +21,32 @@ package gov.nasa.javaGenes.graph;
 import gov.nasa.alsUtility.Predicate;
 
 /**
-predicate that determines when vertices can accept an additional edge
-*/
+ * predicate that determines when vertices can accept an additional edge
+ */
 public class VertexAcceptsEdge implements Predicate {
-/**
-the edge to be accepted
-*/
-protected Edge edge = null;
-/**
-@param e the edge to be accepted. May be null to ask if any edge can be accepted.
-*/
-public VertexAcceptsEdge(Edge e) {edge = e;}
-/**
-used when asking if any edge may be accepted
-*/
-public VertexAcceptsEdge() {edge = null;}
-/**
-@return true if v except edge. If edge == null, true if v can accept any edge
-*/
-public boolean execute(Object v) {return ((Vertex)v).canAcceptEdge(edge);}
+    /**
+     * the edge to be accepted
+     */
+    protected Edge edge = null;
+
+    /**
+     * @param e the edge to be accepted. May be null to ask if any edge can be accepted.
+     */
+    public VertexAcceptsEdge(Edge e) {
+        edge = e;
+    }
+
+    /**
+     * used when asking if any edge may be accepted
+     */
+    public VertexAcceptsEdge() {
+        edge = null;
+    }
+
+    /**
+     * @return true if v except edge. If edge == null, true if v can accept any edge
+     */
+    public boolean execute(Object v) {
+        return ((Vertex) v).canAcceptEdge(edge);
+    }
 }

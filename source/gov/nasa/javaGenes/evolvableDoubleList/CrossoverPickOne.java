@@ -18,39 +18,50 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import java.lang.Math;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.RandomNumber;
 
 public class CrossoverPickOne extends ChildMaker {
 
-public CrossoverPickOne() {this(new SelectByProbability(0.5,1));}
-public CrossoverPickOne(Selector selector) {super(selector);}
-public gov.nasa.javaGenes.core.Evolvable[] makeChildren(gov.nasa.javaGenes.core.Evolvable[] parents) {
-    Error.assertTrue(parents.length == 2);
-    for(int i = 0; i < parents.length; i++)
-        Error.assertTrue(parents[i].getSize() > 0);
-    EvolvableDoubleList dad = null;
-    EvolvableDoubleList mom = null;
+    public CrossoverPickOne() {
+        this(new SelectByProbability(0.5, 1));
+    }
 
-	if (RandomNumber.getBoolean()) {
-		dad = (EvolvableDoubleList)parents[0];
-		mom = (EvolvableDoubleList)parents[1];
-	} else {
-		dad = (EvolvableDoubleList)parents[1];
-		mom = (EvolvableDoubleList)parents[0];
-	}
-    EvolvableDoubleList child = (EvolvableDoubleList)dad.copyForEvolution();
-    int[] indices = getSelector().getIndicesArray(Math.min(dad.getSize(),mom.getSize()));
-    for(int i = 0; i < indices.length; i++)
-		child.setDoubleValue(indices[i], mom.getDoubleValue(indices[i]));
+    public CrossoverPickOne(Selector selector) {
+        super(selector);
+    }
 
-    EvolvableDoubleList[] children = new EvolvableDoubleList[1];
-    children[0] = child;
-    return children;
-}
-public int numberOfParents() {return 2;}
-public String toString() {return "CrossoverPickOne selector = " + getSelector();}
+    public gov.nasa.javaGenes.core.Evolvable[] makeChildren(gov.nasa.javaGenes.core.Evolvable[] parents) {
+        Error.assertTrue(parents.length == 2);
+        for (int i = 0; i < parents.length; i++)
+            Error.assertTrue(parents[i].getSize() > 0);
+        EvolvableDoubleList dad = null;
+        EvolvableDoubleList mom = null;
+
+        if (RandomNumber.getBoolean()) {
+            dad = (EvolvableDoubleList) parents[0];
+            mom = (EvolvableDoubleList) parents[1];
+        } else {
+            dad = (EvolvableDoubleList) parents[1];
+            mom = (EvolvableDoubleList) parents[0];
+        }
+        EvolvableDoubleList child = (EvolvableDoubleList) dad.copyForEvolution();
+        int[] indices = getSelector().getIndicesArray(Math.min(dad.getSize(), mom.getSize()));
+        for (int i = 0; i < indices.length; i++)
+            child.setDoubleValue(indices[i], mom.getDoubleValue(indices[i]));
+
+        EvolvableDoubleList[] children = new EvolvableDoubleList[1];
+        children[0] = child;
+        return children;
+    }
+
+    public int numberOfParents() {
+        return 2;
+    }
+
+    public String toString() {
+        return "CrossoverPickOne selector = " + getSelector();
+    }
 }
 
 

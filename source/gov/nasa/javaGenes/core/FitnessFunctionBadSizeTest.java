@@ -18,26 +18,28 @@
 //
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.IntegerInterval;
 import gov.nasa.javaGenes.evolvableDoubleList.EvolvableDoubleList;
+import junit.framework.TestCase;
 
 public class FitnessFunctionBadSizeTest extends TestCase {
 
-public FitnessFunctionBadSizeTest(String name) {super(name);}
+    public FitnessFunctionBadSizeTest(String name) {
+        super(name);
+    }
 
-public void test() {
-	test("1", 2, 4, 6, 2);
-	test("2", 5, 4, 6, 0);
-	test("3", 9, 4, 6, 3);
-	test("4", 2, 2, 6, 0);
-	test("5", 2, 2, 2, 0);
-	test("6", 1, 2, 2, 1);
-}
-private void test(String name, int evolvableLength, int low, int high, int distance) {
-	Evolvable evolvable = new EvolvableDoubleList(evolvableLength);
-	FitnessFunctionBadSize ff = new FitnessFunctionBadSize(new IntegerInterval(low,high));
-	assertTrue(name, ff.evaluateFitness(evolvable).asDouble() == distance);
-}
+    public void test() {
+        test("1", 2, 4, 6, 2);
+        test("2", 5, 4, 6, 0);
+        test("3", 9, 4, 6, 3);
+        test("4", 2, 2, 6, 0);
+        test("5", 2, 2, 2, 0);
+        test("6", 1, 2, 2, 1);
+    }
+
+    private void test(String name, int evolvableLength, int low, int high, int distance) {
+        Evolvable evolvable = new EvolvableDoubleList(evolvableLength);
+        FitnessFunctionBadSize ff = new FitnessFunctionBadSize(new IntegerInterval(low, high));
+        assertTrue(name, ff.evaluateFitness(evolvable).asDouble() == distance);
+    }
 }

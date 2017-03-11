@@ -20,39 +20,42 @@ package gov.nasa.javaGenes.forceFields;
 
 //  Created by Al Globus on Wed Jun 12 2002.
 
-import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.alsUtility.RandomNumber;
+import gov.nasa.javaGenes.core.Evolvable;
 
 public class ChromosomeXoverWithMutation extends ChromosomeIntervalCrossover {
-protected ChromosomeMutation mutator;
-protected double mutationProbability = 1; // between 0 and 1
+    protected ChromosomeMutation mutator;
+    protected double mutationProbability = 1; // between 0 and 1
 
-/**
-@arg inAlleles the alleles the chromosomes come from.
-@arg inMutationProbability the probability of mutation after crossover
-@arg standardDeviation the standard deviation of each mutation as a fraction of the interval in the AlleleTemplate
-@arg alleleFrequency the (average) fraction of alleles that will be mutated
-*/
-public ChromosomeXoverWithMutation(AlleleTemplate inAlleles, double inMutationProbability, double standardDeviation, double alleleFrequency) {
-    super(inAlleles);
-    mutator = new ChromosomeMutation(inAlleles,standardDeviation,alleleFrequency);
-    mutationProbability = inMutationProbability;
-}
-public String toString() {
-	return "\nChromosomeXoverWithMutation mutationProbability:" + mutationProbability + " " + super.toString() + " " + mutator.toString();
-}
-public Evolvable[] makeChildren(Evolvable[] parents) {
-    Evolvable[] children = super.makeChildren(parents);
-    for(int i = 0; i < children.length; i++)
-        if (RandomNumber.getProbability(mutationProbability)) {
-            Evolvable p[] = {children[i]};
-            children[i] = mutator.makeChildren(p)[0];
-        }
-    return children;
-}
-public void setLimitToOriginalInterval(boolean limit) {
-    super.setLimitToOriginalInterval(limit);
-    mutator.setLimitToOriginalInterval(limit);
-}
+    /**
+     * @arg inAlleles the alleles the chromosomes come from.
+     * @arg inMutationProbability the probability of mutation after crossover
+     * @arg standardDeviation the standard deviation of each mutation as a fraction of the interval in the AlleleTemplate
+     * @arg alleleFrequency the (average) fraction of alleles that will be mutated
+     */
+    public ChromosomeXoverWithMutation(AlleleTemplate inAlleles, double inMutationProbability, double standardDeviation, double alleleFrequency) {
+        super(inAlleles);
+        mutator = new ChromosomeMutation(inAlleles, standardDeviation, alleleFrequency);
+        mutationProbability = inMutationProbability;
+    }
+
+    public String toString() {
+        return "\nChromosomeXoverWithMutation mutationProbability:" + mutationProbability + " " + super.toString() + " " + mutator.toString();
+    }
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Evolvable[] children = super.makeChildren(parents);
+        for (int i = 0; i < children.length; i++)
+            if (RandomNumber.getProbability(mutationProbability)) {
+                Evolvable p[] = {children[i]};
+                children[i] = mutator.makeChildren(p)[0];
+            }
+        return children;
+    }
+
+    public void setLimitToOriginalInterval(boolean limit) {
+        super.setLimitToOriginalInterval(limit);
+        mutator.setLimitToOriginalInterval(limit);
+    }
 
 }

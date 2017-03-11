@@ -21,21 +21,22 @@ package gov.nasa.javaGenes.EOSscheduling.HBSS.contention;
 import gov.nasa.javaGenes.weightNetwork.UpdateAndPropagateList;
 
 public class UpdateAndPropagateLists {
-static public UpdateAndPropagateList taskNeedChanged = new UpdateAndPropagateList(TaskWeight.NEED);
-static public UpdateAndPropagateList SSRneedChanged = new UpdateAndPropagateList(); 
-static public UpdateAndPropagateList AWcontentionChanged = new UpdateAndPropagateList();
-static public UpdateAndPropagateList taskDifficultyChanged = new UpdateAndPropagateList(TaskWeight.DIFFICULTY);
+    static public UpdateAndPropagateList taskNeedChanged = new UpdateAndPropagateList(TaskWeight.NEED);
+    static public UpdateAndPropagateList SSRneedChanged = new UpdateAndPropagateList();
+    static public UpdateAndPropagateList AWcontentionChanged = new UpdateAndPropagateList();
+    static public UpdateAndPropagateList taskDifficultyChanged = new UpdateAndPropagateList(TaskWeight.DIFFICULTY);
 
-static public void reinitialize() {
-    taskNeedChanged.reinitialize();
-    SSRneedChanged.reinitialize();
-    AWcontentionChanged.reinitialize();
-    taskDifficultyChanged.reinitialize();
-}
-static public void updateAndPropagate() {
-    taskNeedChanged.updateAndPropagate();
-    SSRneedChanged.updateAndPropagate();
-    AWcontentionChanged.updateAndPropagate();
-    taskDifficultyChanged.updateAndPropagate();
-}
+    static public void reinitialize() {
+        taskNeedChanged.reinitialize();
+        SSRneedChanged.reinitialize();
+        AWcontentionChanged.reinitialize();
+        taskDifficultyChanged.reinitialize();
+    }
+
+    static public void updateAndPropagate() {
+        taskNeedChanged.updateAndPropagate();
+        SSRneedChanged.updateAndPropagate();
+        AWcontentionChanged.updateAndPropagate();
+        taskDifficultyChanged.updateAndPropagate();
+    }
 }

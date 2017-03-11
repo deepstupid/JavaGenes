@@ -19,28 +19,28 @@
 package gov.nasa.javaGenes.core;
 
 import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.IntegerInterval;
-import gov.nasa.javaGenes.core.Population;
 
 public class AntiTournamentLocal extends AntiTournament {
-protected int extendFromFirstParentIndices;
+    protected int extendFromFirstParentIndices;
 
-public AntiTournamentLocal(int size, int extendFromFirstParentIndices) {
-	super(size);
-	Error.assertTrue(extendFromFirstParentIndices >= 0);
-	this.extendFromFirstParentIndices = extendFromFirstParentIndices;
-}
-public int getDeathRowIndex(int[] parentIndices, IntegerInterval range, Population population) {
-	Error.assertTrue(parentIndices.length > 0);
-	IntegerInterval newRange = new IntegerInterval();
-	newRange.setToExtremes(parentIndices);
-	newRange.addToLow(-extendFromFirstParentIndices);
-	newRange.addToHigh(extendFromFirstParentIndices);
-	newRange.limitTo(range);
-	return getChosenIndex(newRange,population);
-}
-public String toString() {
-	return "AntiTournamentLocal size=" + size + " extendFromFirstParentIndices=" + extendFromFirstParentIndices;
-}
+    public AntiTournamentLocal(int size, int extendFromFirstParentIndices) {
+        super(size);
+        Error.assertTrue(extendFromFirstParentIndices >= 0);
+        this.extendFromFirstParentIndices = extendFromFirstParentIndices;
+    }
+
+    public int getDeathRowIndex(int[] parentIndices, IntegerInterval range, Population population) {
+        Error.assertTrue(parentIndices.length > 0);
+        IntegerInterval newRange = new IntegerInterval();
+        newRange.setToExtremes(parentIndices);
+        newRange.addToLow(-extendFromFirstParentIndices);
+        newRange.addToHigh(extendFromFirstParentIndices);
+        newRange.limitTo(range);
+        return getChosenIndex(newRange, population);
+    }
+
+    public String toString() {
+        return "AntiTournamentLocal size=" + size + " extendFromFirstParentIndices=" + extendFromFirstParentIndices;
+    }
 }

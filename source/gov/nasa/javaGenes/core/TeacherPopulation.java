@@ -18,14 +18,14 @@
 //
 package gov.nasa.javaGenes.core;
 
-import gov.nasa.javaGenes.forceFields.ChromosomePopulation;
 import gov.nasa.javaGenes.forceFields.AlleleTemplate;
 import gov.nasa.javaGenes.forceFields.Chromosome;
+import gov.nasa.javaGenes.forceFields.ChromosomePopulation;
 
 public class TeacherPopulation extends ChromosomePopulation {
-public TeacherPopulation(int size, AlleleTemplate a, TeacherFitnessFunction tff) {
-  super(size,a,tff);
-}
+    public TeacherPopulation(int size, AlleleTemplate a, TeacherFitnessFunction tff) {
+        super(size, a, tff);
+    }
 /*
   super(size);
   alleles = a;
@@ -34,12 +34,14 @@ public TeacherPopulation(int size, AlleleTemplate a, TeacherFitnessFunction tff)
     population[i] = new ChromosomeIndividual(new Chromosome(alleles),tff);
 }
 */
-/**
-do not modify return value
-@return teacher levels for student testing
-*/
-public double[] getArray(int i) {
-  Chromosome c = (Chromosome)getEvolvable(i);
-  return c.getArray(0);
-}
+
+    /**
+     * do not modify return value
+     *
+     * @return teacher levels for student testing
+     */
+    public double[] getArray(int i) {
+        Chromosome c = (Chromosome) getEvolvable(i);
+        return c.getArray(0);
+    }
 }

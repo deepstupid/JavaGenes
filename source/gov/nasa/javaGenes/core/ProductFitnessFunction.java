@@ -19,30 +19,30 @@
 package gov.nasa.javaGenes.core;
 
 /**
- this fitness function is a product of fitness functions times their weights with one added to
- the fitness.  One is the minimum fitness (the objectives are assumed to have positive fitness).
- Weights are generally expected be less than one, although that is not required.  If the weighted
- fitenss before adding one is smaller than one, then the weight will have a strong effect on
- the total fitness.  If the weighted fitness before adding one is large, then the scaling by
- weight will have little effect.
- <p>
- One is added because the best fitness is assumed to be zero and multiplication changes
- direction when below one.
- <p>
- This approach was recommended by Greg Hornby
-*/
-public class ProductFitnessFunction extends FitnessFunctionMultiObjectiveToOne  {
+ * this fitness function is a product of fitness functions times their weights with one added to
+ * the fitness.  One is the minimum fitness (the objectives are assumed to have positive fitness).
+ * Weights are generally expected be less than one, although that is not required.  If the weighted
+ * fitenss before adding one is smaller than one, then the weight will have a strong effect on
+ * the total fitness.  If the weighted fitness before adding one is large, then the scaling by
+ * weight will have little effect.
+ * <p>
+ * One is added because the best fitness is assumed to be zero and multiplication changes
+ * direction when below one.
+ * <p>
+ * This approach was recommended by Greg Hornby
+ */
+public class ProductFitnessFunction extends FitnessFunctionMultiObjectiveToOne {
 
-public Fitness evaluateFitness (Evolvable evolvable) {
-    double fitness = 1;
-    for(int i = 0; i < weights.size(); i++){
-        double weight = getWeight(i);
-        double f = 1 + getFitnessFunction(i).evaluateFitness(evolvable).asDouble()*weight;
-        if (f < 1)
-            f = 1;
-		fitness *= f;
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        double fitness = 1;
+        for (int i = 0; i < weights.size(); i++) {
+            double weight = getWeight(i);
+            double f = 1 + getFitnessFunction(i).evaluateFitness(evolvable).asDouble() * weight;
+            if (f < 1)
+                f = 1;
+            fitness *= f;
+        }
+        return new FitnessDouble(fitness);
     }
-    return new FitnessDouble(fitness);
-}
 }
 

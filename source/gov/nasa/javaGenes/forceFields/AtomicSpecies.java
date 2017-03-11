@@ -18,56 +18,73 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import gov.nasa.javaGenes.chemistry.Element;
-import gov.nasa.javaGenes.chemistry.Atom;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.javaGenes.chemistry.Atom;
+import gov.nasa.javaGenes.chemistry.Element;
 
 /**
-For a multibody atomic potential, this class is used to indicate what
-atomic element a body has.  Also contains two cutoffs (in angstroms).
-@see Body
-*/
+ * For a multibody atomic potential, this class is used to indicate what
+ * atomic element a body has.  Also contains two cutoffs (in angstroms).
+ *
+ * @see Body
+ */
 public class AtomicSpecies extends Species {
-protected Element element;
-protected double cutoff = 0; // outer cutoff
-protected double toInnerCutoff = 0; // distance to inner cutoff
+    protected Element element;
+    protected double cutoff = 0; // outer cutoff
+    protected double toInnerCutoff = 0; // distance to inner cutoff
 
-public AtomicSpecies(Atom a) {
-  this(new Element(a.getAtomicNumber()));
-}
-public AtomicSpecies(Element e) {
-  element = e;
-}
-public AtomicSpecies(String symbol) {
-  this(Element.getElement(symbol));
-}
-public AtomicSpecies(String symbol, double inCutoff, double inToInnerCutoff) {
-    this(symbol);
-    cutoff = inCutoff;
-    toInnerCutoff = inToInnerCutoff;
-    Error.assertTrue(cutoff > 0);
-    Error.assertTrue(toInnerCutoff >= 0);
-}
-/**
-@arg inCutoff set both cutoffs to this value
-*/
-public AtomicSpecies(String symbol, double inCutoff) {
-    this(symbol,inCutoff,0);
-}
+    public AtomicSpecies(Atom a) {
+        this(new Element(a.getAtomicNumber()));
+    }
 
-public String toString() {return element.toString();}
-public String getElementName() {return element.toString();}
+    public AtomicSpecies(Element e) {
+        element = e;
+    }
 
-public double getCutoff() {return cutoff;}
-public double getToInnerCuttof() {return toInnerCutoff;}
-/**
-@return true if the atomic numbers are the same
-*/
-public boolean equals(Object object) {
-  return element.getAtomicNumber() == ((AtomicSpecies)object).element.getAtomicNumber();
-}
-public int hashCode() {
-  return element.getAtomicNumber();
-}
+    public AtomicSpecies(String symbol) {
+        this(Element.getElement(symbol));
+    }
+
+    public AtomicSpecies(String symbol, double inCutoff, double inToInnerCutoff) {
+        this(symbol);
+        cutoff = inCutoff;
+        toInnerCutoff = inToInnerCutoff;
+        Error.assertTrue(cutoff > 0);
+        Error.assertTrue(toInnerCutoff >= 0);
+    }
+
+    /**
+     * @arg inCutoff set both cutoffs to this value
+     */
+    public AtomicSpecies(String symbol, double inCutoff) {
+        this(symbol, inCutoff, 0);
+    }
+
+    public String toString() {
+        return element.toString();
+    }
+
+    public String getElementName() {
+        return element.toString();
+    }
+
+    public double getCutoff() {
+        return cutoff;
+    }
+
+    public double getToInnerCuttof() {
+        return toInnerCutoff;
+    }
+
+    /**
+     * @return true if the atomic numbers are the same
+     */
+    public boolean equals(Object object) {
+        return element.getAtomicNumber() == ((AtomicSpecies) object).element.getAtomicNumber();
+    }
+
+    public int hashCode() {
+        return element.getAtomicNumber();
+    }
 }
 

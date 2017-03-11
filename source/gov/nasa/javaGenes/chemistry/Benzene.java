@@ -19,20 +19,20 @@
 package gov.nasa.javaGenes.chemistry;
 
 /**
- A benzene molecule. 
-*/
+ * A benzene molecule.
+ */
 public class Benzene extends Molecule {
 
-public Benzene() {
-    for(int i = 0; i < 6; i++)
-        add(new Atom(6));
+    public Benzene() {
+        for (int i = 0; i < 6; i++)
+            add(new Atom(6));
 
-    // aromatic ring
-    makeBond(1, 2, 1);
-    makeBond(2, 3, 2);
-    makeBond(3, 4, 1);
-    makeBond(4, 5, 2);
-    makeBond(5, 6, 1);
-    makeBond(6, 1, 2);
-}
+        // aromatic ring
+        makeBond(1, 2, 1);
+        makeBond(2, 3, 2);
+        makeBond(3, 4, 1);
+        makeBond(4, 5, 2);
+        makeBond(5, 6, 1);
+        makeBond(6, 1, 2);
+    }
 }

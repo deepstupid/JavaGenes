@@ -22,25 +22,30 @@ import gov.nasa.alsUtility.Utility;
 
 // ala Jason Lohn multiobjective GA
 public class StudentFitnessFunction extends FitnessFunctionMultiObjective {
-protected TeacherPopulation _teachers;
-public void setTeachers(TeacherPopulation teachers) {_teachers = teachers;}
+    protected TeacherPopulation _teachers;
 
-public void testStudent(StudentFitness studentFitness) {
-  double[] studentArray = studentFitness.getFitnessArray();
-  int teachersPassed = 0;
-  for(int i = 0; i < _teachers.getSize(); i++)
-    if (Utility.lessThanOrEqual(studentArray,_teachers.getArray(i)))
-      teachersPassed++;
-  studentFitness.setGrade(_teachers.getSize() - teachersPassed);
-}
-public Fitness evaluateFitness (Evolvable evolvable) {
-  StudentFitness f = (StudentFitness)super.evaluateFitness(evolvable);
-  if (_teachers != null) // not true when initializing student population
-    testStudent(f);
-  return f;
-}
-public FitnessMultiObjective getNewFitness() {
-  return new StudentFitness(this);
-}
+    public void setTeachers(TeacherPopulation teachers) {
+        _teachers = teachers;
+    }
+
+    public void testStudent(StudentFitness studentFitness) {
+        double[] studentArray = studentFitness.getFitnessArray();
+        int teachersPassed = 0;
+        for (int i = 0; i < _teachers.getSize(); i++)
+            if (Utility.lessThanOrEqual(studentArray, _teachers.getArray(i)))
+                teachersPassed++;
+        studentFitness.setGrade(_teachers.getSize() - teachersPassed);
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        StudentFitness f = (StudentFitness) super.evaluateFitness(evolvable);
+        if (_teachers != null) // not true when initializing student population
+            testStudent(f);
+        return f;
+    }
+
+    public FitnessMultiObjective getNewFitness() {
+        return new StudentFitness(this);
+    }
 
 }

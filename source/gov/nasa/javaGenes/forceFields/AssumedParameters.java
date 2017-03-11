@@ -17,17 +17,19 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
+
 import java.io.Serializable;
 
 public class AssumedParameters extends ChromosomeParameterValues implements Serializable {
-public AssumedParameters(String filename) {
-  super(filename);
-}
-public void setAlleles(AlleleTemplate alleles) {
-  for(int i = 0; i < names.size(); i++) {
-    Allele allele = alleles.getAllele(getName(i));
-    allele.setNoEvolution(getValue(i));
-  }
-}
+    public AssumedParameters(String filename) {
+        super(filename);
+    }
+
+    public void setAlleles(AlleleTemplate alleles) {
+        for (int i = 0; i < names.size(); i++) {
+            Allele allele = alleles.getAllele(getName(i));
+            allele.setNoEvolution(getValue(i));
+        }
+    }
 }
 

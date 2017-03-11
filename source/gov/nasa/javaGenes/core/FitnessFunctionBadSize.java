@@ -18,17 +18,20 @@
 //
 package gov.nasa.javaGenes.core;
 
-import java.lang.Math;
 import gov.nasa.alsUtility.IntegerInterval;
 
 public class FitnessFunctionBadSize extends FitnessFunction {
-protected IntegerInterval goodSize; 
+    protected IntegerInterval goodSize;
 
-public FitnessFunctionBadSize(IntegerInterval goodSize) {
-    this.goodSize = goodSize.copy();
-}
-public Fitness evaluateFitness (Evolvable evolvable) {
-    return new FitnessDouble(Math.abs(goodSize.distanceFrom(evolvable.getSize())));
-}
-public String toString() {return "FitnessFunctionBadSize interval = " + goodSize;}
+    public FitnessFunctionBadSize(IntegerInterval goodSize) {
+        this.goodSize = goodSize.copy();
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        return new FitnessDouble(Math.abs(goodSize.distanceFrom(evolvable.getSize())));
+    }
+
+    public String toString() {
+        return "FitnessFunctionBadSize interval = " + goodSize;
+    }
 }

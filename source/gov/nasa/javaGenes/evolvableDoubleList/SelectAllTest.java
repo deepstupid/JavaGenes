@@ -18,28 +18,31 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.IntegerInterval;
+import gov.nasa.alsUtility.RandomNumber;
+import junit.framework.TestCase;
 
 public class SelectAllTest extends TestCase {
 
-public SelectAllTest(String name) {super(name);}
-
-public void test() {
-    RandomNumber.setSeed(990739400906L);   // to get deterministic results
-    final IntegerInterval interval = new IntegerInterval(1,30);
-    for(int i = 0; i < 20; i++) {
-        SelectAll selector = new SelectAll();
-        EvolvableDoubleList list = new EvolvableDoubleList(interval.random());
-        int[] indices = selector.getIndicesArray(list.getSize());
-        assertTrue(i+" length", indices.length == list.getSize());
-        for(int j = 0; j < indices.length; j++)
-            assertTrue(i+" "+j, indices[j] == j);
+    public SelectAllTest(String name) {
+        super(name);
     }
-}
-public int[] testSelectByProbability(double probability, int minimumNumberToSelect, int length) {
-    SelectByProbability selector = new SelectByProbability(probability,minimumNumberToSelect);
-    return selector.getIndicesArray(length);
-}
+
+    public void test() {
+        RandomNumber.setSeed(990739400906L);   // to get deterministic results
+        final IntegerInterval interval = new IntegerInterval(1, 30);
+        for (int i = 0; i < 20; i++) {
+            SelectAll selector = new SelectAll();
+            EvolvableDoubleList list = new EvolvableDoubleList(interval.random());
+            int[] indices = selector.getIndicesArray(list.getSize());
+            assertTrue(i + " length", indices.length == list.getSize());
+            for (int j = 0; j < indices.length; j++)
+                assertTrue(i + " " + j, indices[j] == j);
+        }
+    }
+
+    public int[] testSelectByProbability(double probability, int minimumNumberToSelect, int length) {
+        SelectByProbability selector = new SelectByProbability(probability, minimumNumberToSelect);
+        return selector.getIndicesArray(length);
+    }
 }

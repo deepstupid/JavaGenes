@@ -22,15 +22,16 @@ import gov.nasa.alsUtility.RandomNumber;
 
 public class SelectOne extends Selector {
 
-public Indices getIndices(int size) {
-    Indices selection = new Indices();
-	if (size == 0)
-		return selection;
-    selection.addIndex(RandomNumber.getIndex(size));
-    return selection;
-}
-public String toString() {
-    return "SelectOne";
-}
+    public Indices getIndices(int size) {
+        Indices selection = new Indices();
+        if (size == 0)
+            return selection;
+        selection.addIndex(RandomNumber.getIndex(size));
+        return selection;
+    }
+
+    public String toString() {
+        return "SelectOne";
+    }
 
 }

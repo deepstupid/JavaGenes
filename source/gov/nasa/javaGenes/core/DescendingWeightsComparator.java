@@ -20,13 +20,13 @@
 package gov.nasa.javaGenes.core;
 
 public class DescendingWeightsComparator implements java.io.Serializable, java.util.Comparator {
-public int compare(Object o1, Object o2) {
-    double w1 = ((ChangingWeightsObject)o1).getWeight();
-    double w2 = ((ChangingWeightsObject)o2).getWeight();
-    if (w1 > w2)
-        return -1;
-    if (w2 > w1)
-        return 1;
-    return 0;
-}
+    public int compare(Object o1, Object o2) {
+        double w1 = ((ChangingWeightsObject) o1).getWeight();
+        double w2 = ((ChangingWeightsObject) o2).getWeight();
+        if (w1 > w2)
+            return -1;
+        if (w2 > w1)
+            return 1;
+        return 0;
+    }
 }

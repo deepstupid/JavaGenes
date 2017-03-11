@@ -19,32 +19,36 @@
 package gov.nasa.javaGenes.weightNetwork;
 
 public class UpdateAndPropagateList extends gov.nasa.alsUtility.GrowOnlyArray implements java.io.Serializable {
-protected int which = 1;
-static final public int INITIAL_SIZE = 100;
-static final public int GROW_BY = 100;
+    static final public int INITIAL_SIZE = 100;
+    static final public int GROW_BY = 100;
+    protected int which = 1;
 
-public UpdateAndPropagateList() {this(1);}
-/**
-used when same objects in multiple lists with different processing
-*/
-public UpdateAndPropagateList(int inWhich) {
-    super(INITIAL_SIZE,GROW_BY);
-    which = inWhich;
-}
-
-public void updateAndPropagate() {
-    for(int i = 0; i < size(); i++)
-        getUpdateAndPropagatable(i).startUpdateAndPropagate();
-    for(int i = 0; i < size(); i++) {
-        UpdateAndPropagatable u = getUpdateAndPropagatable(i);
-        if (u.mustToUpdateAndPropagate()) {
-            u.updateAndPropagate(which);
-            u.updateAndPropagateDone();
-        }
+    public UpdateAndPropagateList() {
+        this(1);
     }
-    reinitialize();
-}
-public UpdateAndPropagatable getUpdateAndPropagatable(int i) {
-    return (UpdateAndPropagatable)get(i);
-}
+
+    /**
+     * used when same objects in multiple lists with different processing
+     */
+    public UpdateAndPropagateList(int inWhich) {
+        super(INITIAL_SIZE, GROW_BY);
+        which = inWhich;
+    }
+
+    public void updateAndPropagate() {
+        for (int i = 0; i < size(); i++)
+            getUpdateAndPropagatable(i).startUpdateAndPropagate();
+        for (int i = 0; i < size(); i++) {
+            UpdateAndPropagatable u = getUpdateAndPropagatable(i);
+            if (u.mustToUpdateAndPropagate()) {
+                u.updateAndPropagate(which);
+                u.updateAndPropagateDone();
+            }
+        }
+        reinitialize();
+    }
+
+    public UpdateAndPropagatable getUpdateAndPropagatable(int i) {
+        return (UpdateAndPropagatable) get(i);
+    }
 }

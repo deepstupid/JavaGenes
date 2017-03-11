@@ -24,29 +24,32 @@
 //  Copyright (c) 2001 __MyCompanyName__. All rights reserved.
 //
 package gov.nasa.alsUtility;
+
 import junit.framework.TestCase;
 
 public class DoublesListTest extends TestCase {
 
-public DoublesListTest(String name) {super(name);}
+    public DoublesListTest(String name) {
+        super(name);
+    }
 
-public void testDoublesList() {
-    DoublesList list = new DoublesList("");
-    assertTrue("1",list.size() == 0);
+    public void testDoublesList() {
+        DoublesList list = new DoublesList("");
+        assertTrue("1", list.size() == 0);
 
-    list = new DoublesList("2");
-    assertTrue("2",list.size() == 1);
-    assertTrue("3",list.get(0) == 2);
+        list = new DoublesList("2");
+        assertTrue("2", list.size() == 1);
+        assertTrue("3", list.get(0) == 2);
 
-    list = new DoublesList("2,6");
-    assertTrue("4",list.size() == 2);
-    assertTrue("5",list.get(0) == 2);
-    assertTrue("6",list.get(1) == 6);
+        list = new DoublesList("2,6");
+        assertTrue("4", list.size() == 2);
+        assertTrue("5", list.get(0) == 2);
+        assertTrue("6", list.get(1) == 6);
 
-    list = new DoublesList("-2,6.2,3");
-    assertTrue("7",list.size() == 3);
-    assertTrue("8",list.get(0) == -2);
-    assertTrue("9",list.get(1) == 6.2);
-    assertTrue("10",list.get(2) == 3);
-}
+        list = new DoublesList("-2,6.2,3");
+        assertTrue("7", list.size() == 3);
+        assertTrue("8", list.get(0) == -2);
+        assertTrue("9", list.get(1) == 6.2);
+        assertTrue("10", list.get(2) == 3);
+    }
 }

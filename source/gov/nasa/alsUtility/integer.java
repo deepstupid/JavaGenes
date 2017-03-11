@@ -22,18 +22,48 @@ package gov.nasa.alsUtility;
 import java.io.Serializable;
 
 /**
-represent a changeable integer (Java API class Integer cannot be modified)
-*/
-public class integer implements Serializable{
-public integer() {value = 0;} // for testing ObjectCache
-public integer (int i) {value = i;} 
-public int value;
-public void increment(){value++;}
-public void setValue(int i) {value = i;}
-public void divideBy(int i) {value = value/i;}
-public int getValue(){return value;} 
-public void add(int i) {value += i;}
-public String toString() {return value + "";}
-public boolean equals(Object other) {return getValue() == ((integer)other).getValue();}
-public int hashCode() {return getValue();}
+ * represent a changeable integer (Java API class Integer cannot be modified)
+ */
+public class integer implements Serializable {
+    public int value;
+
+    public integer() {
+        value = 0;
+    } // for testing ObjectCache
+
+    public integer(int i) {
+        value = i;
+    }
+
+    public void increment() {
+        value++;
+    }
+
+    public void divideBy(int i) {
+        value = value / i;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int i) {
+        value = i;
+    }
+
+    public void add(int i) {
+        value += i;
+    }
+
+    public String toString() {
+        return value + "";
+    }
+
+    public boolean equals(Object other) {
+        return getValue() == ((integer) other).getValue();
+    }
+
+    public int hashCode() {
+        return getValue();
+    }
 }

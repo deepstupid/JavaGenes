@@ -22,15 +22,27 @@ import java.io.PrintWriter;
 
 public class SlewTimelineNone extends SlewTimeline {
 
-public SlewTimelineNone(){}
+    public SlewTimelineNone() {
+    }
 
-public int findEarliest(int startTime, int endTime, int duration, SlewRequirement slewRequirement, Slewable slewable) {
-    return startTime;
-}
-protected void insertAt(int startTime, int endTime, SlewRequirement slew) {}
-public int getTotalSlewing(Slewable slewable) {return 0;}
+    public int findEarliest(int startTime, int endTime, int duration, SlewRequirement slewRequirement, Slewable slewable) {
+        return startTime;
+    }
 
-public void setUpNodeList() {}
-public void printToTsd(PrintWriter out) {}
-public boolean fits(int start, SchedulingData schedulingData) {return true;}
+    protected void insertAt(int startTime, int endTime, SlewRequirement slew) {
+    }
+
+    public int getTotalSlewing(Slewable slewable) {
+        return 0;
+    }
+
+    public void setUpNodeList() {
+    }
+
+    public void printToTsd(PrintWriter out) {
+    }
+
+    public boolean fits(int start, SchedulingData schedulingData) {
+        return true;
+    }
 }

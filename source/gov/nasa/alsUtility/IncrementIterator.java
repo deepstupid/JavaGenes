@@ -17,26 +17,33 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.alsUtility;
+
 import java.io.Serializable;
-import gov.nasa.alsUtility.Error;
 
 public class IncrementIterator implements Serializable {
-private double Start;
-private double End;
-private int Number;
-private int Current = 0;
-private double Increment;
+    private double Start;
+    private double End;
+    private int Number;
+    private int Current = 0;
+    private double Increment;
 
-public IncrementIterator(double start, double end, int number) {
-  Error.assertTrue(number >= 2);
-  Start = start;
-  End = end;
-  Number = number;
-  Increment = (end - start) / (Number-1);
-}
-public boolean more() {return Current < Number;}
-public void increment() {Current++;}
-public double value() {
-  return Current == Number-1 ? End : Start + (Current * Increment);
-}
+    public IncrementIterator(double start, double end, int number) {
+        Error.assertTrue(number >= 2);
+        Start = start;
+        End = end;
+        Number = number;
+        Increment = (end - start) / (Number - 1);
+    }
+
+    public boolean more() {
+        return Current < Number;
+    }
+
+    public void increment() {
+        Current++;
+    }
+
+    public double value() {
+        return Current == Number - 1 ? End : Start + (Current * Increment);
+    }
 }

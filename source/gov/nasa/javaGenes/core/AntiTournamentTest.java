@@ -18,28 +18,28 @@
 //
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.IntegerInterval;
-import gov.nasa.alsUtility.RandomNumber;
-import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class AntiTournamentTest extends TestCase {
 
-public AntiTournamentTest(String name) {super(name);}
-private Population population = new Population(50);
-private AntiTournament tournament = new AntiTournament(2);
+    private Population population = new Population(50);
+    private AntiTournament tournament = new AntiTournament(2);
+    public AntiTournamentTest(String name) {
+        super(name);
+    }
 
-public void setUp() {
-	for(int i = 0; i < population.getSize(); i++)
-		population.setIndividual(i, new Individual(new FitnessDouble(i)));
-}
-public void testTournament() {
-	int[] array1 = {1,3,5};
-	Error.assertTrue("1", tournament.tournament(array1,population) == 5);
-	array1[2] = 2;
-	Error.assertTrue("2", tournament.tournament(array1,population) == 3);
-	array1[0] = 12;
-	Error.assertTrue("3", tournament.tournament(array1,population) == 12);
-}
+    public void setUp() {
+        for (int i = 0; i < population.getSize(); i++)
+            population.setIndividual(i, new Individual(new FitnessDouble(i)));
+    }
+
+    public void testTournament() {
+        int[] array1 = {1, 3, 5};
+        Error.assertTrue("1", tournament.tournament(array1, population) == 5);
+        array1[2] = 2;
+        Error.assertTrue("2", tournament.tournament(array1, population) == 3);
+        array1[0] = 12;
+        Error.assertTrue("3", tournament.tournament(array1, population) == 12);
+    }
 }

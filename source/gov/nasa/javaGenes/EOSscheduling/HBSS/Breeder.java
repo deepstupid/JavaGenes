@@ -18,15 +18,18 @@
 //
 package gov.nasa.javaGenes.EOSscheduling.HBSS;
 
-import gov.nasa.javaGenes.hillClimbing.*;
-import gov.nasa.javaGenes.core.ChildMakerProvider;
 import gov.nasa.javaGenes.core.Parameters;
+import gov.nasa.javaGenes.hillClimbing.AcceptImprovement;
+import gov.nasa.javaGenes.hillClimbing.Accepter;
+import gov.nasa.javaGenes.hillClimbing.RestartNever;
+import gov.nasa.javaGenes.hillClimbing.RestartPolicy;
 
 public class Breeder extends gov.nasa.javaGenes.hillClimbing.Breeder {
-public Breeder(Parameters p) {
-    this(p,new AcceptImprovement(),new RestartNever());
-}
-public Breeder(Parameters p, Accepter inAccepter, RestartPolicy inRestartPolicy) {
-    super(p, inAccepter, inRestartPolicy, new ChildMaker());
-}
+    public Breeder(Parameters p) {
+        this(p, new AcceptImprovement(), new RestartNever());
+    }
+
+    public Breeder(Parameters p, Accepter inAccepter, RestartPolicy inRestartPolicy) {
+        super(p, inAccepter, inRestartPolicy, new ChildMaker());
+    }
 }

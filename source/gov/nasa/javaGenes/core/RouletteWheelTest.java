@@ -21,31 +21,34 @@ package gov.nasa.javaGenes.core;
 
 import junit.framework.TestCase;
 
-import java.lang.Integer;
-
 public class RouletteWheelTest extends TestCase {
-private RouletteWheel wheel;
+    private RouletteWheel wheel;
 
-public RouletteWheelTest(String name) {super(name);}
-public void setUp() {
-    wheel = new RouletteWheel();
-    wheel.add(new ChangingWeightsObject(new Integer(50),  4,0));
-    wheel.add(new ChangingWeightsObject(new Integer(300), 3,0));
-    wheel.add(new ChangingWeightsObject(new Integer(2000),2,0));
-    wheel.add(new ChangingWeightsObject(new Integer(10),  1,0));
-}
-public void testFindObject() {
-    wheel.spinWheel(1);
-    check(1,3.5,50);
-    check(2,4.5,300);
-    check(3,7.5,2000);
-    check(4,9.5,10);
-    check(5,0,50);
-    check(6,10,10);
-    check(7,4.0001,300);
-    check(8,3.999,50);
-}
-private void check(int name, double number, int value) {
-    assertTrue(name+"",((Integer)wheel.findObject(number)).intValue() == value);
-}
+    public RouletteWheelTest(String name) {
+        super(name);
+    }
+
+    public void setUp() {
+        wheel = new RouletteWheel();
+        wheel.add(new ChangingWeightsObject(new Integer(50), 4, 0));
+        wheel.add(new ChangingWeightsObject(new Integer(300), 3, 0));
+        wheel.add(new ChangingWeightsObject(new Integer(2000), 2, 0));
+        wheel.add(new ChangingWeightsObject(new Integer(10), 1, 0));
+    }
+
+    public void testFindObject() {
+        wheel.spinWheel(1);
+        check(1, 3.5, 50);
+        check(2, 4.5, 300);
+        check(3, 7.5, 2000);
+        check(4, 9.5, 10);
+        check(5, 0, 50);
+        check(6, 10, 10);
+        check(7, 4.0001, 300);
+        check(8, 3.999, 50);
+    }
+
+    private void check(int name, double number, int value) {
+        assertTrue(name + "", ((Integer) wheel.findObject(number)).intValue() == value);
+    }
 }

@@ -19,10 +19,10 @@
 //  Created by Al Globus on Wed Jan 29 2003.
 package gov.nasa.javaGenes.hillClimbing;
 
-import gov.nasa.javaGenes.core.Individual;
-
 final public class RestartNever extends RestartPolicy {
 
-boolean shouldRestart() {return false;}
+    boolean shouldRestart() {
+        return false;
+    }
 }
 

@@ -19,21 +19,22 @@
 package gov.nasa.alsUtility;
 
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
-import gov.nasa.alsUtility.Error;
 
 public class Brick3dWithSegmentsTest extends TestCase {
-public Brick3dWithSegmentsTest(String name) {super(name);}
-public void test() {
-	Brick3d b = new Brick3d(0,10, 1,13, -1,59);
-	int[] numberOfSegments1 = {1,4,5};
-	Brick3dWithSegments brick = new Brick3dWithSegments(b, numberOfSegments1);
-	double[][] sides1 = {
-		{0,10},
-		{1,4,7,10,13},
-		{-1,11,23,35,47,59}
-	};
-	for(int i = 0; i < sides1.length; i++) 
-		Error.assertTrue("1-"+i, Utility.nearlyEqual(brick.getSegmentCoordinates(i),sides1[i]));
-}
+    public Brick3dWithSegmentsTest(String name) {
+        super(name);
+    }
+
+    public void test() {
+        Brick3d b = new Brick3d(0, 10, 1, 13, -1, 59);
+        int[] numberOfSegments1 = {1, 4, 5};
+        Brick3dWithSegments brick = new Brick3dWithSegments(b, numberOfSegments1);
+        double[][] sides1 = {
+                {0, 10},
+                {1, 4, 7, 10, 13},
+                {-1, 11, 23, 35, 47, 59}
+        };
+        for (int i = 0; i < sides1.length; i++)
+            Error.assertTrue("1-" + i, Utility.nearlyEqual(brick.getSegmentCoordinates(i), sides1[i]));
+    }
 }

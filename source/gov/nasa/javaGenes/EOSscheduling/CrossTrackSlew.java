@@ -19,52 +19,64 @@
 //  Created by Al Globus on Fri Sep 06 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.alsUtility.Utility;
-import java.lang.Math;
 import gov.nasa.alsUtility.Error;
 
 public class CrossTrackSlew extends SlewRequirement {
-protected double angleInDegrees = 0;
+    protected double angleInDegrees = 0;
 
-public CrossTrackSlew(double inAngleInDegrees) {
-    angleInDegrees = inAngleInDegrees;
-}
-public CrossTrackSlew(PointingRequirement p) {
-    angleInDegrees = calculateCrossTrackSlew(p);
-}
-/**
-When the azimuth is far from normal to the satellite track this gives somewhat inaccurate.
-See crossTrackPointingDrawing.ppt (MS PowerPoint) for the math behind this calculation.
-@p is at some time close to when the target is on the normal to the satellite track
-@return the cross track pointing angle in degrees at
-the point when the target is on the normal to the satellite track
-*/
-public static double calculateCrossTrackSlew(PointingRequirement p) { 
-    Error.assertTrue(p.getAzimuth() >= 0);
-    final double a = Math.sin(Math.toRadians(Math.abs(p.getElevation()))) * p.getRange();
-    final double f = Math.sqrt(p.getRange()*p.getRange() - a*a);
-    final double b = Math.sin(Math.toRadians(p.getAzimuth())) * f;
-    final double c = Math.sqrt(a*a + b*b);
-    double aSLASHc = a/c;
-    if (aSLASHc > 1)
-        aSLASHc = 1;
-    if (aSLASHc < -1)
-        aSLASHc = -1;
-    final double crossTrackPoint = Math.asin(aSLASHc);
-    final double sign = p.getAzimuth() >= 180 ? -1 : 1; // direction is arbitrary
-    return sign * (90 - Math.abs(Math.toDegrees(crossTrackPoint)));
-}
+    public CrossTrackSlew(double inAngleInDegrees) {
+        angleInDegrees = inAngleInDegrees;
+    }
+
+    public CrossTrackSlew(PointingRequirement p) {
+        angleInDegrees = calculateCrossTrackSlew(p);
+    }
+
+    /**
+     * When the azimuth is far from normal to the satellite track this gives somewhat inaccurate.
+     * See crossTrackPointingDrawing.ppt (MS PowerPoint) for the math behind this calculation.
+     *
+     * @return the cross track pointing angle in degrees at
+     * the point when the target is on the normal to the satellite track
+     * @p is at some time close to when the target is on the normal to the satellite track
+     */
+    public static double calculateCrossTrackSlew(PointingRequirement p) {
+        Error.assertTrue(p.getAzimuth() >= 0);
+        final double a = Math.sin(Math.toRadians(Math.abs(p.getElevation()))) * p.getRange();
+        final double f = Math.sqrt(p.getRange() * p.getRange() - a * a);
+        final double b = Math.sin(Math.toRadians(p.getAzimuth())) * f;
+        final double c = Math.sqrt(a * a + b * b);
+        double aSLASHc = a / c;
+        if (aSLASHc > 1)
+            aSLASHc = 1;
+        if (aSLASHc < -1)
+            aSLASHc = -1;
+        final double crossTrackPoint = Math.asin(aSLASHc);
+        final double sign = p.getAzimuth() >= 180 ? -1 : 1; // direction is arbitrary
+        return sign * (90 - Math.abs(Math.toDegrees(crossTrackPoint)));
+    }
 
 
-public double getSlewPoint() {return angleInDegrees;}
-public int numberOfParameters() {return 1;};
-public double getParameter(int index) {return angleInDegrees;}
-/**
-slow
-*/
-public double[] getParameters() {
-    double[] r = {angleInDegrees};
-    return r;
-}
-    
+    public double getSlewPoint() {
+        return angleInDegrees;
+    }
+
+    public int numberOfParameters() {
+        return 1;
+    }
+
+    ;
+
+    public double getParameter(int index) {
+        return angleInDegrees;
+    }
+
+    /**
+     * slow
+     */
+    public double[] getParameters() {
+        double[] r = {angleInDegrees};
+        return r;
+    }
+
 }

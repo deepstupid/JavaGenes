@@ -18,14 +18,21 @@
 //
 package gov.nasa.alsUtility;
 
-import gov.nasa.alsUtility.Utility;
-
 /**
-predicate to determine if objects are isInstance() of a class
-*/
-public class IsInstanceOf implements Predicate{
-public Class theClass;
-public IsInstanceOf(Class c) {theClass = c;}
-public IsInstanceOf(String name) {this(Utility.getClass(name));}
-public boolean execute(Object object) {return theClass.isInstance(object);}
+ * predicate to determine if objects are isInstance() of a class
+ */
+public class IsInstanceOf implements Predicate {
+    public Class theClass;
+
+    public IsInstanceOf(Class c) {
+        theClass = c;
+    }
+
+    public IsInstanceOf(String name) {
+        this(Utility.getClass(name));
+    }
+
+    public boolean execute(Object object) {
+        return theClass.isInstance(object);
+    }
 } 

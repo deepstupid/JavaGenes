@@ -20,14 +20,19 @@ package gov.nasa.alsUtility;
 
 
 public class Not implements Predicate {
-/**
-predicate to execute on objects
-*/
-protected Predicate predicate;
+    /**
+     * predicate to execute on objects
+     */
+    protected Predicate predicate;
 
-public Not(Predicate p) {predicate = (Predicate)p;}
-/**
-@return not predicate executed on object
-*/
-public boolean execute(Object object) {return !predicate.execute(object);}
+    public Not(Predicate p) {
+        predicate = (Predicate) p;
+    }
+
+    /**
+     * @return not predicate executed on object
+     */
+    public boolean execute(Object object) {
+        return !predicate.execute(object);
+    }
 }

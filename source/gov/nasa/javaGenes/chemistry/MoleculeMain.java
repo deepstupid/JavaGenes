@@ -19,8 +19,8 @@
 package gov.nasa.javaGenes.chemistry;
 
 public class MoleculeMain {
-public static void main(String[] arguments) {
-    RunMolecule run = new RunMolecule();
-    run.start(arguments);
-}
+    public static void main(String[] arguments) {
+        RunMolecule run = new RunMolecule();
+        run.start(arguments);
+    }
 }

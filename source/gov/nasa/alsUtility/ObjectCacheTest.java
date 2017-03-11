@@ -23,24 +23,27 @@ import junit.framework.TestCase;
 
 public class ObjectCacheTest extends TestCase {
 
-public ObjectCacheTest(String name) {super(name);}
-
-public void testOjbect() {
-    ObjectCache cache = new ObjectCache("gov.nasa.alsUtility.integer");
-    testIt(cache,0,5,1);
-    testIt(cache,5,10,2);
-    testIt(cache,10,111,3);
-    testIt(cache,111,2045,4);
-}
-private void testIt(ObjectCache cache, int lastLimit, int limit, int name) {
-    for(int i = 0; i < limit; i++) {
-        integer theInt = (integer)cache.getObject();
-        if (i < lastLimit) 
-            assertTrue(name + " old value not there " + i, theInt.getValue() == i);
-        else
-            assertTrue(name + " should have been new object " + i, theInt.getValue() == 0);
-        theInt.setValue(i);
+    public ObjectCacheTest(String name) {
+        super(name);
     }
-    cache.reinitialize();
-}
+
+    public void testOjbect() {
+        ObjectCache cache = new ObjectCache("gov.nasa.alsUtility.integer");
+        testIt(cache, 0, 5, 1);
+        testIt(cache, 5, 10, 2);
+        testIt(cache, 10, 111, 3);
+        testIt(cache, 111, 2045, 4);
+    }
+
+    private void testIt(ObjectCache cache, int lastLimit, int limit, int name) {
+        for (int i = 0; i < limit; i++) {
+            integer theInt = (integer) cache.getObject();
+            if (i < lastLimit)
+                assertTrue(name + " old value not there " + i, theInt.getValue() == i);
+            else
+                assertTrue(name + " should have been new object " + i, theInt.getValue() == 0);
+            theInt.setValue(i);
+        }
+        cache.reinitialize();
+    }
 }

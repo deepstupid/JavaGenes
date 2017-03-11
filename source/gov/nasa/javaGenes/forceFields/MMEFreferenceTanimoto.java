@@ -22,16 +22,18 @@ package gov.nasa.javaGenes.forceFields;
 
 import gov.nasa.alsUtility.Utility;
 
-public class MMEFreferenceTanimoto  extends MMEFreferenceRMS {
+public class MMEFreferenceTanimoto extends MMEFreferenceRMS {
 
-public MMEFreferenceTanimoto(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double inReferenceEnergy, double referenceEnergyLowerBound, double referenceEnergyUpperBound,boolean inDoPerAtomEnergies) {
-    super(p,m,inEnergyRangeDivideBy,inReferenceEnergy,referenceEnergyLowerBound,referenceEnergyUpperBound,inDoPerAtomEnergies);
-}
-public MMEFreferenceTanimoto(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double referenceEnergy) {
-    this(p,m,inEnergyRangeDivideBy,referenceEnergy,referenceEnergy,referenceEnergy,false);
-}
-protected double calculateDelta(double energy,double target) {
-    return Utility.TanimotoDistance(energy,target);
-}
+    public MMEFreferenceTanimoto(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double inReferenceEnergy, double referenceEnergyLowerBound, double referenceEnergyUpperBound, boolean inDoPerAtomEnergies) {
+        super(p, m, inEnergyRangeDivideBy, inReferenceEnergy, referenceEnergyLowerBound, referenceEnergyUpperBound, inDoPerAtomEnergies);
+    }
+
+    public MMEFreferenceTanimoto(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double referenceEnergy) {
+        this(p, m, inEnergyRangeDivideBy, referenceEnergy, referenceEnergy, referenceEnergy, false);
+    }
+
+    protected double calculateDelta(double energy, double target) {
+        return Utility.TanimotoDistance(energy, target);
+    }
 }
 

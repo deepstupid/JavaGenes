@@ -19,19 +19,21 @@
 //  Created by Al Globus on Thu Jul 11 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.javaGenes.permutation.PermutationIndividual;
 import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.FitnessFunction;
+import gov.nasa.javaGenes.permutation.PermutationIndividual;
 
-public class EOSschedulingIndividual extends PermutationIndividual{
+public class EOSschedulingIndividual extends PermutationIndividual {
 
-/**
-Sets the evolvable to e and calculates the fitness using
-FitnessFunction f.
-*/
-public EOSschedulingIndividual(Evolvable e, FitnessFunction f) {
-  super(e,f);
-}
+    /**
+     * Sets the evolvable to e and calculates the fitness using
+     * FitnessFunction f.
+     */
+    public EOSschedulingIndividual(Evolvable e, FitnessFunction f) {
+        super(e, f);
+    }
 
-public EOSschedulingEvolvable EOSschedulingIndividual() {return (EOSschedulingEvolvable)evolvable;}
+    public EOSschedulingEvolvable EOSschedulingIndividual() {
+        return (EOSschedulingEvolvable) evolvable;
+    }
 }

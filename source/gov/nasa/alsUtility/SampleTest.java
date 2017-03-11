@@ -20,33 +20,39 @@
 package gov.nasa.alsUtility;
 
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 
 public class SampleTest extends TestCase {
-private Sample sample;
-public SampleTest(String name) {super(name);}
-public void setUp() {
-    sample = new Sample();
-}
-public void testMeanAndN() {
-    check(1,java.lang.Double.NaN,0); 
-    sample.addDatum(1);
-    check(2,1,1);
-    sample.addDatum(2);
-    check(3,1.5,2);
-    sample.addDatum(0);
-    check(4,1,3);
-}
-public void testSD() {
-    for(int i = 0; i < 100; i++)
+    private Sample sample;
+
+    public SampleTest(String name) {
+        super(name);
+    }
+
+    public void setUp() {
+        sample = new Sample();
+    }
+
+    public void testMeanAndN() {
+        check(1, java.lang.Double.NaN, 0);
         sample.addDatum(1);
-    check(100,1,100);
-    assertTrue("sd", sample.getStandardDeviation() == 0);
-}
-private void check(int test, double mean, double N) {
-    if (Utility.normalNumber(sample.getMean()))
-        assertTrue(test+"Mean", sample.getMean() == mean);
-    assertTrue(test+"N", sample.getN() == N);
-}
+        check(2, 1, 1);
+        sample.addDatum(2);
+        check(3, 1.5, 2);
+        sample.addDatum(0);
+        check(4, 1, 3);
+    }
+
+    public void testSD() {
+        for (int i = 0; i < 100; i++)
+            sample.addDatum(1);
+        check(100, 1, 100);
+        assertTrue("sd", sample.getStandardDeviation() == 0);
+    }
+
+    private void check(int test, double mean, double N) {
+        if (Utility.normalNumber(sample.getMean()))
+            assertTrue(test + "Mean", sample.getMean() == mean);
+        assertTrue(test + "N", sample.getN() == N);
+    }
 
 }

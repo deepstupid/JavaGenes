@@ -19,121 +19,167 @@
 //  Created by Al Globus on Wed Jul 03 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import java.util.Vector;
-import gov.nasa.alsUtility.ExtendedVector;
-import gov.nasa.alsUtility.Utility;
-import java.io.PrintWriter;
-import gov.nasa.alsUtility.IO;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.ExtendedVector;
+import gov.nasa.alsUtility.IO;
+import gov.nasa.alsUtility.Utility;
+
+import java.io.PrintWriter;
+import java.util.Vector;
 
 public class EOSModel implements java.io.Serializable {
-protected ExtendedVector tasks = new ExtendedVector();
-protected Vector satellites = new Vector();
-protected Horizon horizon;
-public EOSModel() {}
-public EOSModel(Horizon inHorizon) {
-    setHorizon(inHorizon);
-}
-public Vector getSensors() {
-    Vector allSensors = new Vector();
-    for(int i = 0; i < satellites.size(); i++) {
-        Sensor[] sensors = getSatellite(i).getSensors();
-        for(int j = 0; j < sensors.length; j++)
-            allSensors.add(sensors[j]);
+    protected ExtendedVector tasks = new ExtendedVector();
+    protected Vector satellites = new Vector();
+    protected Horizon horizon;
+
+    public EOSModel() {
     }
-    return allSensors;
-}
-public String toString() {return "EOSModel";}
-public void beginScheduling() {
-    createFreshTimelines();
-    for(int i = 0; i < satellites.size(); i++) {
-        Satellite satellite = (Satellite)satellites.elementAt(i);
-        satellite.initializeGroundStationAccess();
+
+    public EOSModel(Horizon inHorizon) {
+        setHorizon(inHorizon);
     }
-}
-public void endScheduling() {
-    doneWithTimelines();
-}
-protected void createFreshTimelines() {Timeline.initializeAllTimelines();}
-protected void doneWithTimelines() {}
 
-public Satellite getSatellite(int index) {return (Satellite)satellites.get(index);}
-public void addSatellite(Satellite s) {satellites.addElement(s);}
-public Satellite[] getSatellites() {return (Satellite[])satellites.toArray(new Satellite[satellites.size()]);}
-public int getNumberOfSatellites() {return satellites.size();}
-public void numberSatellites() {
-    for(int i = 0; i < satellites.size(); i++)
-        getSatellite(i).setNumber(i);
-}
-
-public void addTask(Task task) {tasks.addElement(task);}
-public Task getTask(int index) {return (Task)tasks.elementAt(index);}
-public int getNumberOfTasks() {return tasks.size();}
-public void numberTasksAndAccessWindows() {
-    for(int i = 0;i < tasks.size(); i++)
-        getTask(i).setNumbers(i);
-}
-
-public void printUnexecutableTasks(String filename) {
-    PrintWriter taskFile = IO.getPrintWriter(filename);
-    for(int i = 0;i < tasks.size(); i++)
-        if (!getTask(i).isExecutable())
-            taskFile.println(i+"");
-    taskFile.close();
-}
-public void removeUnexecutableTasks() {
-    for(int i = 0;i < tasks.size(); i++)
-        if (!getTask(i).isExecutable()) {
-            tasks.removeElementAt(i);
-            i--;
+    public Vector getSensors() {
+        Vector allSensors = new Vector();
+        for (int i = 0; i < satellites.size(); i++) {
+            Sensor[] sensors = getSatellite(i).getSensors();
+            for (int j = 0; j < sensors.length; j++)
+                allSensors.add(sensors[j]);
         }
-}
-public void setTaskPriorities(double startPriority, double priorityIncrement, int tasksPerIncrement) {
-    Error.assertTrue(tasksPerIncrement > 0);
-    double currentPriority = startPriority;
-    double taskCount = 0;
-    for(int i = 0; i < getNumberOfTasks(); i++) {
-        if (taskCount >= tasksPerIncrement) {
-            taskCount = 0;
-            currentPriority += priorityIncrement;
+        return allSensors;
+    }
+
+    public String toString() {
+        return "EOSModel";
+    }
+
+    public void beginScheduling() {
+        createFreshTimelines();
+        for (int i = 0; i < satellites.size(); i++) {
+            Satellite satellite = (Satellite) satellites.elementAt(i);
+            satellite.initializeGroundStationAccess();
         }
-        Task task = getTask(i);
-        getTask(i).setPriority(currentPriority);
-        taskCount++;
     }
-}
-public double getTaskPrioritySum() {
-    double sum = 0;
-    for(int i = 0; i < getNumberOfTasks(); i++) 
-        sum += getTask(i).getPriority();
-    return sum;
-}  
-public void setHorizon(Horizon inHorizon) {horizon = inHorizon.copy();}
-/**
-@return the horizon for this model. Never modify it.
-*/
-public Horizon getHorizon() {return horizon;}
-public void report(String directoryName) {
-    Utility.makeDirectory(directoryName);
-    final String sep = Utility.fileSeparator();
-    PrintWriter tasksP = IO.getPrintWriter(directoryName + sep + "tasks.tsd");
-    tasksP.println(Task.getReportHeader());
-    PrintWriter windows = IO.getPrintWriter(directoryName + sep + "accessWindows.tsd");
-    windows.println(AccessWindow.getReportHeader());
-    for(int i = 0; i < tasks.size(); i++) {
-        Task t = (Task)tasks.elementAt(i);
-        t.reportTo(tasksP);
-        t.reportAccessWindowsWindowsTo(i,windows);
+
+    public void endScheduling() {
+        doneWithTimelines();
     }
-    tasksP.close();
-    windows.close();
-    
-    PrintWriter groundStationFile = IO.getPrintWriter(directoryName + sep + "groundStationAccess.tsd");
-    groundStationFile.println(Satellite.getGroundStationReportHeader());
-    for(int i = 0; i < satellites.size(); i++) {
-        Satellite satellite = (Satellite)satellites.elementAt(i);
-        satellite.reportGroundStationAccessWindowsTo(groundStationFile);
+
+    protected void createFreshTimelines() {
+        Timeline.initializeAllTimelines();
     }
-    groundStationFile.close();
-}
+
+    protected void doneWithTimelines() {
+    }
+
+    public Satellite getSatellite(int index) {
+        return (Satellite) satellites.get(index);
+    }
+
+    public void addSatellite(Satellite s) {
+        satellites.addElement(s);
+    }
+
+    public Satellite[] getSatellites() {
+        return (Satellite[]) satellites.toArray(new Satellite[satellites.size()]);
+    }
+
+    public int getNumberOfSatellites() {
+        return satellites.size();
+    }
+
+    public void numberSatellites() {
+        for (int i = 0; i < satellites.size(); i++)
+            getSatellite(i).setNumber(i);
+    }
+
+    public void addTask(Task task) {
+        tasks.addElement(task);
+    }
+
+    public Task getTask(int index) {
+        return (Task) tasks.elementAt(index);
+    }
+
+    public int getNumberOfTasks() {
+        return tasks.size();
+    }
+
+    public void numberTasksAndAccessWindows() {
+        for (int i = 0; i < tasks.size(); i++)
+            getTask(i).setNumbers(i);
+    }
+
+    public void printUnexecutableTasks(String filename) {
+        PrintWriter taskFile = IO.getPrintWriter(filename);
+        for (int i = 0; i < tasks.size(); i++)
+            if (!getTask(i).isExecutable())
+                taskFile.println(i + "");
+        taskFile.close();
+    }
+
+    public void removeUnexecutableTasks() {
+        for (int i = 0; i < tasks.size(); i++)
+            if (!getTask(i).isExecutable()) {
+                tasks.removeElementAt(i);
+                i--;
+            }
+    }
+
+    public void setTaskPriorities(double startPriority, double priorityIncrement, int tasksPerIncrement) {
+        Error.assertTrue(tasksPerIncrement > 0);
+        double currentPriority = startPriority;
+        double taskCount = 0;
+        for (int i = 0; i < getNumberOfTasks(); i++) {
+            if (taskCount >= tasksPerIncrement) {
+                taskCount = 0;
+                currentPriority += priorityIncrement;
+            }
+            Task task = getTask(i);
+            getTask(i).setPriority(currentPriority);
+            taskCount++;
+        }
+    }
+
+    public double getTaskPrioritySum() {
+        double sum = 0;
+        for (int i = 0; i < getNumberOfTasks(); i++)
+            sum += getTask(i).getPriority();
+        return sum;
+    }
+
+    /**
+     * @return the horizon for this model. Never modify it.
+     */
+    public Horizon getHorizon() {
+        return horizon;
+    }
+
+    public void setHorizon(Horizon inHorizon) {
+        horizon = inHorizon.copy();
+    }
+
+    public void report(String directoryName) {
+        Utility.makeDirectory(directoryName);
+        final String sep = Utility.fileSeparator();
+        PrintWriter tasksP = IO.getPrintWriter(directoryName + sep + "tasks.tsd");
+        tasksP.println(Task.getReportHeader());
+        PrintWriter windows = IO.getPrintWriter(directoryName + sep + "accessWindows.tsd");
+        windows.println(AccessWindow.getReportHeader());
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = (Task) tasks.elementAt(i);
+            t.reportTo(tasksP);
+            t.reportAccessWindowsWindowsTo(i, windows);
+        }
+        tasksP.close();
+        windows.close();
+
+        PrintWriter groundStationFile = IO.getPrintWriter(directoryName + sep + "groundStationAccess.tsd");
+        groundStationFile.println(Satellite.getGroundStationReportHeader());
+        for (int i = 0; i < satellites.size(); i++) {
+            Satellite satellite = (Satellite) satellites.elementAt(i);
+            satellite.reportGroundStationAccessWindowsTo(groundStationFile);
+        }
+        groundStationFile.close();
+    }
 }

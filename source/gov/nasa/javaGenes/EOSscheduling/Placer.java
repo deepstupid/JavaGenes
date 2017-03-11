@@ -20,7 +20,7 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 public abstract class Placer implements java.io.Serializable {
-public static final int NOT_SCHEDULED = Scheduler.NOT_SCHEDULED;
+    public static final int NOT_SCHEDULED = Scheduler.NOT_SCHEDULED;
 
-public abstract boolean placeInTimelines(TaskPlacementData placementData,Task inTask);
+    public abstract boolean placeInTimelines(TaskPlacementData placementData, Task inTask);
 }

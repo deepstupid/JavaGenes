@@ -20,65 +20,70 @@
 package gov.nasa.javaGenes.core;
 
 import gov.nasa.alsUtility.Error;
-import java.util.Vector;
-import java.util.Collections;
 import gov.nasa.alsUtility.RandomNumber;
+
 import java.util.Comparator;
-import java.util.Collections;
+import java.util.Vector;
 
 /**
-Implements a weighted roulette wheel with changable weights
-*/
+ * Implements a weighted roulette wheel with changable weights
+ */
 public class RouletteWheel implements java.io.Serializable {
-protected Vector weights = new Vector();
-protected Comparator comparator = new DescendingWeightsComparator();
-protected double totalWeight = 0;
-protected boolean prepareForSpinCalled = false;
+    protected Vector weights = new Vector();
+    protected Comparator comparator = new DescendingWeightsComparator();
+    protected double totalWeight = 0;
+    protected boolean prepareForSpinCalled = false;
 
-public void add(ChangingWeightsObject w) {
-    Error.assertTrue(w != null);
-    Error.assertTrue(w.getObject() != null);
-    weights.addElement(w);
-}
-public ChangingWeightsObject get(int i) {
-    return (ChangingWeightsObject)weights.elementAt(i);
-}
-public Object spinWheel(int changingWeightsParameter) {
-    Error.assertTrue(weights.size() > 0);
-    prepareForSpin(changingWeightsParameter);
-    return spinWheel();
-}
-public Object spinWheel() {
-    Error.assertTrue(prepareForSpinCalled);
-    return findObject(RandomNumber.getDouble(totalWeight));
-}
-// broken out for testing
-protected Object findObject(double random) {
-    double sum = 0;
-    for(int i = 0; i < weights.size(); i++) {
-        sum += get(i).getWeight();
-        if (random <= sum)
-            return get(i).getObject();
+    public void add(ChangingWeightsObject w) {
+        Error.assertTrue(w != null);
+        Error.assertTrue(w.getObject() != null);
+        weights.addElement(w);
     }
-    // can go off end due to floating point numerical error
-    return get(weights.size()-1).getObject();
-}
-public void prepareForSpin(double changingWeightsParameter) {
-    prepareForSpinCalled = true;
-    for(int i = 0; i < weights.size(); i++)
-        get(i).calculateWeight(changingWeightsParameter);
-    // Collections.sort(weights,comparator);  // will make things faster under some circumstances
 
-    totalWeight = 0;
-    for(int i = 0; i < weights.size(); i++)
-        totalWeight += get(i).getWeight();
-}
-public String toString() {
-    String s = "RouletteWheel\n";
-    for(int i = 0; i < weights.size(); i++){
-        s += get(i).toString() + "\n";
+    public ChangingWeightsObject get(int i) {
+        return (ChangingWeightsObject) weights.elementAt(i);
     }
-	s += "end RouletteWheel\n";
-    return s;
-}
+
+    public Object spinWheel(int changingWeightsParameter) {
+        Error.assertTrue(weights.size() > 0);
+        prepareForSpin(changingWeightsParameter);
+        return spinWheel();
+    }
+
+    public Object spinWheel() {
+        Error.assertTrue(prepareForSpinCalled);
+        return findObject(RandomNumber.getDouble(totalWeight));
+    }
+
+    // broken out for testing
+    protected Object findObject(double random) {
+        double sum = 0;
+        for (int i = 0; i < weights.size(); i++) {
+            sum += get(i).getWeight();
+            if (random <= sum)
+                return get(i).getObject();
+        }
+        // can go off end due to floating point numerical error
+        return get(weights.size() - 1).getObject();
+    }
+
+    public void prepareForSpin(double changingWeightsParameter) {
+        prepareForSpinCalled = true;
+        for (int i = 0; i < weights.size(); i++)
+            get(i).calculateWeight(changingWeightsParameter);
+        // Collections.sort(weights,comparator);  // will make things faster under some circumstances
+
+        totalWeight = 0;
+        for (int i = 0; i < weights.size(); i++)
+            totalWeight += get(i).getWeight();
+    }
+
+    public String toString() {
+        String s = "RouletteWheel\n";
+        for (int i = 0; i < weights.size(); i++) {
+            s += get(i).toString() + "\n";
+        }
+        s += "end RouletteWheel\n";
+        return s;
+    }
 }

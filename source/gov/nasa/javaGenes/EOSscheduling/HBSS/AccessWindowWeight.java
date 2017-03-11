@@ -18,25 +18,28 @@
 //
 package gov.nasa.javaGenes.EOSscheduling.HBSS;
 
-import gov.nasa.javaGenes.weightNetwork.Weight;
 import gov.nasa.javaGenes.EOSscheduling.AccessWindow;
 import gov.nasa.javaGenes.EOSscheduling.SlewRequirement;
+import gov.nasa.javaGenes.weightNetwork.Weight;
 
 public class AccessWindowWeight extends Weight {
 
-protected AccessWindow accessWindow;
+    protected AccessWindow accessWindow;
 
-protected AccessWindowWeight(){}
-/**
-assumes the associated sensor is cross track slewable.  The off nadir pointing is
-used for the weight
-*/
-public AccessWindowWeight(TaskWeight inTaskWeight,AccessWindow inAccessWindow) {
-    accessWindow = inAccessWindow;
-    SlewRequirement sr = accessWindow.getSlewRequirement(); 
-    setWeight(1+(float)java.lang.Math.abs(sr.getParameter(0))); //NOTE: only works for 1D slews, 1 is to avoid 0 weights
-}
-public AccessWindow getAccessWindow() {
-    return accessWindow;
-}
+    protected AccessWindowWeight() {
+    }
+
+    /**
+     * assumes the associated sensor is cross track slewable.  The off nadir pointing is
+     * used for the weight
+     */
+    public AccessWindowWeight(TaskWeight inTaskWeight, AccessWindow inAccessWindow) {
+        accessWindow = inAccessWindow;
+        SlewRequirement sr = accessWindow.getSlewRequirement();
+        setWeight(1 + (float) java.lang.Math.abs(sr.getParameter(0))); //NOTE: only works for 1D slews, 1 is to avoid 0 weights
+    }
+
+    public AccessWindow getAccessWindow() {
+        return accessWindow;
+    }
 }

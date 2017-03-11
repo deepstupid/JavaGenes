@@ -23,16 +23,18 @@ import junit.framework.TestCase;
 
 public class SSRNodeTest extends TestCase {
 
-public SSRNodeTest(String name) {super(name);}
+    public SSRNodeTest(String name) {
+        super(name);
+    }
 
-public void testCapacity() {
-    SSRNode node = new SSRNode();
-    
-    node.setCapacity(15);
-    assertTrue("1",node.getRemainingCapacity() == 15);
-    node.removeCapacity(10);
-    assertTrue("2",node.getRemainingCapacity() == 5);
-    node.removeCapacity(5);
-    assertTrue("3",node.getRemainingCapacity() == 0);
-}
+    public void testCapacity() {
+        SSRNode node = new SSRNode();
+
+        node.setCapacity(15);
+        assertTrue("1", node.getRemainingCapacity() == 15);
+        node.removeCapacity(10);
+        assertTrue("2", node.getRemainingCapacity() == 5);
+        node.removeCapacity(5);
+        assertTrue("3", node.getRemainingCapacity() == 0);
+    }
 }

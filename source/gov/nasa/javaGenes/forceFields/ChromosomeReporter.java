@@ -17,58 +17,57 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
-import java.io.PrintWriter;
+
 import gov.nasa.alsUtility.Utility;
-import gov.nasa.javaGenes.core.Reporter;
-import gov.nasa.javaGenes.core.Parameters;
-import gov.nasa.javaGenes.core.TokenizeInput;
-import gov.nasa.javaGenes.core.TokenizeOutput;
-import gov.nasa.javaGenes.core.Population;
-import gov.nasa.javaGenes.core.Individual;
 import gov.nasa.javaGenes.chemistry.Atom;
+import gov.nasa.javaGenes.core.*;
 
-public class ChromosomeReporter extends Reporter{
-protected String EnergiesFilename = "bestEnergies.tsd";
+import java.io.PrintWriter;
 
-public ChromosomeReporter(Parameters p) {
-  super(p);
-}
-public ChromosomeReporter(Parameters p, TokenizeInput tokenizer) {
-  super(p,tokenizer);
-}
-// Assumes StillingerWeber
-public void done(Population population) {
-  super.done(population);
-  ChromosomeParameters p = (ChromosomeParameters)parameters;
-  if (! (p.potential instanceof StillingerWeber))
-    return;
-  StillingerWeber potential = (StillingerWeber)p.potential;
-  Individual best = population.bestIndividual();
-  Chromosome chromosome = (Chromosome)best.getEvolvable();
-  PutPotentialEnergiesAndForces out = new PutPotentialEnergiesAndForces(potential,chromosome);
-  Atom Si = new Atom("Si");
-  Atom F = new Atom("F");
-  int numberOfValues = 100;
-  if (potential.hasTwoBody(Si,F))
-    out.putTwoBody("SiFEnergiesAndForces.tsd",Si,F,numberOfValues);
-  if (potential.hasTwoBody(Si,Si))
-    out.putTwoBody("SiSiEnergiesAndForces.tsd",Si,Si,numberOfValues);
-  if (potential.hasTwoBody(F,F))
-    out.putTwoBody("FFEnergiesAndForces.tsd",F,F,numberOfValues);
-  if (potential.hasThreeBody(Si,Si,Si))
-    out.putThreeBody("SiSiSiEnergies.tsd",Si,Si,Si,20);
+public class ChromosomeReporter extends Reporter {
+    protected String EnergiesFilename = "bestEnergies.tsd";
 
-  ManyMultiBodiesForOneEnergy m = p.energiesToExamineBestIndividual;
-  if (m != null) {
-    PrintWriter out2 = Utility.outputFile(EnergiesFilename);
-    potential.setChromosome(chromosome);
-	  for(int i = 0; i < m.size(); i++) {
-  	  MultiBodiesForOneEnergy test = m.getMultiBodies(i);
-      double energy = potential.getEnergy(test);
-      out2.println(energy + "");
+    public ChromosomeReporter(Parameters p) {
+        super(p);
     }
-    out2.close();
-  }
-}
+
+    public ChromosomeReporter(Parameters p, TokenizeInput tokenizer) {
+        super(p, tokenizer);
+    }
+
+    // Assumes StillingerWeber
+    public void done(Population population) {
+        super.done(population);
+        ChromosomeParameters p = (ChromosomeParameters) parameters;
+        if (!(p.potential instanceof StillingerWeber))
+            return;
+        StillingerWeber potential = (StillingerWeber) p.potential;
+        Individual best = population.bestIndividual();
+        Chromosome chromosome = (Chromosome) best.getEvolvable();
+        PutPotentialEnergiesAndForces out = new PutPotentialEnergiesAndForces(potential, chromosome);
+        Atom Si = new Atom("Si");
+        Atom F = new Atom("F");
+        int numberOfValues = 100;
+        if (potential.hasTwoBody(Si, F))
+            out.putTwoBody("SiFEnergiesAndForces.tsd", Si, F, numberOfValues);
+        if (potential.hasTwoBody(Si, Si))
+            out.putTwoBody("SiSiEnergiesAndForces.tsd", Si, Si, numberOfValues);
+        if (potential.hasTwoBody(F, F))
+            out.putTwoBody("FFEnergiesAndForces.tsd", F, F, numberOfValues);
+        if (potential.hasThreeBody(Si, Si, Si))
+            out.putThreeBody("SiSiSiEnergies.tsd", Si, Si, Si, 20);
+
+        ManyMultiBodiesForOneEnergy m = p.energiesToExamineBestIndividual;
+        if (m != null) {
+            PrintWriter out2 = Utility.outputFile(EnergiesFilename);
+            potential.setChromosome(chromosome);
+            for (int i = 0; i < m.size(); i++) {
+                MultiBodiesForOneEnergy test = m.getMultiBodies(i);
+                double energy = potential.getEnergy(test);
+                out2.println(energy + "");
+            }
+            out2.close();
+        }
+    }
 
 } 

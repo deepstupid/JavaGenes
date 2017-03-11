@@ -20,22 +20,25 @@ package gov.nasa.alsUtility;
 
 
 /**
-implements logical or
-*/
+ * implements logical or
+ */
 public class Or implements Predicate {
-protected Predicate left;
-protected Predicate right;
+    protected Predicate left;
+    protected Predicate right;
 
-/**
-predicates to implement the logical or of
-*/
-public Or(Predicate p1, Predicate p2) {
-    left = p1;
-    right = p2;
-}
-/**
-@return left.execute(object) || right.execute(object)
-*/
-public boolean execute(Object object) {return left.execute(object) || right.execute(object);}
+    /**
+     * predicates to implement the logical or of
+     */
+    public Or(Predicate p1, Predicate p2) {
+        left = p1;
+        right = p2;
+    }
+
+    /**
+     * @return left.execute(object) || right.execute(object)
+     */
+    public boolean execute(Object object) {
+        return left.execute(object) || right.execute(object);
+    }
 }
 

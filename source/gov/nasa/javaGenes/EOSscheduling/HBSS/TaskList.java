@@ -24,14 +24,20 @@ import gov.nasa.javaGenes.weightNetwork.RouletteWheel;
 // NOTE: Unit test in TaskWeightTest.java
 
 public class TaskList extends RouletteWheel {
-protected TaskList(){}
-public TaskList(EOSModel model,float priorityWeight,float numberOfAccessWindowsWeight,float SSRweight) {
-    for(int i = 0; i < model.getNumberOfTasks(); i++) 
-        if (model.getTask(i).numberOfAccessWindows() > 0)
-            add(new TaskWeight(model.getTask(i),priorityWeight,numberOfAccessWindowsWeight,SSRweight));
-    initializeWeightSum();
-    reinitialize();
-}
-/** does nothing. Used by subclass */
-public void assertCorrect() {}
+    protected TaskList() {
+    }
+
+    public TaskList(EOSModel model, float priorityWeight, float numberOfAccessWindowsWeight, float SSRweight) {
+        for (int i = 0; i < model.getNumberOfTasks(); i++)
+            if (model.getTask(i).numberOfAccessWindows() > 0)
+                add(new TaskWeight(model.getTask(i), priorityWeight, numberOfAccessWindowsWeight, SSRweight));
+        initializeWeightSum();
+        reinitialize();
+    }
+
+    /**
+     * does nothing. Used by subclass
+     */
+    public void assertCorrect() {
+    }
 }

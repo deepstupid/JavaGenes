@@ -19,28 +19,30 @@
 
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.DoubleInterval;
 import gov.nasa.alsUtility.IntegerInterval;
 import gov.nasa.alsUtility.RandomNumber;
+import junit.framework.TestCase;
 
 public class CrossoverIntervalTest extends TestCase {
 
-public CrossoverIntervalTest(String name) {super(name);}
+    public CrossoverIntervalTest(String name) {
+        super(name);
+    }
 
-public void testCrossoverIntervalTest() {
-    RandomNumber.setSeed(990639400906L);   // to get deterministic results
-    CrossoverInterval xover = new CrossoverInterval(new SelectAll(),0.8);
-    for(int i = 0; i < 100; i++) {
-        EvolvableDoubleList mom = new EvolvableDoubleList(new IntegerInterval(1,20).random());
-        EvolvableDoubleList dad = new EvolvableDoubleList(new IntegerInterval(1,30).random());
-        EvolvableDoubleList[] parents = {mom,dad};
-        EvolvableDoubleList child = (EvolvableDoubleList)xover.makeChildren(parents)[0];
-        for(int j = 0; j < child.getSize(); j++) {
-            double momValue = mom.getDoubleValue(j);
-            double dadValue = dad.getDoubleValue(j);
-            assertTrue(j+"", new DoubleInterval(momValue,dadValue).isBetween(child.getDoubleValue(j)));
+    public void testCrossoverIntervalTest() {
+        RandomNumber.setSeed(990639400906L);   // to get deterministic results
+        CrossoverInterval xover = new CrossoverInterval(new SelectAll(), 0.8);
+        for (int i = 0; i < 100; i++) {
+            EvolvableDoubleList mom = new EvolvableDoubleList(new IntegerInterval(1, 20).random());
+            EvolvableDoubleList dad = new EvolvableDoubleList(new IntegerInterval(1, 30).random());
+            EvolvableDoubleList[] parents = {mom, dad};
+            EvolvableDoubleList child = (EvolvableDoubleList) xover.makeChildren(parents)[0];
+            for (int j = 0; j < child.getSize(); j++) {
+                double momValue = mom.getDoubleValue(j);
+                double dadValue = dad.getDoubleValue(j);
+                assertTrue(j + "", new DoubleInterval(momValue, dadValue).isBetween(child.getDoubleValue(j)));
+            }
         }
     }
-}
 }

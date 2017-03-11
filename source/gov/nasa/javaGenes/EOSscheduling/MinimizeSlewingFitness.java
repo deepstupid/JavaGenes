@@ -19,29 +19,31 @@
 //  Created by Al Globus on Thu Nov 07 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.core.FitnessDouble;
-import gov.nasa.alsUtility.Error;
+import gov.nasa.javaGenes.core.Fitness;
 
 public class MinimizeSlewingFitness extends SchedulingFitnessFunction {
-protected EOSModel model;
+    protected EOSModel model;
 
-public MinimizeSlewingFitness(Scheduler scheduler,EOSModel inModel) {
-    super(scheduler);
-    model = inModel;
-}
-public Fitness evaluateFitness (Evolvable evolvable){
-    EOSschedulingEvolvable schedule = (EOSschedulingEvolvable)evolvable;
-    createSchedule(schedule);
-    Satellite[] satellites = model.getSatellites();
-    int totalSlewTime = 0;
-    for(int i = 0; i < satellites.length; i++) {
-        SlewMotor[] slewMotors = satellites[i].getSlewMotors();
-        for(int j = 0; j < slewMotors.length; j++) 
-            totalSlewTime += slewMotors[j].getTotalSlewTime();
+    public MinimizeSlewingFitness(Scheduler scheduler, EOSModel inModel) {
+        super(scheduler);
+        model = inModel;
     }
-    return normalizedFitness(totalSlewTime,schedule,model);
-}
-public String toString() {return "MinimizeSlewing, normization " + normalization;}
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        EOSschedulingEvolvable schedule = (EOSschedulingEvolvable) evolvable;
+        createSchedule(schedule);
+        Satellite[] satellites = model.getSatellites();
+        int totalSlewTime = 0;
+        for (int i = 0; i < satellites.length; i++) {
+            SlewMotor[] slewMotors = satellites[i].getSlewMotors();
+            for (int j = 0; j < slewMotors.length; j++)
+                totalSlewTime += slewMotors[j].getTotalSlewTime();
+        }
+        return normalizedFitness(totalSlewTime, schedule, model);
+    }
+
+    public String toString() {
+        return "MinimizeSlewing, normization " + normalization;
+    }
 }

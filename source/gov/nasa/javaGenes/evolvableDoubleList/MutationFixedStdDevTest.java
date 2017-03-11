@@ -18,32 +18,35 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class MutationFixedStdDevTest extends TestCase {
 
-public MutationFixedStdDevTest(String name) {super(name);}
+    public MutationFixedStdDevTest(String name) {
+        super(name);
+    }
 
-public void testMutationFixedStdDevTest() {
-    RandomNumber.setSeed(990639400906L);   // to get deterministic results
-    assertTrue("1", testMutationFixedStdDevTest(0.5, 3, 8, 0.5) >= 3); 
-    assertTrue("2", testMutationFixedStdDevTest(0.001, 9, 8, 0.5) == 8);
-    assertTrue("3", testMutationFixedStdDevTest(1, 6, 8, 0.5) == 8);
-}
-public int testMutationFixedStdDevTest(double probability, int minimumNumberToSelect, int length, double standardDeviation) {
-    SelectByProbability selector = new SelectByProbability(probability,minimumNumberToSelect);
-    EvolvableDoubleList list = new EvolvableDoubleList(length);
-    double[] initialValues = new double[list.getSize()];
-    for(int i = 0; i < list.getSize(); i++)
-        initialValues[i] = list.getDoubleValue(i);
-    MutationFixedStdDev mutator = new MutationFixedStdDev(selector,standardDeviation);
-    mutator.mutate(list);
-    int changes = 0;
-    for(int i = 0; i < list.getSize(); i++)
-        if (!Utility.nearlyEqual(initialValues[i],list.getDoubleValue(i)))
-            changes++;
-    return changes;
-}
+    public void testMutationFixedStdDevTest() {
+        RandomNumber.setSeed(990639400906L);   // to get deterministic results
+        assertTrue("1", testMutationFixedStdDevTest(0.5, 3, 8, 0.5) >= 3);
+        assertTrue("2", testMutationFixedStdDevTest(0.001, 9, 8, 0.5) == 8);
+        assertTrue("3", testMutationFixedStdDevTest(1, 6, 8, 0.5) == 8);
+    }
+
+    public int testMutationFixedStdDevTest(double probability, int minimumNumberToSelect, int length, double standardDeviation) {
+        SelectByProbability selector = new SelectByProbability(probability, minimumNumberToSelect);
+        EvolvableDoubleList list = new EvolvableDoubleList(length);
+        double[] initialValues = new double[list.getSize()];
+        for (int i = 0; i < list.getSize(); i++)
+            initialValues[i] = list.getDoubleValue(i);
+        MutationFixedStdDev mutator = new MutationFixedStdDev(selector, standardDeviation);
+        mutator.mutate(list);
+        int changes = 0;
+        for (int i = 0; i < list.getSize(); i++)
+            if (!Utility.nearlyEqual(initialValues[i], list.getDoubleValue(i)))
+                changes++;
+        return changes;
+    }
 }

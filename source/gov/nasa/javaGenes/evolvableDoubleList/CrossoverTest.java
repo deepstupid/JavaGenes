@@ -22,23 +22,26 @@ import junit.framework.TestCase;
 
 public class CrossoverTest extends TestCase {
 
-public CrossoverTest(String name) {super(name);}
+    public CrossoverTest(String name) {
+        super(name);
+    }
 
-public void testGetSmallerParent() {
-	EvolvableDoubleList mom = new EvolvableDoubleList(3);
-	EvolvableDoubleList dad = new EvolvableDoubleList(4);
-	EvolvableDoubleList[] parents1 = {mom,dad};
-	Crossover crossover = new Crossover(new SelectOneNeighboringPair());
-	assertTrue("1", mom == crossover.getSmallerParent(parents1));
-	EvolvableDoubleList[] parents2 = {dad,mom};
-	assertTrue("2", mom == crossover.getSmallerParent(parents1));
-}
-public void testParentIndicesArray() {
-	Crossover crossover = new Crossover(new SelectOneNeighboringPair());
-	EvolvableDoubleList mom = new EvolvableDoubleList(3);
-	EvolvableDoubleList dad = new EvolvableDoubleList(4);
-	EvolvableDoubleList[] parents1 = {mom,dad};
-	int[] indices = crossover.getFirstParentIndicesArray(parents1);
-	assertTrue("1", indices == crossover.getSecondParentIndicesArray(parents1));
-}
+    public void testGetSmallerParent() {
+        EvolvableDoubleList mom = new EvolvableDoubleList(3);
+        EvolvableDoubleList dad = new EvolvableDoubleList(4);
+        EvolvableDoubleList[] parents1 = {mom, dad};
+        Crossover crossover = new Crossover(new SelectOneNeighboringPair());
+        assertTrue("1", mom == crossover.getSmallerParent(parents1));
+        EvolvableDoubleList[] parents2 = {dad, mom};
+        assertTrue("2", mom == crossover.getSmallerParent(parents1));
+    }
+
+    public void testParentIndicesArray() {
+        Crossover crossover = new Crossover(new SelectOneNeighboringPair());
+        EvolvableDoubleList mom = new EvolvableDoubleList(3);
+        EvolvableDoubleList dad = new EvolvableDoubleList(4);
+        EvolvableDoubleList[] parents1 = {mom, dad};
+        int[] indices = crossover.getFirstParentIndicesArray(parents1);
+        assertTrue("1", indices == crossover.getSecondParentIndicesArray(parents1));
+    }
 }

@@ -22,51 +22,64 @@ import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.ExtendedVector;
 
 /**
-This class keeps a list of ChildMaker.  When asked, a ChildMakerProvider
-will supply a random ChildMaker from this list.
-@see ChildMaker
-*/
+ * This class keeps a list of ChildMaker.  When asked, a ChildMakerProvider
+ * will supply a random ChildMaker from this list.
+ *
+ * @see ChildMaker
+ */
 public class ChildMakerProvider implements java.io.Serializable {
-protected ExtendedVector childMakers = new ExtendedVector();
+    protected ExtendedVector childMakers = new ExtendedVector();
 
-/**
-add a ChildMaker to the list
-*/
-public void add(ChildMaker c) {
-  Error.assertTrue(c != null);
-  childMakers.addElement(c);
-}
-public ChildMaker get() { 
-	Error.assertTrue(size() > 0);
-	return (ChildMaker)childMakers.getRandomElement();
-}
-public void removeLastChildMaker() {
-	if (size() > 0)
-		childMakers.removeElementAt(size()-1);
-}
-/**
-@arg totalNumberOfKidsProduced used by subclass
-@return a random ChildMaker
-*/
-public ChildMaker getChildMaker(int totalNumberOfKidsProduced) { 
-  return get();
-}
-public int size() {return childMakers.size();}
-public ChildMaker get(int index) {return (ChildMaker)childMakers.elementAt(index);}
-public void setFitnessFunction(FitnessFunction ff) {
-    String[] fitnessNames = ff.getNameArray();
-	setFitnessFunctionNames(fitnessNames);
-}
-public void setFitnessFunctionNames(String[] names) {
-    for(int i = 0; i < childMakers.size(); i++)
-        get(i).setFitnessFunctionNames(names);
-}
-public String toString() {
-  String s = "ChildMakerProvider\n";
-  for(int i = 0; i < childMakers.size(); i++){
-    s += childMakers.elementAt(i).toString() + "\n";
-  }
-  s += "end ChildMakerProvider\n";
-  return s;
-}
+    /**
+     * add a ChildMaker to the list
+     */
+    public void add(ChildMaker c) {
+        Error.assertTrue(c != null);
+        childMakers.addElement(c);
+    }
+
+    public ChildMaker get() {
+        Error.assertTrue(size() > 0);
+        return (ChildMaker) childMakers.getRandomElement();
+    }
+
+    public void removeLastChildMaker() {
+        if (size() > 0)
+            childMakers.removeElementAt(size() - 1);
+    }
+
+    /**
+     * @return a random ChildMaker
+     * @arg totalNumberOfKidsProduced used by subclass
+     */
+    public ChildMaker getChildMaker(int totalNumberOfKidsProduced) {
+        return get();
+    }
+
+    public int size() {
+        return childMakers.size();
+    }
+
+    public ChildMaker get(int index) {
+        return (ChildMaker) childMakers.elementAt(index);
+    }
+
+    public void setFitnessFunction(FitnessFunction ff) {
+        String[] fitnessNames = ff.getNameArray();
+        setFitnessFunctionNames(fitnessNames);
+    }
+
+    public void setFitnessFunctionNames(String[] names) {
+        for (int i = 0; i < childMakers.size(); i++)
+            get(i).setFitnessFunctionNames(names);
+    }
+
+    public String toString() {
+        String s = "ChildMakerProvider\n";
+        for (int i = 0; i < childMakers.size(); i++) {
+            s += childMakers.elementAt(i).toString() + "\n";
+        }
+        s += "end ChildMakerProvider\n";
+        return s;
+    }
 }

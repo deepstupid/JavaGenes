@@ -20,14 +20,15 @@ package gov.nasa.alsUtility;
 
 public class Constants {
 
-public final static double speedOfLightMetersPerSecond = 299792458;
-public final static double G = 6.67e-11; // m^3/ kg s^s
-/**
-@arg frequency Hz
-@return m
-*/
-public static double getWavelength(double frequency) {
-	Error.assertTrue(frequency > 0);
-	return speedOfLightMetersPerSecond/frequency;
-}
+    public final static double speedOfLightMetersPerSecond = 299792458;
+    public final static double G = 6.67e-11; // m^3/ kg s^s
+
+    /**
+     * @return m
+     * @arg frequency Hz
+     */
+    public static double getWavelength(double frequency) {
+        Error.assertTrue(frequency > 0);
+        return speedOfLightMetersPerSecond / frequency;
+    }
 }

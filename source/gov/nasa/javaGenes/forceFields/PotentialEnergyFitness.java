@@ -18,118 +18,119 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import gov.nasa.alsUtility.Utility;
-import gov.nasa.alsUtility.Error;
-import gov.nasa.javaGenes.core.FitnessFunction;
-import java.util.Vector;
-import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.core.Fitness;
-import gov.nasa.javaGenes.core.Population;
-import gov.nasa.alsUtility.RootMeanSquares;
-import gov.nasa.javaGenes.core.FitnessDouble;
-import gov.nasa.alsUtility.LogFile;
 import gov.nasa.alsUtility.EasyFile;
+import gov.nasa.alsUtility.LogFile;
+import gov.nasa.alsUtility.RootMeanSquares;
+import gov.nasa.alsUtility.Utility;
+import gov.nasa.javaGenes.core.*;
+
+import java.util.Vector;
 
 /**
-fitness function based on RMS distance of potential energies
-between the target and candidate Chromosome
-*/
+ * fitness function based on RMS distance of potential energies
+ * between the target and candidate Chromosome
+ */
 public class PotentialEnergyFitness extends FitnessFunction {
-protected Potential potential;
-protected Vector testCases = new Vector();
-protected Chromosome target;
+    protected Potential potential;
+    protected Vector testCases = new Vector();
+    protected Chromosome target;
 
-/**
-@param p the potential energy function
-@param t the target chromosome
-*/
-public PotentialEnergyFitness(Potential p, Chromosome t){
-    potential = p;
-    target = t;
-}
-/**
-add a set of multi-bodies to create one test case
-*/
-public void add(Bodies[] bodies) {
-	potential.setChromosome(target);
-  PotentialEnergyTestCase test = new PotentialEnergyTestCase(potential.getEnergy(bodies),bodies);
-  testCases.addElement(test);
-}
-/**
-create multiple test cases (the first dimension of array bodies)
-*/
-public void add(Bodies[][] bodies) {
-	potential.setChromosome(target);
-	for(int i = 0; i < bodies.length; i++) {
-  	PotentialEnergyTestCase test = new PotentialEnergyTestCase(potential.getEnergy(bodies[i]),bodies[i]);
-  	testCases.addElement(test);
-  }
-}
-/**
-add a set of bodies to create one test case
+    /**
+     * @param p the potential energy function
+     * @param t the target chromosome
+     */
+    public PotentialEnergyFitness(Potential p, Chromosome t) {
+        potential = p;
+        target = t;
+    }
 
-@param bodies must consist of Bodies[] objects
-*/
-public void add(Vector bodies) {
-	potential.setChromosome(target);
-	for(int i = 0; i < bodies.size(); i++) {
-  	Bodies[] current = (Bodies[])bodies.elementAt(i);
-  	PotentialEnergyTestCase test = new PotentialEnergyTestCase(potential.getEnergy(current),current);
-  	testCases.addElement(test);
-  }
-}
+    /**
+     * add a set of multi-bodies to create one test case
+     */
+    public void add(Bodies[] bodies) {
+        potential.setChromosome(target);
+        PotentialEnergyTestCase test = new PotentialEnergyTestCase(potential.getEnergy(bodies), bodies);
+        testCases.addElement(test);
+    }
 
-/*
-find RMS distance for all bodies in all test cases from the target
-*/
-public Fitness evaluateFitness (Evolvable evolvable){
-	Chromosome chromosome = (Chromosome)evolvable;
-  potential.setChromosome(chromosome);
-  RootMeanSquares rms = new RootMeanSquares();
-	for(int i = 0; i < testCases.size(); i++) {
-  	PotentialEnergyTestCase test = (PotentialEnergyTestCase)testCases.elementAt(i);
-    double[] energies = test.getDifference(potential);
-    for(int j = 0; j < energies.length; j++)
-  		rms.addDatum(energies[j]);
-  }
-	return new FitnessDouble(rms.rms());
-}
-/**
-Prints out a file called difference.tsd with the target chromosome in it
-and the difference between the best and target chromosomes.
-*/
-public void report (Population population){
-	Chromosome best = (Chromosome)population.bestIndividual().getEvolvable();
+    /**
+     * create multiple test cases (the first dimension of array bodies)
+     */
+    public void add(Bodies[][] bodies) {
+        potential.setChromosome(target);
+        for (int i = 0; i < bodies.length; i++) {
+            PotentialEnergyTestCase test = new PotentialEnergyTestCase(potential.getEnergy(bodies[i]), bodies[i]);
+            testCases.addElement(test);
+        }
+    }
 
-  String filename = "difference.tsd";
-  LogFile log;
-  if (population.getGeneration() == 0) {
-  	log = new LogFile(filename, false);
-    log.println("target\t" + target);
-  } else
-  	log = new LogFile(filename, true);
-  Chromosome difference = target.createDifferenceChromosome(best);
-  log.println(population.getGeneration() + "\t" + difference);
-  log.close();
-}
-/**
-creative fall column target.tsd with the target chromosome it
-and a file testCases.tsd with all the test cases in it
-*/
-public void makeFiles() {
-	EasyFile file = new EasyFile("testCases.tsd");
-	for(int i = 0; i < testCases.size(); i++) {
-  	PotentialEnergyTestCase test = (PotentialEnergyTestCase)testCases.elementAt(i);
-    test.printTo(file);
-  }
-  file.close();
+    /**
+     * add a set of bodies to create one test case
+     *
+     * @param bodies must consist of Bodies[] objects
+     */
+    public void add(Vector bodies) {
+        potential.setChromosome(target);
+        for (int i = 0; i < bodies.size(); i++) {
+            Bodies[] current = (Bodies[]) bodies.elementAt(i);
+            PotentialEnergyTestCase test = new PotentialEnergyTestCase(potential.getEnergy(current), current);
+            testCases.addElement(test);
+        }
+    }
 
-  Utility.makeFile("target.tsd", target.toString());
-}
+    /*
+    find RMS distance for all bodies in all test cases from the target
+    */
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        Chromosome chromosome = (Chromosome) evolvable;
+        potential.setChromosome(chromosome);
+        RootMeanSquares rms = new RootMeanSquares();
+        for (int i = 0; i < testCases.size(); i++) {
+            PotentialEnergyTestCase test = (PotentialEnergyTestCase) testCases.elementAt(i);
+            double[] energies = test.getDifference(potential);
+            for (int j = 0; j < energies.length; j++)
+                rms.addDatum(energies[j]);
+        }
+        return new FitnessDouble(rms.rms());
+    }
 
-public String toString() {
-    return getClass() + ": RMS to values from target chromosome. Target = " + target +
-            " Potential = " + potential +
-            " test cases = " + testCases;
-}
+    /**
+     * Prints out a file called difference.tsd with the target chromosome in it
+     * and the difference between the best and target chromosomes.
+     */
+    public void report(Population population) {
+        Chromosome best = (Chromosome) population.bestIndividual().getEvolvable();
+
+        String filename = "difference.tsd";
+        LogFile log;
+        if (population.getGeneration() == 0) {
+            log = new LogFile(filename, false);
+            log.println("target\t" + target);
+        } else
+            log = new LogFile(filename, true);
+        Chromosome difference = target.createDifferenceChromosome(best);
+        log.println(population.getGeneration() + "\t" + difference);
+        log.close();
+    }
+
+    /**
+     * creative fall column target.tsd with the target chromosome it
+     * and a file testCases.tsd with all the test cases in it
+     */
+    public void makeFiles() {
+        EasyFile file = new EasyFile("testCases.tsd");
+        for (int i = 0; i < testCases.size(); i++) {
+            PotentialEnergyTestCase test = (PotentialEnergyTestCase) testCases.elementAt(i);
+            test.printTo(file);
+        }
+        file.close();
+
+        Utility.makeFile("target.tsd", target.toString());
+    }
+
+    public String toString() {
+        return getClass() + ": RMS to values from target chromosome. Target = " + target +
+                " Potential = " + potential +
+                " test cases = " + testCases;
+    }
 }

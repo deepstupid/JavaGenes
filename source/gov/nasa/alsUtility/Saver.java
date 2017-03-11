@@ -21,61 +21,63 @@ package gov.nasa.alsUtility;
 
 import java.io.Serializable;
 import java.util.Vector;
-import gov.nasa.alsUtility.Utility;
 
 /**
-This class is intended to buffer up many timesteps or
-generations of data and then save them as an array
-using java serialization. The file name is appended
-with an ASCII number that should be in alphabetical order.
-Every save call creates an additional file in a specified directory.
-*/
+ * This class is intended to buffer up many timesteps or
+ * generations of data and then save them as an array
+ * using java serialization. The file name is appended
+ * with an ASCII number that should be in alphabetical order.
+ * Every save call creates an additional file in a specified directory.
+ */
 public class Saver implements java.io.Serializable {
 
-/**
-directory to save data in
-*/
-protected String directoryName;
-protected int numberOfSaves = 0;
-protected Vector data = new Vector();
+    /**
+     * directory to save data in
+     */
+    protected String directoryName;
+    protected int numberOfSaves = 0;
+    protected Vector data = new Vector();
 
-/**
-@param s directory name to save data in. Directory will be created
-*/
-public Saver (String s) {
-    directoryName = s;
-    Utility.makeDirectory (directoryName);
-}
+    /**
+     * @param s directory name to save data in. Directory will be created
+     */
+    public Saver(String s) {
+        directoryName = s;
+        Utility.makeDirectory(directoryName);
+    }
 
-/**
- add object to the buffer for later saving
-*/
-public void buffer (Object object){
-    data.addElement (object);
-}
+    /**
+     * add object to the buffer for later saving
+     */
+    public void buffer(Object object) {
+        data.addElement(object);
+    }
 
-/**
-save an array of objects that were buffered
-*/
-public void save() {
-    if (data.size() <= 0) return;
-    Object[] objects = new Object[data.size()];
-    for (int i = 0; i < objects.length; i++)
-        objects[i] = data.elementAt(i);
-    Utility.serialize ((Serializable)objects, 
-        directoryName + "/" + Utility.makeSequentialNumber(numberOfSaves++));
-    data.removeAllElements();
-}
+    /**
+     * save an array of objects that were buffered
+     */
+    public void save() {
+        if (data.size() <= 0) return;
+        Object[] objects = new Object[data.size()];
+        for (int i = 0; i < objects.length; i++)
+            objects[i] = data.elementAt(i);
+        Utility.serialize((Serializable) objects,
+                directoryName + "/" + Utility.makeSequentialNumber(numberOfSaves++));
+        data.removeAllElements();
+    }
 
-/**
-save an single object
-*/
-public void save(Serializable object) {
-    Utility.serialize (object, 
-        directoryName + "/" + Utility.makeSequentialNumber(numberOfSaves++));
-}
-/**
-set the number used to name files
-*/
-public void setNumber(int number) {numberOfSaves = number;}
+    /**
+     * save an single object
+     */
+    public void save(Serializable object) {
+        Utility.serialize(object,
+                directoryName + "/" + Utility.makeSequentialNumber(numberOfSaves++));
+    }
+
+    /**
+     * set the number used to name files
+     */
+    public void setNumber(int number) {
+        numberOfSaves = number;
+    }
 }

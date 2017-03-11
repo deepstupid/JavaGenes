@@ -22,10 +22,10 @@ import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.Utility;
 
 public class ExperimentMain {
-public static void main(String[] arguments) {
-	Error.assertTrue(arguments.length == 2);
-	Parameters.useLocalBreeder = arguments[0].equals("local");
-	Parameters.deJongNumber = Utility.string2integer(arguments[1]);
-	Main.main(new String[0]);
-}
+    public static void main(String[] arguments) {
+        Error.assertTrue(arguments.length == 2);
+        Parameters.useLocalBreeder = arguments[0].equals("local");
+        Parameters.deJongNumber = Utility.string2integer(arguments[1]);
+        Main.main(new String[0]);
+    }
 }

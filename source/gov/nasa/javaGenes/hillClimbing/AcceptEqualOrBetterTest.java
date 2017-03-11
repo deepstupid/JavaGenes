@@ -19,20 +19,22 @@
 //  Created by Al Globus on Wed Jan 29 2003.
 package gov.nasa.javaGenes.hillClimbing;
 
-import junit.framework.TestCase;
 import gov.nasa.javaGenes.core.FitnessDouble;
+import junit.framework.TestCase;
 
 public class AcceptEqualOrBetterTest extends TestCase {
 
-public AcceptEqualOrBetterTest(String name) {super(name);}
+    public AcceptEqualOrBetterTest(String name) {
+        super(name);
+    }
 
-public void testAll() {
-    AcceptEqualOrBetter a = new AcceptEqualOrBetter();
-    FitnessDouble worse = new FitnessDouble(3);
-    FitnessDouble better = new FitnessDouble(2);
-    assertTrue("1", a.accept(better,worse));
-    assertTrue("2", a.accept(better,better));
-    assertTrue("3", !a.accept(worse,better));
-}
+    public void testAll() {
+        AcceptEqualOrBetter a = new AcceptEqualOrBetter();
+        FitnessDouble worse = new FitnessDouble(3);
+        FitnessDouble better = new FitnessDouble(2);
+        assertTrue("1", a.accept(better, worse));
+        assertTrue("2", a.accept(better, better));
+        assertTrue("3", !a.accept(worse, better));
+    }
 }
 

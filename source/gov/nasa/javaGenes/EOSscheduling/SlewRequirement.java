@@ -19,10 +19,16 @@
 //  Created by Al Globus on Fri Sep 06 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.alsUtility.Error;
+abstract public class SlewRequirement implements java.io.Serializable {
+    public int numberOfParameters() {
+        return 0;
+    }
 
-abstract public class SlewRequirement implements java.io. Serializable {
-public int numberOfParameters() {return 0;}
-public double getParameter(int index) {return 0;}
-public double[] getParameters() {return new double[0];}
+    public double getParameter(int index) {
+        return 0;
+    }
+
+    public double[] getParameters() {
+        return new double[0];
+    }
 }

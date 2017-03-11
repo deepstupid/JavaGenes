@@ -17,48 +17,64 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.core;
+
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.Error;
 
 public class FitnessFunctionWorstFitnessTest extends TestCase {
 
-public FitnessFunctionWorstFitnessTest(String name) {super(name);}
+    public FitnessFunctionWorstFitnessTest(String name) {
+        super(name);
+    }
 
-public void testEvaluateFitness() {
-    double[] f1 = {1,2,3};
-    test("1", f1, 3);
-    double[] f2 = {3,2,1};
-    test("2", f2, 3);
-    double[] f3 = {2,3,1};
-    test("3", f3, 3);
-    double[] f4 = {5};
-    test("4", f4, 5);
-    double[] f5 = {3,4,6,2,7,10,4};
-    test("5", f5, 10);
-}
-private void test(String name, double[] fitness,  double answer) {
-    FitnessFunctionWorstFitness worst = new FitnessFunctionWorstFitness(new MyFitnessFunction(), new MyChanger(fitness));
-    double a = worst.evaluateFitness(new Evolvable()).asDouble();
-    assertTrue(name + " " + a, a == answer);
-}
-private class MyChanger implements PhenotypeChanger {
-    private double[] fitness;
-    public MyChanger(double[] fitness) {this.fitness = fitness;}
-    public Evolvable[] getVariations(Evolvable evolvable) {
-        MyEvolvable[] variations = new MyEvolvable[fitness.length];
-        for(int i = 0; i < variations.length; i++)
-            variations[i] = new MyEvolvable(fitness[i]);
-        return variations;
+    public void testEvaluateFitness() {
+        double[] f1 = {1, 2, 3};
+        test("1", f1, 3);
+        double[] f2 = {3, 2, 1};
+        test("2", f2, 3);
+        double[] f3 = {2, 3, 1};
+        test("3", f3, 3);
+        double[] f4 = {5};
+        test("4", f4, 5);
+        double[] f5 = {3, 4, 6, 2, 7, 10, 4};
+        test("5", f5, 10);
     }
-}
-private class MyEvolvable extends Evolvable {
-    double fitness;
-    public MyEvolvable(double fitness) {this.fitness = fitness;}
-    public double getFitness() {return fitness;}
-}
-private class MyFitnessFunction extends FitnessFunction {
-    public Fitness evaluateFitness (Evolvable evolvable) {
-        return new FitnessDouble(((MyEvolvable)evolvable).getFitness());
+
+    private void test(String name, double[] fitness, double answer) {
+        FitnessFunctionWorstFitness worst = new FitnessFunctionWorstFitness(new MyFitnessFunction(), new MyChanger(fitness));
+        double a = worst.evaluateFitness(new Evolvable()).asDouble();
+        assertTrue(name + " " + a, a == answer);
     }
-}
+
+    private class MyChanger implements PhenotypeChanger {
+        private double[] fitness;
+
+        public MyChanger(double[] fitness) {
+            this.fitness = fitness;
+        }
+
+        public Evolvable[] getVariations(Evolvable evolvable) {
+            MyEvolvable[] variations = new MyEvolvable[fitness.length];
+            for (int i = 0; i < variations.length; i++)
+                variations[i] = new MyEvolvable(fitness[i]);
+            return variations;
+        }
+    }
+
+    private class MyEvolvable extends Evolvable {
+        double fitness;
+
+        public MyEvolvable(double fitness) {
+            this.fitness = fitness;
+        }
+
+        public double getFitness() {
+            return fitness;
+        }
+    }
+
+    private class MyFitnessFunction extends FitnessFunction {
+        public Fitness evaluateFitness(Evolvable evolvable) {
+            return new FitnessDouble(((MyEvolvable) evolvable).getFitness());
+        }
+    }
 }

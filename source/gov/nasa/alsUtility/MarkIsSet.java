@@ -19,16 +19,20 @@
 package gov.nasa.alsUtility;
 
 /**
-@see Mark
-*/
+ * @see Mark
+ */
 public class MarkIsSet implements Predicate {
-protected boolean value;
-public MarkIsSet(boolean v) {value = v;}
-/**
-@param object must be a Mark object or subclass
-@return if object is marked as value
-*/
-public boolean execute(Object object) {
-    return ((Mark)object).isMarked(value);
-}
+    protected boolean value;
+
+    public MarkIsSet(boolean v) {
+        value = v;
+    }
+
+    /**
+     * @param object must be a Mark object or subclass
+     * @return if object is marked as value
+     */
+    public boolean execute(Object object) {
+        return ((Mark) object).isMarked(value);
+    }
 }

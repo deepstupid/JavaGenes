@@ -17,73 +17,78 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
-import java.io.PrintWriter;
-import java.io.Serializable;
+
+import gov.nasa.alsUtility.IncrementIterator;
 import gov.nasa.alsUtility.Utility;
 import gov.nasa.javaGenes.chemistry.Atom;
-import gov.nasa.alsUtility.IncrementIterator;
+
+import java.io.PrintWriter;
+import java.io.Serializable;
 
 public class PutPotentialEnergiesAndForces implements Serializable {
-protected Potential _potential;
-protected Chromosome _chromosome;
-protected double _minimumDistance = 0.5;
-protected double _maximumDistance = 5.0;
-protected double _minimumAngle = Utility.degrees2radians(10);
-protected double _maximumAngle = Utility.degrees2radians(250);
-protected double _lengthScale = 1;
+    protected Potential _potential;
+    protected Chromosome _chromosome;
+    protected double _minimumDistance = 0.5;
+    protected double _maximumDistance = 5.0;
+    protected double _minimumAngle = Utility.degrees2radians(10);
+    protected double _maximumAngle = Utility.degrees2radians(250);
+    protected double _lengthScale = 1;
 
-public PutPotentialEnergiesAndForces(Potential potential, Chromosome chromosome) {
-  _potential = potential;
-  _chromosome = chromosome;
-  if (_potential instanceof StillingerWeberSiF)
-    _lengthScale = StillingerWeberSiF.getLengthScale();
-}
-public void putTwoBody(String filename, Atom a, Atom b, int numberOfValues) {
-  PrintWriter out = Utility.outputFile(filename);
-  out.println(a + "-" + b + "distance\tenergy\tforce");
-  TwoBody body = new TwoBody(a,b);
-  _potential.setChromosome(_chromosome);
-  IncrementIterator i = new IncrementIterator(_minimumDistance,_maximumDistance,numberOfValues);
-  while(i.more()) {
-    body.setR(i.value()*_lengthScale);
-    double energy = _potential.getEnergy(body);
-    double force = _potential.getForce(body);
-    out.println(i.value() + "\t" + energy + "\t" + force);
-    i.increment();
-  }
-  out.close();
-}
-public void putTwoBodyEnergies(String filename, Atom a, Atom b, int numberOfValues) {
-  PrintWriter out = Utility.outputFile(filename);
-  out.println(a + "-" + b + "distance\tenergy");
-  TwoBody body = new TwoBody(a,b);
-  _potential.setChromosome(_chromosome);
-  IncrementIterator i = new IncrementIterator(_minimumDistance,_maximumDistance,numberOfValues);
-  while(i.more()) {
-    body.setR(i.value()*_lengthScale);
-    double energy = _potential.getEnergy(body);
-    out.println(i.value() + "\t" + energy);
-    i.increment();
-  }
-  out.close();
-}
-public void putThreeBody(String filename, Atom a, Atom b, Atom c, int squareRootOfNumberOfValues) {
-  PrintWriter out = Utility.outputFile(filename);
-  out.println(a + "-" + b + "distance\tangle\tenergy");
-  ThreeBody body = new ThreeBody(a.toString(),b.toString(),c.toString(),1.0,1.0,1.0);
-  _potential.setChromosome(_chromosome);
-  IncrementIterator i = new IncrementIterator(_minimumDistance,_maximumDistance,squareRootOfNumberOfValues);
-  for(;i.more();i.increment()) {
-    body.setRJI(i.value()*_lengthScale);
-    body.setRJK(i.value()*_lengthScale);
-    IncrementIterator j = new IncrementIterator(_minimumAngle,_maximumAngle,squareRootOfNumberOfValues);
-    for(;j.more();j.increment()) {
-      body.setAngle(j.value());
-      double energy = _potential.getEnergy(body);
-      out.println(i.value() + "\t" + j.value() + "\t" + energy);
+    public PutPotentialEnergiesAndForces(Potential potential, Chromosome chromosome) {
+        _potential = potential;
+        _chromosome = chromosome;
+        if (_potential instanceof StillingerWeberSiF)
+            _lengthScale = StillingerWeberSiF.getLengthScale();
     }
-  }
-  out.close();
-}
+
+    public void putTwoBody(String filename, Atom a, Atom b, int numberOfValues) {
+        PrintWriter out = Utility.outputFile(filename);
+        out.println(a + "-" + b + "distance\tenergy\tforce");
+        TwoBody body = new TwoBody(a, b);
+        _potential.setChromosome(_chromosome);
+        IncrementIterator i = new IncrementIterator(_minimumDistance, _maximumDistance, numberOfValues);
+        while (i.more()) {
+            body.setR(i.value() * _lengthScale);
+            double energy = _potential.getEnergy(body);
+            double force = _potential.getForce(body);
+            out.println(i.value() + "\t" + energy + "\t" + force);
+            i.increment();
+        }
+        out.close();
+    }
+
+    public void putTwoBodyEnergies(String filename, Atom a, Atom b, int numberOfValues) {
+        PrintWriter out = Utility.outputFile(filename);
+        out.println(a + "-" + b + "distance\tenergy");
+        TwoBody body = new TwoBody(a, b);
+        _potential.setChromosome(_chromosome);
+        IncrementIterator i = new IncrementIterator(_minimumDistance, _maximumDistance, numberOfValues);
+        while (i.more()) {
+            body.setR(i.value() * _lengthScale);
+            double energy = _potential.getEnergy(body);
+            out.println(i.value() + "\t" + energy);
+            i.increment();
+        }
+        out.close();
+    }
+
+    public void putThreeBody(String filename, Atom a, Atom b, Atom c, int squareRootOfNumberOfValues) {
+        PrintWriter out = Utility.outputFile(filename);
+        out.println(a + "-" + b + "distance\tangle\tenergy");
+        ThreeBody body = new ThreeBody(a.toString(), b.toString(), c.toString(), 1.0, 1.0, 1.0);
+        _potential.setChromosome(_chromosome);
+        IncrementIterator i = new IncrementIterator(_minimumDistance, _maximumDistance, squareRootOfNumberOfValues);
+        for (; i.more(); i.increment()) {
+            body.setRJI(i.value() * _lengthScale);
+            body.setRJK(i.value() * _lengthScale);
+            IncrementIterator j = new IncrementIterator(_minimumAngle, _maximumAngle, squareRootOfNumberOfValues);
+            for (; j.more(); j.increment()) {
+                body.setAngle(j.value());
+                double energy = _potential.getEnergy(body);
+                out.println(i.value() + "\t" + j.value() + "\t" + energy);
+            }
+        }
+        out.close();
+    }
 
 }

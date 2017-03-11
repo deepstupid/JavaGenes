@@ -18,33 +18,39 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import gov.nasa.javaGenes.core.FitnessFunction;
 import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.FitnessDouble;
+import gov.nasa.javaGenes.core.FitnessFunction;
 
 /**
-fitness is the distance from a target chromosome. A
-@see Chromosome#distanceFrom
-*/
+ * fitness is the distance from a target chromosome. A
+ *
+ * @see Chromosome#distanceFrom
+ */
 public class ChromosomeDistanceFitness extends FitnessFunction {
-/**
-target chromosome
-*/
-protected Chromosome target;
-/**
-@param chromosome the target
-*/
-public ChromosomeDistanceFitness(Chromosome chromosome){target = chromosome;}
-/**
-@return 0 for closest, larger numbers for farthest from target.
-@param evolvable must be a Chromosome
-@see Chromosome
-*/
-public Fitness evaluateFitness (Evolvable evolvable){
-	return new FitnessDouble(target.distanceFrom(evolvable));
-}
-public String toString() {
-	return getClass() + ": distance from a target chromosome. Target = " + target;
-}
+    /**
+     * target chromosome
+     */
+    protected Chromosome target;
+
+    /**
+     * @param chromosome the target
+     */
+    public ChromosomeDistanceFitness(Chromosome chromosome) {
+        target = chromosome;
+    }
+
+    /**
+     * @param evolvable must be a Chromosome
+     * @return 0 for closest, larger numbers for farthest from target.
+     * @see Chromosome
+     */
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        return new FitnessDouble(target.distanceFrom(evolvable));
+    }
+
+    public String toString() {
+        return getClass() + ": distance from a target chromosome. Target = " + target;
+    }
 }

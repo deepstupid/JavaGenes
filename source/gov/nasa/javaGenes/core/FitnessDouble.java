@@ -18,52 +18,63 @@
 //
 package gov.nasa.javaGenes.core;
 
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.Utility;
 
 /**
-lower values are fitter
-*/
+ * lower values are fitter
+ */
 public class FitnessDouble extends Fitness {
-protected double fitness = BAD_FITNESS;
+    protected double fitness = BAD_FITNESS;
 
-public FitnessDouble(double d) {
-  fitness = d;
-}
-public boolean fitterThan(Fitness ff) {
-  Error.assertTrue(ff instanceof FitnessDouble);
-  FitnessDouble f = (FitnessDouble)ff;
-  if (!Utility.normalNumber(f.fitness))
-    return true;
-  return fitness < f.fitness;
-}
-public boolean isDominatedBy(Fitness ff) {
-  Error.assertTrue(ff instanceof FitnessDouble);
-  FitnessDouble f = (FitnessDouble)ff;
-  if (!Utility.normalNumber(f.fitness))
-    return false;
-  return fitness > f.fitness;
-}
+    public FitnessDouble(double d) {
+        fitness = d;
+    }
 
-public double[] getFitnessArray() {
-  double[] array = new double[1];
-  array[0] = fitness;
-  return array;
-}
-public void setFitness(double d) {
-  fitness = d;
-}
-public double asDouble() {return fitness;}
+    public boolean fitterThan(Fitness ff) {
+        Error.assertTrue(ff instanceof FitnessDouble);
+        FitnessDouble f = (FitnessDouble) ff;
+        if (!Utility.normalNumber(f.fitness))
+            return true;
+        return fitness < f.fitness;
+    }
 
-public boolean equals(FitnessDouble f) {
-  return fitness == f.fitness;
-}
-public int hashCode() {
-  Double d = new Double(fitness);
-  return d.hashCode();
-}
-public boolean isValid() {
-  return Utility.normalNumber(fitness);
-}
-public String toString() {return fitness + "";}
+    public boolean isDominatedBy(Fitness ff) {
+        Error.assertTrue(ff instanceof FitnessDouble);
+        FitnessDouble f = (FitnessDouble) ff;
+        if (!Utility.normalNumber(f.fitness))
+            return false;
+        return fitness > f.fitness;
+    }
+
+    public double[] getFitnessArray() {
+        double[] array = new double[1];
+        array[0] = fitness;
+        return array;
+    }
+
+    public void setFitness(double d) {
+        fitness = d;
+    }
+
+    public double asDouble() {
+        return fitness;
+    }
+
+    public boolean equals(FitnessDouble f) {
+        return fitness == f.fitness;
+    }
+
+    public int hashCode() {
+        Double d = new Double(fitness);
+        return d.hashCode();
+    }
+
+    public boolean isValid() {
+        return Utility.normalNumber(fitness);
+    }
+
+    public String toString() {
+        return fitness + "";
+    }
 }

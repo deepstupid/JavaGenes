@@ -18,17 +18,35 @@
 //
 package gov.nasa.javaGenes.core;
 
-import gov.nasa.alsUtility.Error;
-
 // mostly for catching bugs
 public class FitnessBad extends Fitness {
 
-public boolean isValid() {return false;}
-public boolean fitterThan(Fitness f) {return false;}
-public boolean isDominatedBy(Fitness f) {return true;}
-public double[] getFitnessArray() {return new double[0];}
-public String toString() {return "BAD_FITNESS";}
-public boolean equals() {return true;}
-public int hashCode() {return 1;}
+    public boolean isValid() {
+        return false;
+    }
+
+    public boolean fitterThan(Fitness f) {
+        return false;
+    }
+
+    public boolean isDominatedBy(Fitness f) {
+        return true;
+    }
+
+    public double[] getFitnessArray() {
+        return new double[0];
+    }
+
+    public String toString() {
+        return "BAD_FITNESS";
+    }
+
+    public boolean equals() {
+        return true;
+    }
+
+    public int hashCode() {
+        return 1;
+    }
 }
  

@@ -18,34 +18,39 @@
 //
 package gov.nasa.javaGenes.permutation;
 
-import gov.nasa.javaGenes.core.Population;
-import gov.nasa.javaGenes.core.FitnessFunction;
 import gov.nasa.javaGenes.core.Evolvable;
+import gov.nasa.javaGenes.core.FitnessFunction;
 import gov.nasa.javaGenes.core.Individual;
+import gov.nasa.javaGenes.core.Population;
+
 public class PermutationPopulation extends Population {
 
-public PermutationPopulation (PermutationParameters parameters) {
-    this(parameters.permutationLength, parameters.populationSize, parameters.fitnessFunction);
-}
-public PermutationPopulation (int permutationLength, int populationSize, FitnessFunction fitness) {
-    super(populationSize);
-    for (int i = 0; i < population.length; i++)
-        population[i] = new PermutationIndividual(new PermutationEvolvable(permutationLength),fitness);
-}
+    public PermutationPopulation(PermutationParameters parameters) {
+        this(parameters.permutationLength, parameters.populationSize, parameters.fitnessFunction);
+    }
 
-/**
-create an empty population with int size members
-*/
-protected PermutationPopulation(int size) {super(size);}
-/**
-@return a new empty population with int size members
-*/
-public Population makePopulation(int size) {
-    return new PermutationPopulation(size);
-}
+    public PermutationPopulation(int permutationLength, int populationSize, FitnessFunction fitness) {
+        super(populationSize);
+        for (int i = 0; i < population.length; i++)
+            population[i] = new PermutationIndividual(new PermutationEvolvable(permutationLength), fitness);
+    }
 
-public Individual makeIndividual(Evolvable e, FitnessFunction f) {
-  return new PermutationIndividual((PermutationEvolvable)e,f);
-}
+    /**
+     * create an empty population with int size members
+     */
+    protected PermutationPopulation(int size) {
+        super(size);
+    }
+
+    /**
+     * @return a new empty population with int size members
+     */
+    public Population makePopulation(int size) {
+        return new PermutationPopulation(size);
+    }
+
+    public Individual makeIndividual(Evolvable e, FitnessFunction f) {
+        return new PermutationIndividual((PermutationEvolvable) e, f);
+    }
 
 }

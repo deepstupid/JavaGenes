@@ -19,25 +19,29 @@
 package gov.nasa.javaGenes.core;
 
 public class ChildMakerProviderWeighted extends ChildMakerProvider {
-protected RouletteWheel rouletteWheel = new RouletteWheel();
+    protected RouletteWheel rouletteWheel = new RouletteWheel();
 
-public void add(ChildMaker c) {
-    rouletteWheel.add(new ChangingWeightsObject(c));
-}
-public void add(double weight, ChildMaker c) {
-    add(new ChangingWeightsObject(c,weight,0));
-}
-public void add(ChangingWeightsObject w) {
-    super.add((ChildMaker)w.getObject());
-    rouletteWheel.add(w);
-}
-/**
-return a ChildMaker based on a weighted roulette wheel. get() returns random childmaker
-*/
-public ChildMaker getChildMaker(int totalNumberOfKidsProduced) { 
-    return (ChildMaker)rouletteWheel.spinWheel(totalNumberOfKidsProduced);
-}
-public String toString() {
-  return "ChildMakerProviderWeighted " + rouletteWheel.toString();
-}
+    public void add(ChildMaker c) {
+        rouletteWheel.add(new ChangingWeightsObject(c));
+    }
+
+    public void add(double weight, ChildMaker c) {
+        add(new ChangingWeightsObject(c, weight, 0));
+    }
+
+    public void add(ChangingWeightsObject w) {
+        super.add((ChildMaker) w.getObject());
+        rouletteWheel.add(w);
+    }
+
+    /**
+     * return a ChildMaker based on a weighted roulette wheel. get() returns random childmaker
+     */
+    public ChildMaker getChildMaker(int totalNumberOfKidsProduced) {
+        return (ChildMaker) rouletteWheel.spinWheel(totalNumberOfKidsProduced);
+    }
+
+    public String toString() {
+        return "ChildMakerProviderWeighted " + rouletteWheel.toString();
+    }
 }

@@ -19,157 +19,168 @@
 package gov.nasa.alsUtility;
 
 
-import java.lang.Double;
-import java.util.Vector;
 import java.io.Serializable;
-import gov.nasa.alsUtility.Utility;
-import gov.nasa.alsUtility.Error;
+import java.util.Vector;
 
 /**
-holds doubles (called "datums") from a statistical sample and does simple statistics on them
-*/
-public class Sample implements Serializable{
-protected Vector data = new Vector();
-protected boolean statisticsCorrect = true;
-protected double mean = Double.NaN;
-protected double variance = Double.NaN;
-protected double standardDeviation = Double.NaN;
-protected DoubleInterval range = new DoubleInterval(Double.MAX_VALUE,Double.MAX_VALUE); 
+ * holds doubles (called "datums") from a statistical sample and does simple statistics on them
+ */
+public class Sample implements Serializable {
+    protected Vector data = new Vector();
+    protected boolean statisticsCorrect = true;
+    protected double mean = Double.NaN;
+    protected double variance = Double.NaN;
+    protected double standardDeviation = Double.NaN;
+    protected DoubleInterval range = new DoubleInterval(Double.MAX_VALUE, Double.MAX_VALUE);
 //protected boolean isGaussian = false;
 
-/**
-add datum d to the sample
-*/
-public void addDatum (double d) {
-    statisticsCorrect = false;
-    if (Utility.normalNumber(d))
-        data.addElement (new Double(d));
-}
-/**
-@return the ith datum
-*/
-public double getDatum(int i) {return datum(i);}
-/**
-@return the ith datum
-*/
-public double datum(int i) {
-  Error.assertTrue(data.size() > i && i >= 0);
-  return ((Double)data.elementAt(i)).doubleValue();
-}
-/**
-divides every value with by
-@param by value to divide every datum with
-*/
-public void normalize (double by) {
-    for(int i = 0; i < data.size(); i++){
-        data.setElementAt (new Double(datum(i)/by), i);
+    public static String getHeaderString() {
+        return "mean\tvariance\tstandardDeviation\tmin\tmax\tnumber";
     }
-}
-/**
-is there enough data to calculate descriptive statistics?
-*/
-public boolean valid(){
-    return data.size() >= 2;
-}
-/**
-@return statistics in tab separated format
-*/
-public String statisticsString(){
-    calculate();
-    String s = "\t";
-    return
-        mean + s +
-	variance + s +
-	standardDeviation + s +
-	range.low() + s +
-	range.high() + s +
-        getN();
-}
-public static String getHeaderString() {
-	return "mean\tvariance\tstandardDeviation\tmin\tmax\tnumber";
-}
-public static String toString(Sample[] array) {
-	String s = getHeaderString() + "\n";
-	for(int i = 0; i < array.length; i++)
-		s += array[i].statisticsString() + "\n";
-	return s;
-}
-public static String toString(Sample[][] array) {
-	String s = "";
-	for(int i = 0; i < array.length; i++)
-		s += toString(array[i]) + "\n";
-	return s;
-}
 
-/**
-calculate (if necessary) and cache all statistics
-*/
-public void calculate(){
-    if (statisticsCorrect) 
-        return;
-    else {
-        // convert the data into a java array
-        double[] d = new double[data.size()];
-        for(int i = 0; i < data.size(); i++){
-            d[i] = datum(i);
+    public static String toString(Sample[] array) {
+        String s = getHeaderString() + "\n";
+        for (int i = 0; i < array.length; i++)
+            s += array[i].statisticsString() + "\n";
+        return s;
     }
-    
-    range = new DoubleInterval(0,0);
-    mean = 0;
-    variance = 0;
-    standardDeviation = 0;
-    statisticsCorrect = true;	
-    
-    if (d.length == 0)
-        return;
-    
-    range.setToExtremes (d);
-    
-    mean = 0;
-    for(int i = 0; i < d.length; i++)
-        mean += d[i];
-    mean /= d.length;
-    
-    variance = 0;
-    for(int i = 0; i < d.length; i++)
-        variance += (d[i] - mean) * (d[i] - mean);
-    variance /= d.length;
 
-    standardDeviation = Math.sqrt (variance);	
-}
-}
-/**
-@return number of datums
-*/
-public int getN(){return data.size();}
+    public static String toString(Sample[][] array) {
+        String s = "";
+        for (int i = 0; i < array.length; i++)
+            s += toString(array[i]) + "\n";
+        return s;
+    }
 
-public double getMean() {
-    calculate();
-    return mean;
-}
+    /**
+     * add datum d to the sample
+     */
+    public void addDatum(double d) {
+        statisticsCorrect = false;
+        if (Utility.normalNumber(d))
+            data.addElement(new Double(d));
+    }
 
-public double getStandardDeviation() {
-    calculate();
-    return standardDeviation;
-}
+    /**
+     * @return the ith datum
+     */
+    public double getDatum(int i) {
+        return datum(i);
+    }
 
-public double getVariance() {
-    calculate();
-    return variance;
-}
+    /**
+     * @return the ith datum
+     */
+    public double datum(int i) {
+        Error.assertTrue(data.size() > i && i >= 0);
+        return ((Double) data.elementAt(i)).doubleValue();
+    }
 
-public double getRange() {
-    calculate();	
-    return range.interval();
-}
+    /**
+     * divides every value with by
+     *
+     * @param by value to divide every datum with
+     */
+    public void normalize(double by) {
+        for (int i = 0; i < data.size(); i++) {
+            data.setElementAt(new Double(datum(i) / by), i);
+        }
+    }
 
-public double getLow(){
-    calculate();
-    return range.low();
-}
+    /**
+     * is there enough data to calculate descriptive statistics?
+     */
+    public boolean valid() {
+        return data.size() >= 2;
+    }
 
-public double getHigh(){
-    calculate();
-    return range.high();
-}
+    /**
+     * @return statistics in tab separated format
+     */
+    public String statisticsString() {
+        calculate();
+        String s = "\t";
+        return
+                mean + s +
+                        variance + s +
+                        standardDeviation + s +
+                        range.low() + s +
+                        range.high() + s +
+                        getN();
+    }
+
+    /**
+     * calculate (if necessary) and cache all statistics
+     */
+    public void calculate() {
+        if (statisticsCorrect)
+            return;
+        else {
+            // convert the data into a java array
+            double[] d = new double[data.size()];
+            for (int i = 0; i < data.size(); i++) {
+                d[i] = datum(i);
+            }
+
+            range = new DoubleInterval(0, 0);
+            mean = 0;
+            variance = 0;
+            standardDeviation = 0;
+            statisticsCorrect = true;
+
+            if (d.length == 0)
+                return;
+
+            range.setToExtremes(d);
+
+            mean = 0;
+            for (int i = 0; i < d.length; i++)
+                mean += d[i];
+            mean /= d.length;
+
+            variance = 0;
+            for (int i = 0; i < d.length; i++)
+                variance += (d[i] - mean) * (d[i] - mean);
+            variance /= d.length;
+
+            standardDeviation = Math.sqrt(variance);
+        }
+    }
+
+    /**
+     * @return number of datums
+     */
+    public int getN() {
+        return data.size();
+    }
+
+    public double getMean() {
+        calculate();
+        return mean;
+    }
+
+    public double getStandardDeviation() {
+        calculate();
+        return standardDeviation;
+    }
+
+    public double getVariance() {
+        calculate();
+        return variance;
+    }
+
+    public double getRange() {
+        calculate();
+        return range.interval();
+    }
+
+    public double getLow() {
+        calculate();
+        return range.low();
+    }
+
+    public double getHigh() {
+        calculate();
+        return range.high();
+    }
 }

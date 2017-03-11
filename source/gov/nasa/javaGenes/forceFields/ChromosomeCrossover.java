@@ -19,46 +19,50 @@
 package gov.nasa.javaGenes.forceFields;
 
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.javaGenes.core.ChildMaker;
 import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.alsUtility.RandomNumber;
 
 /**
-Implements a uniform crossover operator where the value
-of each double in the child has an equal probability of coming from the father
-or the mother
-*/
+ * Implements a uniform crossover operator where the value
+ * of each double in the child has an equal probability of coming from the father
+ * or the mother
+ */
 public class ChromosomeCrossover extends ChildMaker {
 
-public ChromosomeCrossover() {}
-public int numberOfParents() {return 2;}
-
-public Evolvable[] makeChildren(Evolvable[] parents) {
-	Error.assertTrue(parents.length == 2);
-	Chromosome mom = (Chromosome)parents[0];
-	Chromosome dad = (Chromosome)parents[1];
-  Chromosome[] chromosome = new Chromosome[2];
-  chromosome[0] = getNewChromosome(mom);
-  chromosome[1] = getNewChromosome(dad);
-
-  for(int i = 0; i < mom.numberOfArrays(); i++)
-  for(int j = 0; j < mom.getSize(i); j++) {
-  	double momValue = mom.getValue(i,j);
-  	double dadValue = dad.getValue(i,j);
-    if (RandomNumber.getBoolean()) {
-    	chromosome[0].setValue(momValue,i,j);
-    	chromosome[1].setValue(dadValue,i,j);
-    } else {
-    	chromosome[0].setValue(dadValue,i,j);
-    	chromosome[1].setValue(momValue,i,j);
+    public ChromosomeCrossover() {
     }
-  }
 
-  return chromosome;
-}
+    public int numberOfParents() {
+        return 2;
+    }
 
-protected Chromosome getNewChromosome(Chromosome chromosome) { // should be re-implemented by subclasses
-	return new Chromosome(chromosome);
-}
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Error.assertTrue(parents.length == 2);
+        Chromosome mom = (Chromosome) parents[0];
+        Chromosome dad = (Chromosome) parents[1];
+        Chromosome[] chromosome = new Chromosome[2];
+        chromosome[0] = getNewChromosome(mom);
+        chromosome[1] = getNewChromosome(dad);
+
+        for (int i = 0; i < mom.numberOfArrays(); i++)
+            for (int j = 0; j < mom.getSize(i); j++) {
+                double momValue = mom.getValue(i, j);
+                double dadValue = dad.getValue(i, j);
+                if (RandomNumber.getBoolean()) {
+                    chromosome[0].setValue(momValue, i, j);
+                    chromosome[1].setValue(dadValue, i, j);
+                } else {
+                    chromosome[0].setValue(dadValue, i, j);
+                    chromosome[1].setValue(momValue, i, j);
+                }
+            }
+
+        return chromosome;
+    }
+
+    protected Chromosome getNewChromosome(Chromosome chromosome) { // should be re-implemented by subclasses
+        return new Chromosome(chromosome);
+    }
 }
 

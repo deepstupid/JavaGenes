@@ -18,62 +18,78 @@
 //
 package gov.nasa.javaGenes.EOSscheduling.HBSS.contention;
 
-import java.util.Vector;
 import gov.nasa.alsUtility.Error;
+
+import java.util.Vector;
 
 // depends on AccessWindowWeight.status to determine what's in list and what's not
 public class SensorAvailContenders extends Vector implements java.io.Serializable {
 
-public void reinitialize() {} 
-public void unSchedulableSoRemoveFromContentionNetwork() {
-    for(int i = 0; i < getInitialSize(); i++) {
-        AccessWindowWeight aw = getAccessWindowWeight(i);
-        if (aw.status == Constants.UNDECIDED)
-            aw.unschedulableSoRemoveFromContentionNetwork();
+    public void reinitialize() {
     }
-}
-public void sensorAvailNeedChangedBy(float amount) {
-    for(int i = 0; i < getInitialSize(); i++) {
-        AccessWindowWeight aw = getAccessWindowWeight(i);
-        if (aw.status == Constants.UNDECIDED)
-            aw.sensorAvailNeedChangedBy(amount);
+
+    public void unSchedulableSoRemoveFromContentionNetwork() {
+        for (int i = 0; i < getInitialSize(); i++) {
+            AccessWindowWeight aw = getAccessWindowWeight(i);
+            if (aw.status == Constants.UNDECIDED)
+                aw.unschedulableSoRemoveFromContentionNetwork();
+        }
     }
-}
-public AccessWindowWeight getAccessWindowWeight(int index) {return (AccessWindowWeight)get(index);}
-public int getInitialSize() {return size();}
-public int getCurrentSize() {
-    int count = 0;
-    for(int i = 0; i < getInitialSize(); i++) {
-        AccessWindowWeight aw = getAccessWindowWeight(i);
-        if (aw.status == Constants.UNDECIDED)
-            count++;
+
+    public void sensorAvailNeedChangedBy(float amount) {
+        for (int i = 0; i < getInitialSize(); i++) {
+            AccessWindowWeight aw = getAccessWindowWeight(i);
+            if (aw.status == Constants.UNDECIDED)
+                aw.sensorAvailNeedChangedBy(amount);
+        }
     }
-    return count;
-}
-public float getSensorAvailNeedSumFromCalculation() {
-    float sum = 0;
-    for(int i = 0; i < getInitialSize(); i++) {
-        AccessWindowWeight aw = getAccessWindowWeight(i);
-        if (aw.status == Constants.UNDECIDED)
-            sum += aw.getTaskWeight().getSensorAvailNeed();
+
+    public AccessWindowWeight getAccessWindowWeight(int index) {
+        return (AccessWindowWeight) get(index);
     }
-    return sum;
-}
-/** used for mutual contention check*/
-public void assertAllContendWith(AccessWindowWeight contendsWith) {
-    for(int i = 0; i < getInitialSize(); i++) {
-        AccessWindowWeight aw = getAccessWindowWeight(i);
-        if (aw.status == Constants.UNDECIDED)
-            Error.assertTrue(aw.getSensorAvailContenders().currentlyContains(contendsWith));
+
+    public int getInitialSize() {
+        return size();
     }
-}
-public boolean currentlyContains(AccessWindowWeight isHere) {
-    for(int i = 0; i < getInitialSize(); i++) {
-        AccessWindowWeight aw = getAccessWindowWeight(i);
-        if (aw.status == Constants.UNDECIDED && isHere == aw)
+
+    public int getCurrentSize() {
+        int count = 0;
+        for (int i = 0; i < getInitialSize(); i++) {
+            AccessWindowWeight aw = getAccessWindowWeight(i);
+            if (aw.status == Constants.UNDECIDED)
+                count++;
+        }
+        return count;
+    }
+
+    public float getSensorAvailNeedSumFromCalculation() {
+        float sum = 0;
+        for (int i = 0; i < getInitialSize(); i++) {
+            AccessWindowWeight aw = getAccessWindowWeight(i);
+            if (aw.status == Constants.UNDECIDED)
+                sum += aw.getTaskWeight().getSensorAvailNeed();
+        }
+        return sum;
+    }
+
+    /**
+     * used for mutual contention check
+     */
+    public void assertAllContendWith(AccessWindowWeight contendsWith) {
+        for (int i = 0; i < getInitialSize(); i++) {
+            AccessWindowWeight aw = getAccessWindowWeight(i);
+            if (aw.status == Constants.UNDECIDED)
+                Error.assertTrue(aw.getSensorAvailContenders().currentlyContains(contendsWith));
+        }
+    }
+
+    public boolean currentlyContains(AccessWindowWeight isHere) {
+        for (int i = 0; i < getInitialSize(); i++) {
+            AccessWindowWeight aw = getAccessWindowWeight(i);
+            if (aw.status == Constants.UNDECIDED && isHere == aw)
                 return true;
+        }
+        return false;
     }
-    return false;
-}
 
 }

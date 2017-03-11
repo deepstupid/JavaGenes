@@ -18,26 +18,37 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import gov.nasa.alsUtility.Error;
-
 public class CrossoverOnePoint extends Crossover {
 
-public CrossoverOnePoint() {this(new SelectOneNeighboringPair());}
-public CrossoverOnePoint(int modulo) {this(new SelectOneNeighboringPair(modulo,0));}
-public CrossoverOnePoint(int modulo, int offset) {this(new SelectOneNeighboringPair(modulo,offset));}
-public CrossoverOnePoint(SelectOneNeighboringPair selector) {super(selector);}
+    public CrossoverOnePoint() {
+        this(new SelectOneNeighboringPair());
+    }
 
-protected void crossover(EvolvableDoubleList child, EvolvableDoubleList front, EvolvableDoubleList back, int[] frontIndices, int[] backIndices) {
-	child.removeAll();
-	int frontIndex = frontIndices.length >= 2 ? frontIndices[0] : front.getLastIndex();
-	int backIndex = backIndices.length >= 2 ? backIndices[1] : 0;
-    for(int i = 0; i <= frontIndex; i++)
-        child.addDoubleValue(front.getDoubleValue(i));
-    for(int i = backIndex; i < back.getSize(); i++)
-        child.addDoubleValue(back.getDoubleValue(i));
-}
+    public CrossoverOnePoint(int modulo) {
+        this(new SelectOneNeighboringPair(modulo, 0));
+    }
 
-public String toString() {return "CrossoverOnePoint selector = " + selector.toString();}
+    public CrossoverOnePoint(int modulo, int offset) {
+        this(new SelectOneNeighboringPair(modulo, offset));
+    }
+
+    public CrossoverOnePoint(SelectOneNeighboringPair selector) {
+        super(selector);
+    }
+
+    protected void crossover(EvolvableDoubleList child, EvolvableDoubleList front, EvolvableDoubleList back, int[] frontIndices, int[] backIndices) {
+        child.removeAll();
+        int frontIndex = frontIndices.length >= 2 ? frontIndices[0] : front.getLastIndex();
+        int backIndex = backIndices.length >= 2 ? backIndices[1] : 0;
+        for (int i = 0; i <= frontIndex; i++)
+            child.addDoubleValue(front.getDoubleValue(i));
+        for (int i = backIndex; i < back.getSize(); i++)
+            child.addDoubleValue(back.getDoubleValue(i));
+    }
+
+    public String toString() {
+        return "CrossoverOnePoint selector = " + selector.toString();
+    }
 }
 
 

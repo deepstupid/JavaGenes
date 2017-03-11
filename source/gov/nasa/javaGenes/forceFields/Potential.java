@@ -21,45 +21,64 @@ package gov.nasa.javaGenes.forceFields;
 import gov.nasa.alsUtility.Error;
 
 /**
-this classes used to find energy of a multibody system given a particular
-Chromosome for the potential parameters.  Originally designed for molecular force fields.
-*/
+ * this classes used to find energy of a multibody system given a particular
+ * Chromosome for the potential parameters.  Originally designed for molecular force fields.
+ */
 abstract public class Potential {
-public static final int STILLINGER_WEBER = 0;
-public static final int TERSOFF = 1;
-/**
-@param target use this chromosome to establish the parameters of the potential
-*/
-abstract public void setChromosome(Chromosome target);
-abstract public AlleleTemplate getAlleles();
-public void mustModel(ManyMultiBodiesForOneEnergy bodies) {
-    Error.notImplemented();
-}
-public double getCutoff(TwoBody m) {Error.notImplemented(); return 0;}
-public double getCutoff(ThreeBody m) {Error.notImplemented(); return 0;}
-/**
-@return the energies associated with bodies
-*/
-public double[] getEnergy(Bodies[] bodies) {
-  Error.notImplemented();
-  return null;
-}
-public double getForce(TwoBody pair) {
-  return 0;
-}
-/**
-@param energies the energies associated with bodies
-*/
-public void getEnergy(Bodies[] bodies, double[] energies){
-  Error.notImplemented();
-}
-public double getEnergy(MultiBodiesForOneEnergy bodies){
-  Error.notImplemented();
-  return 0;
-}
-public double getEnergy(MultiBody bodies){
-  Error.notImplemented();
-  return 0;
-}
-public String toString() {return getClass().toString();}
+    public static final int STILLINGER_WEBER = 0;
+    public static final int TERSOFF = 1;
+
+    /**
+     * @param target use this chromosome to establish the parameters of the potential
+     */
+    abstract public void setChromosome(Chromosome target);
+
+    abstract public AlleleTemplate getAlleles();
+
+    public void mustModel(ManyMultiBodiesForOneEnergy bodies) {
+        Error.notImplemented();
+    }
+
+    public double getCutoff(TwoBody m) {
+        Error.notImplemented();
+        return 0;
+    }
+
+    public double getCutoff(ThreeBody m) {
+        Error.notImplemented();
+        return 0;
+    }
+
+    /**
+     * @return the energies associated with bodies
+     */
+    public double[] getEnergy(Bodies[] bodies) {
+        Error.notImplemented();
+        return null;
+    }
+
+    public double getForce(TwoBody pair) {
+        return 0;
+    }
+
+    /**
+     * @param energies the energies associated with bodies
+     */
+    public void getEnergy(Bodies[] bodies, double[] energies) {
+        Error.notImplemented();
+    }
+
+    public double getEnergy(MultiBodiesForOneEnergy bodies) {
+        Error.notImplemented();
+        return 0;
+    }
+
+    public double getEnergy(MultiBody bodies) {
+        Error.notImplemented();
+        return 0;
+    }
+
+    public String toString() {
+        return getClass().toString();
+    }
 }

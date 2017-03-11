@@ -21,10 +21,14 @@ package gov.nasa.javaGenes.graph;
 import gov.nasa.alsUtility.Predicate;
 
 public class HasInputEdgeFrom implements Predicate {
-protected DirectedVertex vertex;
-public HasInputEdgeFrom(DirectedVertex v) {vertex = v;}
-public boolean execute(Object object) {
-	DirectedVertex other = (DirectedVertex)object;
-  return other.hasInputEdgeFrom(vertex);
-}
+    protected DirectedVertex vertex;
+
+    public HasInputEdgeFrom(DirectedVertex v) {
+        vertex = v;
+    }
+
+    public boolean execute(Object object) {
+        DirectedVertex other = (DirectedVertex) object;
+        return other.hasInputEdgeFrom(vertex);
+    }
 }

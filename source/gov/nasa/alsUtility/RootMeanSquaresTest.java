@@ -19,24 +19,27 @@
 package gov.nasa.alsUtility;
 
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 
 public class RootMeanSquaresTest extends TestCase {
 
-public RootMeanSquaresTest(String name) {super(name);}
+    public RootMeanSquaresTest(String name) {
+        super(name);
+    }
 
-private double get(double[] array) {
-  RootMeanSquares rms = new RootMeanSquares();
-  for(int i = 0; i < array.length; i++)
-    rms.addDatum(array[i]);
-  return rms.rms();
-}
-public void test() {
-  double[] a = {1,1,1};
-  assertTrue(Utility.nearlyEqual(1,get(a)));
-  double[] b = {0.5,1,2};
-  assertTrue(1 < get(b));;
-  RootMeanSquares rms = new RootMeanSquares();
-  assertTrue(rms.rms() == 0);
-}
+    private double get(double[] array) {
+        RootMeanSquares rms = new RootMeanSquares();
+        for (int i = 0; i < array.length; i++)
+            rms.addDatum(array[i]);
+        return rms.rms();
+    }
+
+    public void test() {
+        double[] a = {1, 1, 1};
+        assertTrue(Utility.nearlyEqual(1, get(a)));
+        double[] b = {0.5, 1, 2};
+        assertTrue(1 < get(b));
+        ;
+        RootMeanSquares rms = new RootMeanSquares();
+        assertTrue(rms.rms() == 0);
+    }
 }

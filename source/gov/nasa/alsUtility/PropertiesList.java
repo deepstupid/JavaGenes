@@ -23,29 +23,41 @@ import java.util.Hashtable;
 import java.util.StringTokenizer;
 
 public class PropertiesList {
-protected Hashtable table = new Hashtable();
-final static protected String assignmentString = "=";
+    final static protected String assignmentString = "=";
+    protected Hashtable table = new Hashtable();
 
-public PropertiesList(String list) {
-    StringTokenizer tokenizer = new StringTokenizer(list);
-    while(tokenizer.countTokens() >= 3) {
-        String key = tokenizer.nextToken();
-        tokenizer.nextToken();// should be = //Error.assertTrue(tokenizer.nextToken().equals(assignmentString),"no assignment " + assignmentString + " for property in " + list);
-        String value = tokenizer.nextToken();
-        putProperty(key,value);
+    public PropertiesList(String list) {
+        StringTokenizer tokenizer = new StringTokenizer(list);
+        while (tokenizer.countTokens() >= 3) {
+            String key = tokenizer.nextToken();
+            tokenizer.nextToken();// should be = //Error.assertTrue(tokenizer.nextToken().equals(assignmentString),"no assignment " + assignmentString + " for property in " + list);
+            String value = tokenizer.nextToken();
+            putProperty(key, value);
+        }
     }
-}
-public void putProperty(String key, String value) {
-    table.put(key,value);
-}
-public boolean hasProperty(String name) {
-    return table.containsKey(name);
-}
-public String getProperty(String name) {
-    return (String)table.get(name);
-}
-public int size() {return table.size();}
-static public String separator() {return "\t";}
-static public String assignmentString() {return " " + assignmentString + " ";}
+
+    static public String separator() {
+        return "\t";
+    }
+
+    static public String assignmentString() {
+        return " " + assignmentString + " ";
+    }
+
+    public void putProperty(String key, String value) {
+        table.put(key, value);
+    }
+
+    public boolean hasProperty(String name) {
+        return table.containsKey(name);
+    }
+
+    public String getProperty(String name) {
+        return (String) table.get(name);
+    }
+
+    public int size() {
+        return table.size();
+    }
 
 }

@@ -20,11 +20,12 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 
 public class PointingRequirementTest extends TestCase {
 
-public PointingRequirementTest(String name) {super(name);}
+    public PointingRequirementTest(String name) {
+        super(name);
+    }
 
 }
 

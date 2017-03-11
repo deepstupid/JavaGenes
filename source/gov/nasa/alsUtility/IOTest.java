@@ -19,23 +19,25 @@
 
 
 package gov.nasa.alsUtility;
+
 import junit.framework.TestCase;
-import java.io.File;
 
 public class IOTest extends TestCase {
 
-public IOTest(String name) {super(name);}
+    public IOTest(String name) {
+        super(name);
+    }
 
-public void testRenameFile() {
-  String from = "existing.IOTEST";
-  String to = "new.IOTEST";
-  String string = "testing";
-  Utility.removeFile(from);
-  Utility.makeFile(from, string);
-  gov.nasa.alsUtility.IO.renameFile(from,to);
-  String input = Utility.readOneLineFile(to);
-  assertTrue(input.equals(string));
-  Utility.removeFile(to);
-}
+    public void testRenameFile() {
+        String from = "existing.IOTEST";
+        String to = "new.IOTEST";
+        String string = "testing";
+        Utility.removeFile(from);
+        Utility.makeFile(from, string);
+        gov.nasa.alsUtility.IO.renameFile(from, to);
+        String input = Utility.readOneLineFile(to);
+        assertTrue(input.equals(string));
+        Utility.removeFile(to);
+    }
 
 }

@@ -18,35 +18,37 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.DoubleInterval;
-import gov.nasa.alsUtility.IntegerInterval;
+import gov.nasa.alsUtility.Error;
 
-/** for fixed length representations */
+/**
+ * for fixed length representations
+ */
 public class ChildMakerProviderRandomMutations extends ChildMakerProviderRandom {
-protected double minStandardDeviaion;
-protected double maxStandardDeviaion;
-protected int evolvableSize;
+    protected double minStandardDeviaion;
+    protected double maxStandardDeviaion;
+    protected int evolvableSize;
 
-public ChildMakerProviderRandomMutations(int numberOfChildMakers, int evolvableSize, double minStandardDeviaion, double maxStandardDeviaion) {
-	Error.assertTrue(numberOfChildMakers >= 0);
-	Error.assertTrue(evolvableSize > 0);
-	this.evolvableSize = evolvableSize;
-	Error.assertTrue(0 <= minStandardDeviaion);
-	Error.assertTrue(minStandardDeviaion <= maxStandardDeviaion);
-	this.minStandardDeviaion = minStandardDeviaion;
-	this.maxStandardDeviaion = maxStandardDeviaion;
-	for(int i = 0; i < numberOfChildMakers; i++) {
-		double weight = new DoubleInterval(1,10).random();
-		add(weight,create());
-	}
-}
-public gov.nasa.javaGenes.core.ChildMaker create() {
-	Selector selector = getRandomSelector(1,0,evolvableSize,evolvableSize);
-	return new MutationFixedStdDev(selector,new DoubleInterval(minStandardDeviaion,maxStandardDeviaion).random());
-}
-public String toString() {
-	return "ChildMakerProviderRandomMutations " + super.toString();
-}
+    public ChildMakerProviderRandomMutations(int numberOfChildMakers, int evolvableSize, double minStandardDeviaion, double maxStandardDeviaion) {
+        Error.assertTrue(numberOfChildMakers >= 0);
+        Error.assertTrue(evolvableSize > 0);
+        this.evolvableSize = evolvableSize;
+        Error.assertTrue(0 <= minStandardDeviaion);
+        Error.assertTrue(minStandardDeviaion <= maxStandardDeviaion);
+        this.minStandardDeviaion = minStandardDeviaion;
+        this.maxStandardDeviaion = maxStandardDeviaion;
+        for (int i = 0; i < numberOfChildMakers; i++) {
+            double weight = new DoubleInterval(1, 10).random();
+            add(weight, create());
+        }
+    }
+
+    public gov.nasa.javaGenes.core.ChildMaker create() {
+        Selector selector = getRandomSelector(1, 0, evolvableSize, evolvableSize);
+        return new MutationFixedStdDev(selector, new DoubleInterval(minStandardDeviaion, maxStandardDeviaion).random());
+    }
+
+    public String toString() {
+        return "ChildMakerProviderRandomMutations " + super.toString();
+    }
 }

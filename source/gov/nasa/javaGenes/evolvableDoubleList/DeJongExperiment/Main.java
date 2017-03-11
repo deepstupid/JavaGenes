@@ -19,8 +19,8 @@
 package gov.nasa.javaGenes.evolvableDoubleList.DeJongExperiment;
 
 public class Main {
-public static void main(String[] arguments) {
-    Run run = new Run();
-    run.start(arguments);
-}
+    public static void main(String[] arguments) {
+        Run run = new Run();
+        run.start(arguments);
+    }
 }

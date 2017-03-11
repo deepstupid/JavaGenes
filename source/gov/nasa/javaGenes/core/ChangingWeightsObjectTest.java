@@ -19,24 +19,27 @@
 //  Created by Al Globus on Wed May 14 2003.
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class ChangingWeightsObjectTest extends TestCase {
 
-public ChangingWeightsObjectTest(String name) {super(name);}
+    public ChangingWeightsObjectTest(String name) {
+        super(name);
+    }
 
-public void testConstructor() {
-    ChangingWeightsObject c = new ChangingWeightsObject(null,1,6,2);
-    assertTrue("1",Utility.nearlyEqual(c.slope,2.5));
-}
-public void testWeight() {
-    ChangingWeightsObject c = new ChangingWeightsObject(null,1,6,2);
-    c.calculateWeight(0);
-    assertTrue("1", Utility.nearlyEqual(c.getWeight(),1));
-    c.calculateWeight(2);
-    assertTrue("2", Utility.nearlyEqual(c.getWeight(),6));
-    c.calculateWeight(1);
-    assertTrue("3", Utility.nearlyEqual(c.getWeight(),3.5));
-}
+    public void testConstructor() {
+        ChangingWeightsObject c = new ChangingWeightsObject(null, 1, 6, 2);
+        assertTrue("1", Utility.nearlyEqual(c.slope, 2.5));
+    }
+
+    public void testWeight() {
+        ChangingWeightsObject c = new ChangingWeightsObject(null, 1, 6, 2);
+        c.calculateWeight(0);
+        assertTrue("1", Utility.nearlyEqual(c.getWeight(), 1));
+        c.calculateWeight(2);
+        assertTrue("2", Utility.nearlyEqual(c.getWeight(), 6));
+        c.calculateWeight(1);
+        assertTrue("3", Utility.nearlyEqual(c.getWeight(), 3.5));
+    }
 }

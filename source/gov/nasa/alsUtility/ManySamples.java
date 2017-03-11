@@ -19,30 +19,30 @@
 package gov.nasa.alsUtility;
 
 
-import java.util.Hashtable;
 import java.io.Serializable;
-import gov.nasa.alsUtility.Utility;
+import java.util.Hashtable;
 
 /**
-@see Sample
-*/
+ * @see Sample
+ */
 public class ManySamples extends Hashtable implements Serializable {
-/**
-@return the sample with name String name. Create it if necessary.
-*/
-public Sample getSample (String name) {
-    Sample s = (Sample) get (name);
-    if (s == null){
-        s = new Sample();
-        put (name, s);
+    /**
+     * @return the sample with name String name. Create it if necessary.
+     */
+    public Sample getSample(String name) {
+        Sample s = (Sample) get(name);
+        if (s == null) {
+            s = new Sample();
+            put(name, s);
+        }
+        return s;
     }
-    return s;
-}
-/**
-@return an array of all Sample object names
-*/
-public String[] getDataNames(){
-    return Utility.getStringKeys (this);
-} 
+
+    /**
+     * @return an array of all Sample object names
+     */
+    public String[] getDataNames() {
+        return Utility.getStringKeys(this);
+    }
 
 }

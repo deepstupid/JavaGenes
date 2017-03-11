@@ -20,46 +20,49 @@
 
 package gov.nasa.javaGenes.EOSscheduling;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.RandomNumber;
+import junit.framework.TestCase;
 
 public class TaskTest extends TestCase {
 
-public TaskTest(String name) {super(name);}
+    public TaskTest(String name) {
+        super(name);
+    }
 
-public void testSortingAccessWindows() {
-    final int numberOfWindows = 50;
-    Task task = new Task(5);
-    for(int i = 0; i < numberOfWindows; i++) {
-        int start = RandomNumber.getIndex(10000);
-        int end = RandomNumber.getIndex(100)+start;
-        AccessWindow w = new AccessWindow(start,end);
-        task.addAccessWindow(w);
+    public void testSortingAccessWindows() {
+        final int numberOfWindows = 50;
+        Task task = new Task(5);
+        for (int i = 0; i < numberOfWindows; i++) {
+            int start = RandomNumber.getIndex(10000);
+            int end = RandomNumber.getIndex(100) + start;
+            AccessWindow w = new AccessWindow(start, end);
+            task.addAccessWindow(w);
+        }
+        assertTrue("0", !task.areAccessWindowsInEarliestFirstOrder());
+        task.hasAllAccessWindowsNow();
+        assertTrue("1", task.areAccessWindowsInEarliestFirstOrder());
+        AccessWindow[] array = task.getAccessWindows();
+        assertTrue("2", array.length == numberOfWindows);
+        int lastOne = -1;
+        for (int i = 0; i < array.length; i++) {
+            int thisOne = array[i].getStart();
+            assertTrue("i = " + i, thisOne >= lastOne);
+            lastOne = thisOne;
+        }
     }
-    assertTrue("0",!task.areAccessWindowsInEarliestFirstOrder());
-    task.hasAllAccessWindowsNow();
-    assertTrue("1",task.areAccessWindowsInEarliestFirstOrder());
-    AccessWindow[] array = task.getAccessWindows();
-    assertTrue("2",array.length == numberOfWindows);
-    int lastOne = -1;
-    for(int i = 0; i < array.length; i++) {
-        int thisOne = array[i].getStart();
-        assertTrue("i = " + i, thisOne >= lastOne);
-        lastOne = thisOne;
+
+    public void testIsExecutable() {
+        final int numberOfWindows = 50;
+        Task task = new Task(5);
+        assertTrue("-1", !task.isExecutable());
+        for (int i = 0; i < numberOfWindows; i++) {
+            int start = RandomNumber.getIndex(10000);
+            int end = RandomNumber.getIndex(100) + start;
+            AccessWindow w = new AccessWindow(start, end);
+            task.addAccessWindow(w);
+            assertTrue(i + "", task.isExecutable());
+        }
+        task.hasAllAccessWindowsNow();
+        assertTrue((numberOfWindows + 1) + "", task.isExecutable());
     }
-}
-public void testIsExecutable() {
-    final int numberOfWindows = 50;
-    Task task = new Task(5);
-    assertTrue("-1",!task.isExecutable());
-    for(int i = 0; i < numberOfWindows; i++) {
-        int start = RandomNumber.getIndex(10000);
-        int end = RandomNumber.getIndex(100)+start;
-        AccessWindow w = new AccessWindow(start,end);
-        task.addAccessWindow(w);
-        assertTrue(i+"",task.isExecutable());
-    }
-    task.hasAllAccessWindowsNow();
-    assertTrue((numberOfWindows+1)+"",task.isExecutable());
-}
 }

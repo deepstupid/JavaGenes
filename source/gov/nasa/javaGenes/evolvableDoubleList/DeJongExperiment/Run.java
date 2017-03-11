@@ -19,14 +19,15 @@
 package gov.nasa.javaGenes.evolvableDoubleList.DeJongExperiment;
 
 public class Run extends gov.nasa.javaGenes.core.Run {
-public Run() {}
+    public Run() {
+    }
 
-protected void startSpecialized(String[] arguments) {
-    Parameters parameters = new Parameters();
-    this.parameters = (gov.nasa.javaGenes.core.Parameters)parameters;
-    generationTimer.start();
-    this.population = parameters.population;
-    this.reporter = parameters.reporter;
-    generationTimer.stop();
-}
+    protected void startSpecialized(String[] arguments) {
+        Parameters parameters = new Parameters();
+        this.parameters = (gov.nasa.javaGenes.core.Parameters) parameters;
+        generationTimer.start();
+        this.population = parameters.population;
+        this.reporter = parameters.reporter;
+        generationTimer.stop();
+    }
 }

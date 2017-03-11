@@ -19,34 +19,36 @@
 package gov.nasa.alsUtility;
 
 import junit.framework.TestCase;
-import java.lang.Integer;
 
 public class ExtendedTreeSetTest extends TestCase {
-public ExtendedTreeSetTest(String name) {super(name);}
-public void testRemove() {
-    ExtendedTreeSet set = new ExtendedTreeSet();
-    
-    Integer one = new Integer(1);
-    set.add(one);
-    assertTrue("1", set.size() == 1);
-    set.remove(0);
-    assertTrue("2", set.size() == 0);
-    set.add(one);
-    set.add(new Integer(2));
-    set.remove(1);
-    assertTrue("3", set.size() == 1);
-    assertTrue("4", set.contains(one));
-    set.add(new Integer(3));
-    set.add(new Integer(4));
-    set.remove(0);
-    assertFalse("5", set.contains(one));
-    set.remove(0);
-    set.remove(0);
-    assertTrue("6", set.size() == 0);
-    set.add(one);
-    set.add(new Integer(-1));
-    set.add(new Integer(-5));
-    set.remove(2);
-    assertFalse("7", set.contains(one));
-}
+    public ExtendedTreeSetTest(String name) {
+        super(name);
+    }
+
+    public void testRemove() {
+        ExtendedTreeSet set = new ExtendedTreeSet();
+
+        Integer one = new Integer(1);
+        set.add(one);
+        assertTrue("1", set.size() == 1);
+        set.remove(0);
+        assertTrue("2", set.size() == 0);
+        set.add(one);
+        set.add(new Integer(2));
+        set.remove(1);
+        assertTrue("3", set.size() == 1);
+        assertTrue("4", set.contains(one));
+        set.add(new Integer(3));
+        set.add(new Integer(4));
+        set.remove(0);
+        assertFalse("5", set.contains(one));
+        set.remove(0);
+        set.remove(0);
+        assertTrue("6", set.size() == 0);
+        set.add(one);
+        set.add(new Integer(-1));
+        set.add(new Integer(-5));
+        set.remove(2);
+        assertFalse("7", set.contains(one));
+    }
 }

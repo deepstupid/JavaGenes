@@ -19,28 +19,29 @@
 package gov.nasa.javaGenes.core;
 
 import gov.nasa.alsUtility.Error;
+
 import java.util.Comparator;
 
-class ChildMakerDownFractionComparator implements Comparator,java.io.Serializable {
-public int compare(Object o1, Object o2) {
-	Error.assertTrue(o1 instanceof ChildMaker && o2 instanceof ChildMaker);
-	ChildMaker c1 = (ChildMaker)o1;
-	ChildMaker c2 = (ChildMaker)o2;
+class ChildMakerDownFractionComparator implements Comparator, java.io.Serializable {
+    public int compare(Object o1, Object o2) {
+        Error.assertTrue(o1 instanceof ChildMaker && o2 instanceof ChildMaker);
+        ChildMaker c1 = (ChildMaker) o1;
+        ChildMaker c2 = (ChildMaker) o2;
 
-	if (c1.forEvolution.getN() == 0 && c2.forEvolution.getN() == 0)
-		return 0;
-	if (c1.forEvolution.getN() == 0)
-		return -1;
-	if (c2.forEvolution.getN() == 0)
-		return 1;
+        if (c1.forEvolution.getN() == 0 && c2.forEvolution.getN() == 0)
+            return 0;
+        if (c1.forEvolution.getN() == 0)
+            return -1;
+        if (c2.forEvolution.getN() == 0)
+            return 1;
 
-	double score1 = c1.forEvolution.getDownFranction();
-	double score2 = c2.forEvolution.getDownFranction();
-	if (score1 > score2)
-		return -1; // these go first when childMakers is sorted
-	else if (score1 == score2)
-		return 0;
-	else
-		return 1;
-}
+        double score1 = c1.forEvolution.getDownFranction();
+        double score2 = c2.forEvolution.getDownFranction();
+        if (score1 > score2)
+            return -1; // these go first when childMakers is sorted
+        else if (score1 == score2)
+            return 0;
+        else
+            return 1;
+    }
 }

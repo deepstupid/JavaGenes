@@ -21,28 +21,36 @@ package gov.nasa.javaGenes.graph;
 import gov.nasa.alsUtility.Predicate;
 
 /**
-mutate a vertex
-*/
+ * mutate a vertex
+ */
 public class MutateVertex extends GraphMutation {
-/**
-provides the vertex to mutate to
-*/
-protected VertexAndEdgeProvider provider;
-public MutateVertex(VertexAndEdgeProvider p) {provider = p;}
+    /**
+     * provides the vertex to mutate to
+     */
+    protected VertexAndEdgeProvider provider;
 
-public Graph makeChild(Graph child) {
-  Vertex newVertex = provider.getVertex ();
-  Vertex oldVertex = child.getRandomVertex (new CanReplace(newVertex));
-  if (oldVertex == null) return null;
-  child.replaceVertex (oldVertex, newVertex);
-  return child;
-}
-private class CanReplace implements Predicate {
-  protected Vertex replaceWith;
-  public CanReplace(Vertex v) {replaceWith = v;}
-  public boolean execute (Object object) {
-    Vertex v = (Vertex) object;
-    return !replaceWith.isSame (v) && replaceWith.canAcceptEdgesOf (v);
-}
-}
+    public MutateVertex(VertexAndEdgeProvider p) {
+        provider = p;
+    }
+
+    public Graph makeChild(Graph child) {
+        Vertex newVertex = provider.getVertex();
+        Vertex oldVertex = child.getRandomVertex(new CanReplace(newVertex));
+        if (oldVertex == null) return null;
+        child.replaceVertex(oldVertex, newVertex);
+        return child;
+    }
+
+    private class CanReplace implements Predicate {
+        protected Vertex replaceWith;
+
+        public CanReplace(Vertex v) {
+            replaceWith = v;
+        }
+
+        public boolean execute(Object object) {
+            Vertex v = (Vertex) object;
+            return !replaceWith.isSame(v) && replaceWith.canAcceptEdgesOf(v);
+        }
+    }
 }

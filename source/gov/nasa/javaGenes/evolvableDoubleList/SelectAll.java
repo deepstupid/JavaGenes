@@ -20,13 +20,14 @@ package gov.nasa.javaGenes.evolvableDoubleList;
 
 public class SelectAll extends Selector {
 
-public Indices getIndices(int size) {
-    Indices selection = new Indices();
-    selection.addAll(size);
-    return selection;
-}
-public String toString() {
-    return "SelectAll";
-}
+    public Indices getIndices(int size) {
+        Indices selection = new Indices();
+        selection.addAll(size);
+        return selection;
+    }
+
+    public String toString() {
+        return "SelectAll";
+    }
 
 }

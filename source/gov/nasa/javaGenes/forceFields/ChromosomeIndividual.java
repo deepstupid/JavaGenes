@@ -18,37 +18,38 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import gov.nasa.javaGenes.core.Individual;
-import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.core.FitnessFunction;
-import gov.nasa.javaGenes.core.TokenizeInput;
-import gov.nasa.javaGenes.core.TokenizeOutput;
+import gov.nasa.javaGenes.core.*;
 
-public class ChromosomeIndividual extends Individual{
+public class ChromosomeIndividual extends Individual {
 
-/**
-Sets the evolvable to e and calculates the fitness using
-FitnessFunction f.
-*/
-public ChromosomeIndividual(Evolvable e, FitnessFunction f) {
-  super(e,f);
-}
-/**
-restore from a checkpoint
-*/
-public ChromosomeIndividual(TokenizeInput tokenizer) {
-	super(tokenizer);
-  evolvable = new Chromosome(tokenizer);
-}
-/**
-checkpoint
-*/
-public void stateSave(TokenizeOutput tokenizer) {
-	super.stateSave(tokenizer);
-  evolvable.stateSave(tokenizer);
-}
-/**
-@return the evolvable as a Chromosome
-*/
-public Chromosome getChromosome() {return (Chromosome)evolvable;}
+    /**
+     * Sets the evolvable to e and calculates the fitness using
+     * FitnessFunction f.
+     */
+    public ChromosomeIndividual(Evolvable e, FitnessFunction f) {
+        super(e, f);
+    }
+
+    /**
+     * restore from a checkpoint
+     */
+    public ChromosomeIndividual(TokenizeInput tokenizer) {
+        super(tokenizer);
+        evolvable = new Chromosome(tokenizer);
+    }
+
+    /**
+     * checkpoint
+     */
+    public void stateSave(TokenizeOutput tokenizer) {
+        super.stateSave(tokenizer);
+        evolvable.stateSave(tokenizer);
+    }
+
+    /**
+     * @return the evolvable as a Chromosome
+     */
+    public Chromosome getChromosome() {
+        return (Chromosome) evolvable;
+    }
 } 

@@ -19,30 +19,35 @@
 package gov.nasa.alsUtility;
 
 public class Brick3dWithSegments extends Brick3d {
-double[][] segmentCoordinates = new double[3][];
+    double[][] segmentCoordinates = new double[3][];
 
-/** NOTE: the segments are created here and never updated, even if you change the brick */
-public Brick3dWithSegments(Brick3d corners, int[] numberOfSegments) {
-	super(corners);
-	Error.assertTrue(numberOfSegments.length == 3);
-	for(int i = 0; i < numberOfSegments.length; i++)
-		segmentCoordinates[i] = createSegmentCoordinates(corners.getInterval(i),numberOfSegments[i]);
+    /**
+     * NOTE: the segments are created here and never updated, even if you change the brick
+     */
+    public Brick3dWithSegments(Brick3d corners, int[] numberOfSegments) {
+        super(corners);
+        Error.assertTrue(numberOfSegments.length == 3);
+        for (int i = 0; i < numberOfSegments.length; i++)
+            segmentCoordinates[i] = createSegmentCoordinates(corners.getInterval(i), numberOfSegments[i]);
+    }
+
+    protected double[] createSegmentCoordinates(DoubleInterval interval, int numberOfSegments) {
+        Error.assertTrue(numberOfSegments > 0);
+        double[] coordinates = new double[numberOfSegments + 1];
+        double segmentLength = interval.interval() / numberOfSegments;
+        coordinates[0] = interval.low(); // to avoid any possibility of numerical problems
+        for (int i = 1; i < coordinates.length - 1; i++)
+            coordinates[i] = interval.low() + i * segmentLength;
+        coordinates[coordinates.length - 1] = interval.high(); // to avoid any possibility of numerical problems
+        return coordinates;
+    }
+
+    public double[] getSegmentCoordinates(int i) {
+        return segmentCoordinates[i];
+    }
+
+    public void expandByAddition(double expandBy) {
+        Error.fatal("segments coordinates are never updated");
+    }
 }
-protected double[] createSegmentCoordinates(DoubleInterval interval, int numberOfSegments) {
-	Error.assertTrue(numberOfSegments > 0);
-	double[] coordinates = new double[numberOfSegments+1];
-	double segmentLength = interval.interval() / numberOfSegments;
-	coordinates[0] = interval.low(); // to avoid any possibility of numerical problems
-	for(int i = 1; i < coordinates.length-1; i++)
-		coordinates[i] = interval.low() + i*segmentLength;
-	coordinates[coordinates.length-1] = interval.high(); // to avoid any possibility of numerical problems
-	return coordinates; 
-}
-public double[] getSegmentCoordinates(int i) {
-	return segmentCoordinates[i];
-}
-public void expandByAddition(double expandBy) {
-	Error.fatal("segments coordinates are never updated");
-}
-}
-	
+

@@ -20,8 +20,8 @@ package gov.nasa.javaGenes.forceFields;
 
 
 /**
-superclass for objects representing the species of the body for many body problems.
-*/
+ * superclass for objects representing the species of the body for many body problems.
+ */
 public class Species {
 }
 

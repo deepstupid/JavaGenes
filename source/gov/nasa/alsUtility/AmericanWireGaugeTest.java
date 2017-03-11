@@ -22,11 +22,13 @@ import junit.framework.TestCase;
 
 public class AmericanWireGaugeTest extends TestCase {
 
-public AmericanWireGaugeTest(String name) {super(name);}
+    public AmericanWireGaugeTest(String name) {
+        super(name);
+    }
 
-public void test() {
-	Error.assertTrue("20", Utility.nearlyEqual(0.0004064, AmericanWireGauge.getRadius(20)));
-	Error.assertTrue("18", Utility.nearlyEqual(0.000512, AmericanWireGauge.getRadius(18)));
-	Error.assertTrue("22", Utility.nearlyEqual(0.0003213, AmericanWireGauge.getRadius(22)));
-}
+    public void test() {
+        Error.assertTrue("20", Utility.nearlyEqual(0.0004064, AmericanWireGauge.getRadius(20)));
+        Error.assertTrue("18", Utility.nearlyEqual(0.000512, AmericanWireGauge.getRadius(18)));
+        Error.assertTrue("22", Utility.nearlyEqual(0.0003213, AmericanWireGauge.getRadius(22)));
+    }
 }

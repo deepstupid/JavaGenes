@@ -18,22 +18,25 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.DoubleInterval;
+import junit.framework.TestCase;
 
 public class ChromosomeMutationTest extends TestCase {
 
-public ChromosomeMutationTest(String name) {super(name);}
-
-public void testForceInsideAlleleLimits() {
-    DoubleInterval d = new DoubleInterval(1,10);
-    Allele a = new Allele(d);
-    ChromosomeMutation cm = new ChromosomeMutation();
-    DoubleInterval value = new DoubleInterval(-100,100);
-    final int tries = 1000;
-    for(int i = 0; i < tries; i++) {
-        assertTrue("inside"+i, d.isBetween(cm.forceInsideAlleleLimits(a,value.random(),d.random())));               	assertTrue("outside"+i,d.isBetween(cm.forceInsideAlleleLimits(a,value.random(),value.random()))); 
-	assertTrue("reverse"+i,d.isBetween(cm.forceInsideAlleleLimits(a,d.random(),value.random()))); 
+    public ChromosomeMutationTest(String name) {
+        super(name);
     }
-}
+
+    public void testForceInsideAlleleLimits() {
+        DoubleInterval d = new DoubleInterval(1, 10);
+        Allele a = new Allele(d);
+        ChromosomeMutation cm = new ChromosomeMutation();
+        DoubleInterval value = new DoubleInterval(-100, 100);
+        final int tries = 1000;
+        for (int i = 0; i < tries; i++) {
+            assertTrue("inside" + i, d.isBetween(cm.forceInsideAlleleLimits(a, value.random(), d.random())));
+            assertTrue("outside" + i, d.isBetween(cm.forceInsideAlleleLimits(a, value.random(), value.random())));
+            assertTrue("reverse" + i, d.isBetween(cm.forceInsideAlleleLimits(a, d.random(), value.random())));
+        }
+    }
 }

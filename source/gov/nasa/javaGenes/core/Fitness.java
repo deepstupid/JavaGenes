@@ -17,24 +17,38 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.core;
-import java.io.Serializable;
+
 import gov.nasa.alsUtility.Error;
 
+import java.io.Serializable;
+
 public abstract class Fitness implements Serializable {
-public static final double BAD_FITNESS = Double.NEGATIVE_INFINITY;
+    public static final double BAD_FITNESS = Double.NEGATIVE_INFINITY;
 
-public boolean isValid() {return true;}
-public abstract boolean fitterThan(Fitness f);
-public abstract boolean isDominatedBy(Fitness f);
+    public boolean isValid() {
+        return true;
+    }
 
-public double[] getFitnessArray() {
-  double[] array = new double[1];
-  array[0] = asDouble();
-  return array;
-}
-public void setFitness(double d) {Error.notImplemented();}
-public double asDouble() {Error.notImplemented(); return 0;}
-public String toString() {
-    return this.getClass().toString();
-}
+    public abstract boolean fitterThan(Fitness f);
+
+    public abstract boolean isDominatedBy(Fitness f);
+
+    public double[] getFitnessArray() {
+        double[] array = new double[1];
+        array[0] = asDouble();
+        return array;
+    }
+
+    public void setFitness(double d) {
+        Error.notImplemented();
+    }
+
+    public double asDouble() {
+        Error.notImplemented();
+        return 0;
+    }
+
+    public String toString() {
+        return this.getClass().toString();
+    }
 }

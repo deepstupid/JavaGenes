@@ -17,36 +17,49 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
-import gov.nasa.alsUtility.FieldRecordText;
-import java.io.Serializable;
+
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.FieldRecordText;
+
+import java.io.Serializable;
 import java.util.Vector;
 
 public class ChromosomeParameterValues implements Serializable {
-protected Vector names = new Vector();
-protected Vector values = new Vector();
+    public final static String END_TOKEN = "end";
+    protected Vector names = new Vector();
+    protected Vector values = new Vector();
 
-public final static String END_TOKEN = "end";
-public ChromosomeParameterValues(String filename) {
-    this(new FieldRecordText(filename,"\t"));
-}
-public ChromosomeParameterValues(FieldRecordText file) {
-    String[] fields;
-    while((fields = file.readLine()) != null) {
-      if (fields.length == 1 && fields[0].equals(END_TOKEN))
-        break;
-      Error.assertTrue(fields.length == 2);
-      names.addElement(fields[0]);
-      values.addElement(new Double(fields[1]));
+    public ChromosomeParameterValues(String filename) {
+        this(new FieldRecordText(filename, "\t"));
     }
-}
-public int size() {return names.size();}
-public String getName(int index) {return (String)names.elementAt(index);}
-public double getValue(int index) {return ((Double)values.elementAt(index)).doubleValue();}
-public String toString() {
-  String string = new String(this.getClass().toString() + ": ");
-  for(int i = 0; i < names.size(); i++)
-    string += "(" + getName(i) + "=" + getValue(i) + ")";
-  return string;
-}
+
+    public ChromosomeParameterValues(FieldRecordText file) {
+        String[] fields;
+        while ((fields = file.readLine()) != null) {
+            if (fields.length == 1 && fields[0].equals(END_TOKEN))
+                break;
+            Error.assertTrue(fields.length == 2);
+            names.addElement(fields[0]);
+            values.addElement(new Double(fields[1]));
+        }
+    }
+
+    public int size() {
+        return names.size();
+    }
+
+    public String getName(int index) {
+        return (String) names.elementAt(index);
+    }
+
+    public double getValue(int index) {
+        return ((Double) values.elementAt(index)).doubleValue();
+    }
+
+    public String toString() {
+        String string = new String(this.getClass().toString() + ": ");
+        for (int i = 0; i < names.size(); i++)
+            string += "(" + getName(i) + "=" + getValue(i) + ")";
+        return string;
+    }
 }

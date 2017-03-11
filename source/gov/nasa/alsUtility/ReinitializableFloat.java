@@ -19,16 +19,41 @@
 package gov.nasa.alsUtility;
 
 public class ReinitializableFloat implements java.io.Serializable {
-protected float value = 0;
-protected float initialValue = 0;
+    protected float value = 0;
+    protected float initialValue = 0;
 
-public void reinitialize() {value = initialValue;}
-public void setInitial(float inValue) {initialValue = inValue; reinitialize();}
-public void setCurrent(float inValue) {value = inValue;}
-public void addToInitial(float a) {initialValue += a; reinitialize();}
-public void add(float a) {value += a;}
-public void multiply(float m) {value *= m;}
-public float getCurrent() {return value;}
-public float getInitial() {return initialValue;}
+    public void reinitialize() {
+        value = initialValue;
+    }
+
+    public void addToInitial(float a) {
+        initialValue += a;
+        reinitialize();
+    }
+
+    public void add(float a) {
+        value += a;
+    }
+
+    public void multiply(float m) {
+        value *= m;
+    }
+
+    public float getCurrent() {
+        return value;
+    }
+
+    public void setCurrent(float inValue) {
+        value = inValue;
+    }
+
+    public float getInitial() {
+        return initialValue;
+    }
+
+    public void setInitial(float inValue) {
+        initialValue = inValue;
+        reinitialize();
+    }
 }
 

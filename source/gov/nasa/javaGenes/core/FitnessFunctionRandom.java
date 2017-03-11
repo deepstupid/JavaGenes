@@ -18,18 +18,19 @@
 //
 package gov.nasa.javaGenes.core;
 
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.DoubleInterval;
+import gov.nasa.alsUtility.Error;
 
 // generates a random fitness within a range
 public class FitnessFunctionRandom extends FitnessFunction {
-private DoubleInterval range;
+    private DoubleInterval range;
 
-public FitnessFunctionRandom(DoubleInterval range) {
-  Error.assertNotNull(range);
-  this.range = new DoubleInterval(range);
-}
-public Fitness evaluateFitness (Evolvable evolvable) {
-  return new FitnessDouble(range.random());
-}
+    public FitnessFunctionRandom(DoubleInterval range) {
+        Error.assertNotNull(range);
+        this.range = new DoubleInterval(range);
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        return new FitnessDouble(range.random());
+    }
 }

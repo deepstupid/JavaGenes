@@ -21,27 +21,29 @@ package gov.nasa.javaGenes.evolvableDoubleList;
 import gov.nasa.alsUtility.Error;
 
 public class SelectFixedIndices extends Selector {
-protected int[] indicesToSelect;
+    protected int[] indicesToSelect;
 
-public SelectFixedIndices(int[] indicesToSelect) {
-    Error.assertTrue(indicesToSelect.length > 0);
-    this.indicesToSelect = new int[indicesToSelect.length];
-    for(int i = 0; i < this.indicesToSelect.length; i++) {
-        Error.assertTrue(indicesToSelect[i] >= 0);
-        this.indicesToSelect[i] = indicesToSelect[i];
+    public SelectFixedIndices(int[] indicesToSelect) {
+        Error.assertTrue(indicesToSelect.length > 0);
+        this.indicesToSelect = new int[indicesToSelect.length];
+        for (int i = 0; i < this.indicesToSelect.length; i++) {
+            Error.assertTrue(indicesToSelect[i] >= 0);
+            this.indicesToSelect[i] = indicesToSelect[i];
+        }
     }
-}
-public Indices getIndices(int size) {
-    Indices selection = new Indices();
-    for(int i = 0; i < indicesToSelect.length; i++)
-        if (indicesToSelect[i] < size)
-            selection.addIndex(indicesToSelect[i]);
-    return selection;
-}
-public String toString() {
-    String s = "SelectFixedIndices indicesToSelect = ";
-    for(int i = 0; i < indicesToSelect.length; i++)
-        s += " " + indicesToSelect[i];
-    return s;
-}
+
+    public Indices getIndices(int size) {
+        Indices selection = new Indices();
+        for (int i = 0; i < indicesToSelect.length; i++)
+            if (indicesToSelect[i] < size)
+                selection.addIndex(indicesToSelect[i]);
+        return selection;
+    }
+
+    public String toString() {
+        String s = "SelectFixedIndices indicesToSelect = ";
+        for (int i = 0; i < indicesToSelect.length; i++)
+            s += " " + indicesToSelect[i];
+        return s;
+    }
 }

@@ -19,28 +19,31 @@
 package gov.nasa.javaGenes.core.HFC;
 
 import gov.nasa.alsUtility.Error;
-
 import gov.nasa.javaGenes.core.ChildMakerProvider;
 import gov.nasa.javaGenes.core.FitnessFunction;
 import gov.nasa.javaGenes.core.Population;
-import gov.nasa.javaGenes.core.Individual;
 
 public class MiddleSubBreeder extends SubBreeder {
-public boolean killParents = false;
+    public boolean killParents = false;
 
-public MiddleSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction) {
-	this(childMakerProvider,fitnessFunction,false);
-}
-public MiddleSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction, boolean killParents) {
-	super(childMakerProvider,fitnessFunction);
-	this.killParents = killParents;
-}
-public void parentsOfPromoted(int[] parentIndices, Population population) {
-	if (killParents) {
-		Error.assertTrue(areValidIndices(parentIndices));
-		toDeathRow(parentIndices);
-	}
-}
-public String toString() {return "MiddleSubBreeder killParents=" + killParents + " " + super.toString();}
+    public MiddleSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction) {
+        this(childMakerProvider, fitnessFunction, false);
+    }
+
+    public MiddleSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction, boolean killParents) {
+        super(childMakerProvider, fitnessFunction);
+        this.killParents = killParents;
+    }
+
+    public void parentsOfPromoted(int[] parentIndices, Population population) {
+        if (killParents) {
+            Error.assertTrue(areValidIndices(parentIndices));
+            toDeathRow(parentIndices);
+        }
+    }
+
+    public String toString() {
+        return "MiddleSubBreeder killParents=" + killParents + " " + super.toString();
+    }
 
 }

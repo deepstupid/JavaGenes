@@ -17,23 +17,26 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
-import java.util.Hashtable;
-import gov.nasa.alsUtility.Utility;
+
 import gov.nasa.alsUtility.DoubleInterval;
+import gov.nasa.alsUtility.Utility;
 
 public class StillingerWeberPartialSiF extends StillingerWeberSiF {
-public StillingerWeberPartialSiF(String[] multibodyNames,
-  DoubleInterval factorInterval,DoubleInterval exponentInterval,DoubleInterval cutoffInterval) {
-  super(factorInterval,exponentInterval,cutoffInterval);
-  String[] names = Utility.removeDuplicates(multibodyNames);
-  for (int i = 0; i < names.length; i++) {
-    need(names[i],i);
+    public StillingerWeberPartialSiF(String[] multibodyNames,
+                                     DoubleInterval factorInterval, DoubleInterval exponentInterval, DoubleInterval cutoffInterval) {
+        super(factorInterval, exponentInterval, cutoffInterval);
+        String[] names = Utility.removeDuplicates(multibodyNames);
+        for (int i = 0; i < names.length; i++) {
+            need(names[i], i);
 //    String duplicate = getDuplicate(names[i]);
 //    if (!duplicate.equals(names[i]))
 //      alleleSetup.add(duplicate,i);
-  }
-}
-public void formSetup(){setIndices();}
+        }
+    }
+
+    public void formSetup() {
+        setIndices();
+    }
 /*
 public String getDuplicate(String name) {
   if (name.equals("SiF")) {return "FSi";}

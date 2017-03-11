@@ -18,63 +18,63 @@
 //
 package gov.nasa.javaGenes.chemistry;
 
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.RandomNumber;
+import gov.nasa.alsUtility.Utility;
 
 public class randomizeXYZ {
-static final String formatString =
-    "java randomizeXYZ numberOfVariations distanceToRandomize minimumAtomSpacing (gaussian|flat) inputFile.xyz outputFile.xyz [numberOfAtomsToMoveIncrement] [randomNumberSeed]";
+    static final String formatString =
+            "java randomizeXYZ numberOfVariations distanceToRandomize minimumAtomSpacing (gaussian|flat) inputFile.xyz outputFile.xyz [numberOfAtomsToMoveIncrement] [randomNumberSeed]";
 
-public static void main(String[] arguments) {
-  if (arguments.length < 6 || 8 < arguments.length)
-    userError("wrong number of arguments");
-  if (arguments.length == 8)
-    RandomNumber.setSeed(Utility.string2long(arguments[7]));
+    public static void main(String[] arguments) {
+        if (arguments.length < 6 || 8 < arguments.length)
+            userError("wrong number of arguments");
+        if (arguments.length == 8)
+            RandomNumber.setSeed(Utility.string2long(arguments[7]));
 
-  int numberOfVariations = Utility.string2integer(arguments[0]);
-  Error.assertTrue(numberOfVariations > 0);
-  double distanceToRandomize = Utility.string2double(arguments[1]);
-  Error.assertTrue(distanceToRandomize > 0);
-  double minimumDistance = Utility.string2double(arguments[2]);
-  boolean gaussianDistribution = false;
-  if (arguments[3].equals("gaussian"))
-    gaussianDistribution = true;
-  else if (arguments[3].equals("flat"))
-    gaussianDistribution = false;
-  else
-    userError("fourth argument must be 'gaussian' or 'flat'");
-  String inputXyzFilename = arguments[4];
-  String outputXyzFilename = arguments[5];
-  boolean changeNumberOfMovingAtoms = false;
-  int movingAtomsIncrement = 0;
-  if (arguments.length >= 7) {
-    changeNumberOfMovingAtoms = true;
-    movingAtomsIncrement = Utility.string2integer(arguments[6]);
-  }
-  Molecule startingPoint = xyzFormat.read(inputXyzFilename);
-  xyzFormat.writeToFile(startingPoint,outputXyzFilename);
+        int numberOfVariations = Utility.string2integer(arguments[0]);
+        Error.assertTrue(numberOfVariations > 0);
+        double distanceToRandomize = Utility.string2double(arguments[1]);
+        Error.assertTrue(distanceToRandomize > 0);
+        double minimumDistance = Utility.string2double(arguments[2]);
+        boolean gaussianDistribution = false;
+        if (arguments[3].equals("gaussian"))
+            gaussianDistribution = true;
+        else if (arguments[3].equals("flat"))
+            gaussianDistribution = false;
+        else
+            userError("fourth argument must be 'gaussian' or 'flat'");
+        String inputXyzFilename = arguments[4];
+        String outputXyzFilename = arguments[5];
+        boolean changeNumberOfMovingAtoms = false;
+        int movingAtomsIncrement = 0;
+        if (arguments.length >= 7) {
+            changeNumberOfMovingAtoms = true;
+            movingAtomsIncrement = Utility.string2integer(arguments[6]);
+        }
+        Molecule startingPoint = xyzFormat.read(inputXyzFilename);
+        xyzFormat.writeToFile(startingPoint, outputXyzFilename);
 
-  int moveAtoms = movingAtomsIncrement;
-  for(int i = 1; i <= numberOfVariations; i++) {
-    Molecule next = startingPoint.copy();
-    next.setComment(startingPoint.getComment()); // needed for any unit cell
-    if (changeNumberOfMovingAtoms)
-      next.randomizeAtomicPositionsBy(distanceToRandomize,gaussianDistribution,moveAtoms);
-    else
-      next.randomizeAtomicPositionsBy(distanceToRandomize,gaussianDistribution);
-    if (next.hasVertexPairCloserThan(minimumDistance)) {
-      i--;
-      continue;
+        int moveAtoms = movingAtomsIncrement;
+        for (int i = 1; i <= numberOfVariations; i++) {
+            Molecule next = startingPoint.copy();
+            next.setComment(startingPoint.getComment()); // needed for any unit cell
+            if (changeNumberOfMovingAtoms)
+                next.randomizeAtomicPositionsBy(distanceToRandomize, gaussianDistribution, moveAtoms);
+            else
+                next.randomizeAtomicPositionsBy(distanceToRandomize, gaussianDistribution);
+            if (next.hasVertexPairCloserThan(minimumDistance)) {
+                i--;
+                continue;
+            }
+            xyzFormat.appendToFile(next, outputXyzFilename);
+            moveAtoms += movingAtomsIncrement;
+        }
     }
-    xyzFormat.appendToFile(next,outputXyzFilename);
-    moveAtoms += movingAtomsIncrement;
-  }
-}
 
-private static void userError(String error) {
-  System.out.println(error);
-  System.out.println("Format: " + formatString);
-  System.exit(1);
-}
+    private static void userError(String error) {
+        System.out.println(error);
+        System.out.println("Format: " + formatString);
+        System.exit(1);
+    }
 } 

@@ -22,14 +22,26 @@ package gov.nasa.javaGenes.EOSscheduling;
 import gov.nasa.alsUtility.Error;
 
 public class SensorType implements java.io.Serializable {
-protected String name = "defaultSensorType";
+    protected String name = "defaultSensorType";
 
-public SensorType(String inName) {
-    name = inName;
-    Error.assertNotNull(name);
-}
-public String getName() {return name;}
-public String toString() { return "SensorType " + name;}
-public boolean equals(SensorType other) { return name.equals(other.getName());}
-public int hashCode() {return name.hashCode();}
+    public SensorType(String inName) {
+        name = inName;
+        Error.assertNotNull(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String toString() {
+        return "SensorType " + name;
+    }
+
+    public boolean equals(SensorType other) {
+        return name.equals(other.getName());
+    }
+
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

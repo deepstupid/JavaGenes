@@ -20,19 +20,22 @@
 package gov.nasa.javaGenes.core;
 
 public class ChildMakerEvolvingProvider extends ChildMakerProvider {
-public ChildMaker get() {
-  ChildMaker c1 = super.get();
-  ChildMaker c2 = super.get();
-  return best(c1,c2);
-}
-protected ChildMaker best(ChildMaker c1, ChildMaker c2) {
-    if (c1.neverUsed()) return c1;
-    if (c2.neverUsed()) return c2;
-    if (c1.proportionDown() > c2.proportionDown())
-        return c1;
-    return c2;
-}
+    public ChildMaker get() {
+        ChildMaker c1 = super.get();
+        ChildMaker c2 = super.get();
+        return best(c1, c2);
+    }
 
-public String toString() {return "Evolving " + super.toString();}
+    protected ChildMaker best(ChildMaker c1, ChildMaker c2) {
+        if (c1.neverUsed()) return c1;
+        if (c2.neverUsed()) return c2;
+        if (c1.proportionDown() > c2.proportionDown())
+            return c1;
+        return c2;
+    }
+
+    public String toString() {
+        return "Evolving " + super.toString();
+    }
 
 }

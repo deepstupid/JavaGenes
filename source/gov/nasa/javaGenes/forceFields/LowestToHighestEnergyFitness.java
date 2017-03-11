@@ -18,59 +18,66 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import java.lang.Double;
-import gov.nasa.javaGenes.core.FitnessFunction;
-import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.core.Fitness;
-import gov.nasa.javaGenes.core.FitnessDouble;
-import gov.nasa.javaGenes.core.Population;
+import gov.nasa.javaGenes.core.*;
 
 public class LowestToHighestEnergyFitness extends FitnessFunction {
-protected Potential potential;
-protected ManyMultiBodiesForOneEnergy molecules;
-protected String filename = "";
-protected boolean doPerAtomEnergies = true;
+    protected Potential potential;
+    protected ManyMultiBodiesForOneEnergy molecules;
+    protected String filename = "";
+    protected boolean doPerAtomEnergies = true;
 
-public void setFilename(String f) {filename = f;}
-public String getFilename() {return filename;}
-protected LowestToHighestEnergyFitness(){} // for testing only
+    protected LowestToHighestEnergyFitness() {
+    } // for testing only
 
-public LowestToHighestEnergyFitness(Potential p, ManyMultiBodiesForOneEnergy m) {
-    potential = p;
-    molecules = m;
-}
-/*
-@return the number of clusters out of order (lowest energy to highest)
-*/
-public Fitness evaluateFitness (Evolvable evolvable){
-    Chromosome chromosome = (Chromosome)evolvable;
-    potential.setChromosome(chromosome);
-
-    double[] energy = new double[molecules.size()];
-    for(int i = 0; i < molecules.size(); i++) {
-        energy[i] = potential.getEnergy(molecules.getMultiBodies(i));
-        if (doPerAtomEnergies)
-            energy[i] /= molecules.getMultiBodies(i).getNumberOfAtoms();
+    public LowestToHighestEnergyFitness(Potential p, ManyMultiBodiesForOneEnergy m) {
+        potential = p;
+        molecules = m;
     }
-    return new FitnessDouble(outOfOrder(energy));
-}
-protected double outOfOrder(double[] energy) {
-    int fitness = 0;
-    for(int i = 0; i < energy.length; i++)
-        for(int j = i + 1; j < energy.length; j++)
-            if (energy[i] >= energy[j])
-                fitness++;
-    return fitness;
-}
-public void report (Population population){
-}
-public String toString() {
-    return getClass() + ", Clusters = " + getFilename()  +
-            ", Potential = " + potential;
-}
-public void setDoPerAtomEnergies(boolean value) {
-    doPerAtomEnergies = value;
-}
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String f) {
+        filename = f;
+    }
+
+    /*
+    @return the number of clusters out of order (lowest energy to highest)
+    */
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        Chromosome chromosome = (Chromosome) evolvable;
+        potential.setChromosome(chromosome);
+
+        double[] energy = new double[molecules.size()];
+        for (int i = 0; i < molecules.size(); i++) {
+            energy[i] = potential.getEnergy(molecules.getMultiBodies(i));
+            if (doPerAtomEnergies)
+                energy[i] /= molecules.getMultiBodies(i).getNumberOfAtoms();
+        }
+        return new FitnessDouble(outOfOrder(energy));
+    }
+
+    protected double outOfOrder(double[] energy) {
+        int fitness = 0;
+        for (int i = 0; i < energy.length; i++)
+            for (int j = i + 1; j < energy.length; j++)
+                if (energy[i] >= energy[j])
+                    fitness++;
+        return fitness;
+    }
+
+    public void report(Population population) {
+    }
+
+    public String toString() {
+        return getClass() + ", Clusters = " + getFilename() +
+                ", Potential = " + potential;
+    }
+
+    public void setDoPerAtomEnergies(boolean value) {
+        doPerAtomEnergies = value;
+    }
 }
 
 

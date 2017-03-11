@@ -19,15 +19,15 @@
 package gov.nasa.javaGenes.graph;
 
 
-import java.io.Serializable;
-import java.lang.Cloneable;
 import gov.nasa.alsUtility.Mark;
 
-/**
-Superclass for parts of a graph.
+import java.io.Serializable;
 
-@see Vertex
-@see Edge
-*/
+/**
+ * Superclass for parts of a graph.
+ *
+ * @see Vertex
+ * @see Edge
+ */
 public class GraphElement extends Mark implements Serializable, Cloneable {
 }

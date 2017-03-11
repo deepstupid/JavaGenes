@@ -20,24 +20,29 @@ package gov.nasa.javaGenes.graph;
 
 
 /**
-Mutation operator to add a DirectedEdge between two DirectedVertex in a DirectedGraph.
-@see DirectedGraph
-*/
+ * Mutation operator to add a DirectedEdge between two DirectedVertex in a DirectedGraph.
+ *
+ * @see DirectedGraph
+ */
 public class AddDirectedEdge extends GraphMutation {
-protected VertexAndEdgeProvider provider;
-/**
-@param p will be used to get the directed edges to be added to graphs
-*/
-public AddDirectedEdge(VertexAndEdgeProvider p) {provider = p;}
-/**
-@param c must be a DirectedGraph
-@return c with an added edge or null if an edge cannot be added
-*/
-public Graph makeChild(Graph c) {
-	DirectedGraph child = (DirectedGraph)c;
-	if (child.growDirectedEdge(provider.getDirectedEdge()))
-		return child;
-  else
-  	return null;
-}
+    protected VertexAndEdgeProvider provider;
+
+    /**
+     * @param p will be used to get the directed edges to be added to graphs
+     */
+    public AddDirectedEdge(VertexAndEdgeProvider p) {
+        provider = p;
+    }
+
+    /**
+     * @param c must be a DirectedGraph
+     * @return c with an added edge or null if an edge cannot be added
+     */
+    public Graph makeChild(Graph c) {
+        DirectedGraph child = (DirectedGraph) c;
+        if (child.growDirectedEdge(provider.getDirectedEdge()))
+            return child;
+        else
+            return null;
+    }
 }

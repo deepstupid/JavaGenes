@@ -19,9 +19,9 @@
 package gov.nasa.javaGenes.core;
 
 import gov.nasa.alsUtility.IntegerInterval;
-import gov.nasa.alsUtility.Error;
 
 public interface ChooseParents extends java.io.Serializable {
-int[] getParentIndices(int number, Population population);
-int[] getParentIndices(int number, IntegerInterval range, Population population);
+    int[] getParentIndices(int number, Population population);
+
+    int[] getParentIndices(int number, IntegerInterval range, Population population);
 }

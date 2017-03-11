@@ -19,6 +19,7 @@
 package gov.nasa.javaGenes.EOSscheduling.HBSS;
 
 import gov.nasa.javaGenes.weightNetwork.RouletteWheelChooseLowWeight;
+
 public class AccessWindowsList extends RouletteWheelChooseLowWeight {
 }
 

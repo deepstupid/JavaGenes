@@ -19,72 +19,63 @@
 package gov.nasa.javaGenes.evolvableDoubleList.DeJongExperiment;
 
 import gov.nasa.alsUtility.RandomNumber;
-import gov.nasa.alsUtility.IntegerInterval;
-import gov.nasa.alsUtility.DoubleInterval;
-import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.Utility;
-import gov.nasa.javaGenes.core.BreederSteadyState2;
+import gov.nasa.javaGenes.core.*;
 import gov.nasa.javaGenes.evolvableDoubleList.ChildMakerProviderRandom;
 import gov.nasa.javaGenes.evolvableDoubleList.DeJongFitnessFunctions;
 import gov.nasa.javaGenes.evolvableDoubleList.EvolvableDoubleList;
-import gov.nasa.javaGenes.core.Tournament;
-import gov.nasa.javaGenes.core.AntiTournament;
-import gov.nasa.javaGenes.core.TournamentLocal;
-import gov.nasa.javaGenes.core.AntiTournamentLocal;
-import gov.nasa.javaGenes.core.Population;
-import gov.nasa.javaGenes.core.Reporter;
-import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.core.Individual;
 
 public class Parameters extends gov.nasa.javaGenes.core.Parameters {
-static {
-    RandomNumber.setSeed(990639400906L); // used to generate repeatable runs. See seed.txt for seed of last run
-} 
+    // experimental parameters
+    public static int deJongNumber = 1;
+    public static boolean useLocalBreeder = true;
+    public static int evolvableSize = 10;
 
-// experimental parameters
-public static int deJongNumber = 1;
-public static boolean useLocalBreeder = true;
-public static int evolvableSize = 10;
+    static {
+        RandomNumber.setSeed(990639400906L); // used to generate repeatable runs. See seed.txt for seed of last run
+    }
 
-public Population population; // should probably migrate to core package.  Put here to make initial population generation part of parameterization
-public Reporter reporter; // should probably migrate to core package.  Put here to make reporting part of parameterization
+    // variation operator parameters
+    public final int numberOfChildMakers = 10;
+    public Population population; // should probably migrate to core package.  Put here to make initial population generation part of parameterization
+    public Reporter reporter; // should probably migrate to core package.  Put here to make reporting part of parameterization
 
-// variation operator parameters
-public final int numberOfChildMakers = 10;
+    public Parameters() {
+        setParameters();
+    }
 
-private void setParameters() {
-    populationSize = 100;
-    kidsPerGeneration = 1000;
-    maximumGenerations = 1000;
-	// for quick testing
-    kidsPerGeneration /= 100;
-    maximumGenerations /= 100;
-	
-	reportVariationOperatorPerformanceEachGeneration = false;
-    separateLogAndEvolvableFiles = true;
-    frequencyOfASCIIPopulations = 200;
-    stopAtPerfection = false;
+    private void setParameters() {
+        populationSize = 100;
+        kidsPerGeneration = 1000;
+        maximumGenerations = 1000;
+        // for quick testing
+        kidsPerGeneration /= 100;
+        maximumGenerations /= 100;
 
-    fitnessFunction = new DeJongFitnessFunctions(deJongNumber);
-    fitnessFunction.setName(DeJongFitnessFunctions.names[deJongNumber]);
+        reportVariationOperatorPerformanceEachGeneration = false;
+        separateLogAndEvolvableFiles = true;
+        frequencyOfASCIIPopulations = 200;
+        stopAtPerfection = false;
 
-	childMakerProvider = new ChildMakerProviderRandom(numberOfChildMakers,evolvableSize);
-	childMakerProvider.setFitnessFunction(fitnessFunction); 
+        fitnessFunction = new DeJongFitnessFunctions(deJongNumber);
+        fitnessFunction.setName(DeJongFitnessFunctions.names[deJongNumber]);
 
-    population = new Population(populationSize);
-	for(int populationIndex = 0; populationIndex < populationSize; populationIndex++) {
-		final Evolvable evolvable = new EvolvableDoubleList(evolvableSize);
-		final Individual individual = new Individual(evolvable, fitnessFunction);
-		population.setIndividual(populationIndex,individual);
-	}
-    reporter = new Reporter(this);
-	if (useLocalBreeder)
-		breeder = new gov.nasa.javaGenes.core.BreederSteadyState2(this, new TournamentLocal(2,3), new AntiTournamentLocal(2,2));
-	else
-		breeder = new gov.nasa.javaGenes.core.BreederSteadyState2(this, new Tournament(2), new AntiTournament(2)); 
-}
+        childMakerProvider = new ChildMakerProviderRandom(numberOfChildMakers, evolvableSize);
+        childMakerProvider.setFitnessFunction(fitnessFunction);
 
-public Parameters() {setParameters();}
-public void makeFiles() {}
+        population = new Population(populationSize);
+        for (int populationIndex = 0; populationIndex < populationSize; populationIndex++) {
+            final Evolvable evolvable = new EvolvableDoubleList(evolvableSize);
+            final Individual individual = new Individual(evolvable, fitnessFunction);
+            population.setIndividual(populationIndex, individual);
+        }
+        reporter = new Reporter(this);
+        if (useLocalBreeder)
+            breeder = new gov.nasa.javaGenes.core.BreederSteadyState2(this, new TournamentLocal(2, 3), new AntiTournamentLocal(2, 2));
+        else
+            breeder = new gov.nasa.javaGenes.core.BreederSteadyState2(this, new Tournament(2), new AntiTournament(2));
+    }
+
+    public void makeFiles() {
+    }
 
 }

@@ -20,26 +20,31 @@ package gov.nasa.javaGenes.core;
 
 import gov.nasa.alsUtility.IntegerInterval;
 
-/** assumes that the tournament size is usually quite a bit smaller than the index interval from which the indices are chosen */
+/**
+ * assumes that the tournament size is usually quite a bit smaller than the index interval from which the indices are chosen
+ */
 public class AntiTournament extends Tournament implements ChooseForDeath {
 
-public AntiTournament(int size) {
-	super(size);
-}
-public int getDeathRowIndex(int[] parentIndices, Population population) {
-	return getDeathRowIndex(parentIndices, new IntegerInterval(0,population.getSize()-1), population);
-}
-public int getDeathRowIndex(int[] parentIndices, IntegerInterval range, Population population) {
-	return getChosenIndex(range,population);
-}
+    public AntiTournament(int size) {
+        super(size);
+    }
 
-protected boolean shouldChooseSecondOne(Fitness first, Fitness second) {
-	if (first == null)
-		return true;
-	return first.fitterThan(second);
-}
-public String toString() {
-	return "AntiTournament size=" + size;
-}
+    public int getDeathRowIndex(int[] parentIndices, Population population) {
+        return getDeathRowIndex(parentIndices, new IntegerInterval(0, population.getSize() - 1), population);
+    }
+
+    public int getDeathRowIndex(int[] parentIndices, IntegerInterval range, Population population) {
+        return getChosenIndex(range, population);
+    }
+
+    protected boolean shouldChooseSecondOne(Fitness first, Fitness second) {
+        if (first == null)
+            return true;
+        return first.fitterThan(second);
+    }
+
+    public String toString() {
+        return "AntiTournament size=" + size;
+    }
 
 }

@@ -22,17 +22,20 @@ import junit.framework.TestCase;
 
 public class AlleleTemplateTest extends TestCase {
 
-public AlleleTemplateTest(String name) {super(name);}
+    public AlleleTemplateTest(String name) {
+        super(name);
+    }
 
-public void setUp() {
+    public void setUp() {
 
-}
-public void testAlleleTemplate() {
-  // DEFICIENCY: only tests AlleleTemplate(int[])
-  int[] array = {1,2,3,4};
-  AlleleTemplate a = new AlleleTemplate(array);
-  assertTrue("size", a.numberOfArrays() == array.length);
-  for(int i = 0; i < array.length; i++)
-    assertTrue(i+"",a.getSize(i) == i+1);
-}
+    }
+
+    public void testAlleleTemplate() {
+        // DEFICIENCY: only tests AlleleTemplate(int[])
+        int[] array = {1, 2, 3, 4};
+        AlleleTemplate a = new AlleleTemplate(array);
+        assertTrue("size", a.numberOfArrays() == array.length);
+        for (int i = 0; i < array.length; i++)
+            assertTrue(i + "", a.getSize(i) == i + 1);
+    }
 }

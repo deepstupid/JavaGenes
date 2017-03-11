@@ -19,9 +19,9 @@
 package gov.nasa.javaGenes.core;
 
 import gov.nasa.alsUtility.IntegerInterval;
-import gov.nasa.alsUtility.Error;
 
 public interface ChooseForDeath extends java.io.Serializable {
-int getDeathRowIndex(int[] parentIndices, Population population);
-int getDeathRowIndex(int[] parentIndices, IntegerInterval range, Population population);
+    int getDeathRowIndex(int[] parentIndices, Population population);
+
+    int getDeathRowIndex(int[] parentIndices, IntegerInterval range, Population population);
 }

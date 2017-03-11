@@ -18,23 +18,26 @@
 //
 package gov.nasa.javaGenes.core;
 
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.Utility;
 import gov.nasa.javaGenes.forceFields.Chromosome;
 
 public class TeacherFitnessFunction extends FitnessFunction {
-protected Population _students;
-public void setStudents(Population students) {_students = students;}
+    protected Population _students;
 
-public Fitness evaluateFitness (Evolvable evolvable) {
-  Error.assertTrue(_students != null);
-  Chromosome teacher = (Chromosome)evolvable;
-  int studentsFailed = 0;
-  for(int i = 0; i < _students.getSize(); i++)
-    if (!Utility.lessThanOrEqual(_students.getFitness(i).getFitnessArray(),teacher.getArray(0)))
-      studentsFailed++;
-  if (studentsFailed == _students.getSize())
-    return new FitnessDouble(_students.getSize() + 1); // excessively strict teachers are the least fit
-  return new FitnessDouble(_students.getSize() - studentsFailed); // but strict teachers are generally more fit
-}
+    public void setStudents(Population students) {
+        _students = students;
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        Error.assertTrue(_students != null);
+        Chromosome teacher = (Chromosome) evolvable;
+        int studentsFailed = 0;
+        for (int i = 0; i < _students.getSize(); i++)
+            if (!Utility.lessThanOrEqual(_students.getFitness(i).getFitnessArray(), teacher.getArray(0)))
+                studentsFailed++;
+        if (studentsFailed == _students.getSize())
+            return new FitnessDouble(_students.getSize() + 1); // excessively strict teachers are the least fit
+        return new FitnessDouble(_students.getSize() - studentsFailed); // but strict teachers are generally more fit
+    }
 }

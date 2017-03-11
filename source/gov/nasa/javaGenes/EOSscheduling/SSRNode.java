@@ -22,18 +22,22 @@ package gov.nasa.javaGenes.EOSscheduling;
 import gov.nasa.alsUtility.Error;
 
 public class SSRNode extends Node {
-protected int remainingCapacity;
+    protected int remainingCapacity;
 
-public void setCapacity(int inCapacity) {
-    if (Debug.debug)
-        Error.assertTrue(inCapacity >= 0);
-    remainingCapacity = inCapacity;
-}
-public int getRemainingCapacity() {return remainingCapacity;}
-public void removeCapacity(int remove) {
-    remainingCapacity -= remove;
-    if (Debug.debug)
-        Error.assertTrue(remainingCapacity >= 0);
-}
+    public void setCapacity(int inCapacity) {
+        if (Debug.debug)
+            Error.assertTrue(inCapacity >= 0);
+        remainingCapacity = inCapacity;
+    }
+
+    public int getRemainingCapacity() {
+        return remainingCapacity;
+    }
+
+    public void removeCapacity(int remove) {
+        remainingCapacity -= remove;
+        if (Debug.debug)
+            Error.assertTrue(remainingCapacity >= 0);
+    }
 }
 

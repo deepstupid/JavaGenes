@@ -21,17 +21,17 @@ package gov.nasa.alsUtility;
 import java.util.Iterator;
 
 public class ExtendedTreeSet extends java.util.TreeSet implements java.io.Serializable {
-public void remove(int index) {
-    Error.assertTrue(0 <= index && index < size());
-    int i = 0;
-    for(Iterator iterator = iterator(); iterator.hasNext();) {
-        Object object = iterator.next();
-        if (i == index) {
-            Error.assertTrue(remove(object));
-            return;
+    public void remove(int index) {
+        Error.assertTrue(0 <= index && index < size());
+        int i = 0;
+        for (Iterator iterator = iterator(); iterator.hasNext(); ) {
+            Object object = iterator.next();
+            if (i == index) {
+                Error.assertTrue(remove(object));
+                return;
+            }
+            i++;
         }
-        i++;
+        Error.fatal("should never get here");
     }
-    Error.fatal("should never get here");
-}
 }

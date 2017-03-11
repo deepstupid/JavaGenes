@@ -22,24 +22,25 @@ import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.RandomNumber;
 
 public class RouletteWheel extends WeightList {
-private static final boolean debug = gov.nasa.javaGenes.EOSscheduling.Debug.debug;
+    private static final boolean debug = gov.nasa.javaGenes.EOSscheduling.Debug.debug;
 
-public Weight spinWheel() {
-    if (debug)
-        Error.assertTrue(more());
-    float random = (float)RandomNumber.getDouble(weightSum.getCurrent());
-    return spinWheel(random);
-}
-protected Weight spinWheel(float random) {
-    if (debug)
-        Error.assertTrue(more());
-    float sum = 0;
-    for(Weight w = currentWeights; w != null; w = w.getNext()) {
-        sum += w.getWeight();
-        if (random <= sum)
-            return w;
+    public Weight spinWheel() {
+        if (debug)
+            Error.assertTrue(more());
+        float random = (float) RandomNumber.getDouble(weightSum.getCurrent());
+        return spinWheel(random);
     }
-    // can go off end due to floating point numerical error
-    return currentWeights;
-}
+
+    protected Weight spinWheel(float random) {
+        if (debug)
+            Error.assertTrue(more());
+        float sum = 0;
+        for (Weight w = currentWeights; w != null; w = w.getNext()) {
+            sum += w.getWeight();
+            if (random <= sum)
+                return w;
+        }
+        // can go off end due to floating point numerical error
+        return currentWeights;
+    }
 }

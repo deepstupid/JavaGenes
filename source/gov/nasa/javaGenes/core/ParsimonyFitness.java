@@ -20,29 +20,32 @@ package gov.nasa.javaGenes.core;
 
 
 /**
- this fitness function is used penalizes large evolvables. Returns 1 for the smallest
- evolvables, greater numbers for larger ones. Is meant to be used with MultiplyFitnessFunction.
-*/
-public class ParsimonyFitness extends FitnessFunction  {
-protected int minimumSize = 0;
-protected double factor = 1.01;
-public ParsimonyFitness() {}
-/**
-@param m minimum size of evolvable for penalties to be assessed
-@param f the factor to be assessed for each increments in evolvable size above the minimum
-*/
-public ParsimonyFitness(int m, double f) {
-	minimumSize = m;
-  factor = f;
-}
+ * this fitness function is used penalizes large evolvables. Returns 1 for the smallest
+ * evolvables, greater numbers for larger ones. Is meant to be used with MultiplyFitnessFunction.
+ */
+public class ParsimonyFitness extends FitnessFunction {
+    protected int minimumSize = 0;
+    protected double factor = 1.01;
 
-public Fitness evaluateFitness (Evolvable evolvable) {
-	int size = Math.max(0,evolvable.getSize() - minimumSize);
-  return new FitnessDouble(Math.pow(factor,size));
-}
+    public ParsimonyFitness() {
+    }
 
-public String toString() {
-	return "Parsimony fitness: minimumSize = " + minimumSize + " factor = " + factor;
-}
+    /**
+     * @param m minimum size of evolvable for penalties to be assessed
+     * @param f the factor to be assessed for each increments in evolvable size above the minimum
+     */
+    public ParsimonyFitness(int m, double f) {
+        minimumSize = m;
+        factor = f;
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        int size = Math.max(0, evolvable.getSize() - minimumSize);
+        return new FitnessDouble(Math.pow(factor, size));
+    }
+
+    public String toString() {
+        return "Parsimony fitness: minimumSize = " + minimumSize + " factor = " + factor;
+    }
 }
 

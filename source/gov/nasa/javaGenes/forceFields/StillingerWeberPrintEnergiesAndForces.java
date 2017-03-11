@@ -23,15 +23,15 @@ import gov.nasa.javaGenes.chemistry.Atom;
 
 public class StillingerWeberPrintEnergiesAndForces {
 
-public static void main(String[] arguments) {
-  Error.assertTrue(arguments.length == 0);
-  StillingerWeber potential = new StillingerWeberSiF();
-  Chromosome chromosome = potential.getChromosome();
-  PutPotentialEnergiesAndForces out = new PutPotentialEnergiesAndForces(potential,chromosome);
-  out.putTwoBody("SiSiForcesAndEnergies.tsd", new Atom("Si"), new Atom("Si"), 100);
-  out.putTwoBody("SiFForcesAndEnergies.tsd", new Atom("Si"), new Atom("F"), 100);
-  out.putTwoBody("FFForcesAndEnergies.tsd", new Atom("F"), new Atom("F"), 100);
-  Atom Si = new Atom("Si");
-  out.putThreeBody("SiSiSiEnergies.tsd",Si,Si,Si,20);
-}
+    public static void main(String[] arguments) {
+        Error.assertTrue(arguments.length == 0);
+        StillingerWeber potential = new StillingerWeberSiF();
+        Chromosome chromosome = potential.getChromosome();
+        PutPotentialEnergiesAndForces out = new PutPotentialEnergiesAndForces(potential, chromosome);
+        out.putTwoBody("SiSiForcesAndEnergies.tsd", new Atom("Si"), new Atom("Si"), 100);
+        out.putTwoBody("SiFForcesAndEnergies.tsd", new Atom("Si"), new Atom("F"), 100);
+        out.putTwoBody("FFForcesAndEnergies.tsd", new Atom("F"), new Atom("F"), 100);
+        Atom Si = new Atom("Si");
+        out.putThreeBody("SiSiSiEnergies.tsd", Si, Si, Si, 20);
+    }
 }

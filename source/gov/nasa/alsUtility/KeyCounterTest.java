@@ -22,22 +22,24 @@ import junit.framework.TestCase;
 
 public class KeyCounterTest extends TestCase {
 
-public KeyCounterTest(String name) {super(name);}
+    public KeyCounterTest(String name) {
+        super(name);
+    }
 
-public void testAdd() {
-	KeyCounter counter = new KeyCounter();
-	int[][] first = {{1,4},{2,3},{3,2},{4,1}};
-	for(int i = 0; i < first.length; i++)
-		counter.add(new integer(first[i][0]), first[i][1]);
-	for(int i = 0; i < first.length; i++)
-		Error.assertTrue(counter.getIntCount(new integer(first[i][0])) == first[i][1]);
-	counter.addKeyCounter(counter);
-	//System.out.println("\n" + counter.toString() + "\n");
-	for(int i = 0; i < first.length; i++)
-		Error.assertTrue(counter.getIntCount(new integer(first[i][0])) == 2*first[i][1]);
-	for(int i = 0; i < first.length; i++)
-		counter.add(new integer(first[i][0]));
-	for(int i = 0; i < first.length; i++)
-		Error.assertTrue(counter.getIntCount(new integer(first[i][0])) == 2*first[i][1] + 1);
-}
+    public void testAdd() {
+        KeyCounter counter = new KeyCounter();
+        int[][] first = {{1, 4}, {2, 3}, {3, 2}, {4, 1}};
+        for (int i = 0; i < first.length; i++)
+            counter.add(new integer(first[i][0]), first[i][1]);
+        for (int i = 0; i < first.length; i++)
+            Error.assertTrue(counter.getIntCount(new integer(first[i][0])) == first[i][1]);
+        counter.addKeyCounter(counter);
+        //System.out.println("\n" + counter.toString() + "\n");
+        for (int i = 0; i < first.length; i++)
+            Error.assertTrue(counter.getIntCount(new integer(first[i][0])) == 2 * first[i][1]);
+        for (int i = 0; i < first.length; i++)
+            counter.add(new integer(first[i][0]));
+        for (int i = 0; i < first.length; i++)
+            Error.assertTrue(counter.getIntCount(new integer(first[i][0])) == 2 * first[i][1] + 1);
+    }
 }

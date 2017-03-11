@@ -19,24 +19,27 @@
 package gov.nasa.javaGenes.evolvableDoubleList;
 
 import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.alsUtility.Error;
 
 public class MutationFixedStdDev extends ChildMaker {
-protected double standardDeviation;
+    protected double standardDeviation;
 
-public MutationFixedStdDev(Selector selector, double standardDeviation) {
-    super(selector);
-    this.standardDeviation = standardDeviation;
-}
-/** @return the input Evolvable in mutated condition */
-public Evolvable mutate(Evolvable child) {
-    EvolvableDoubleList c = (EvolvableDoubleList)child;
-    int[] indices = getSelector().getIndicesArray(c);
-    for(int i = 0; i < indices.length; i++)
-        c.getDouble(indices[i]).mutateByStandardDeviation(standardDeviation);
-    return child;
-}
-public String toString() {
-    return "MutationFixedStdDev selector = " + selector + " standardDeviation = " + standardDeviation;
-}
+    public MutationFixedStdDev(Selector selector, double standardDeviation) {
+        super(selector);
+        this.standardDeviation = standardDeviation;
+    }
+
+    /**
+     * @return the input Evolvable in mutated condition
+     */
+    public Evolvable mutate(Evolvable child) {
+        EvolvableDoubleList c = (EvolvableDoubleList) child;
+        int[] indices = getSelector().getIndicesArray(c);
+        for (int i = 0; i < indices.length; i++)
+            c.getDouble(indices[i]).mutateByStandardDeviation(standardDeviation);
+        return child;
+    }
+
+    public String toString() {
+        return "MutationFixedStdDev selector = " + selector + " standardDeviation = " + standardDeviation;
+    }
 }

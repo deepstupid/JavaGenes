@@ -17,39 +17,60 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.core;
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import gov.nasa.alsUtility.IO;
 
+import java.io.PrintWriter;
+
 
 /**
-used to write files that will be read by TokenizeInput.  Format is ASCII with one token per line.
-A token is a number, a string, or a boolean. Used for checkpointing by JavaGenes.
-
-@see TokenizeInput
-*/
+ * used to write files that will be read by TokenizeInput.  Format is ASCII with one token per line.
+ * A token is a number, a string, or a boolean. Used for checkpointing by JavaGenes.
+ *
+ * @see TokenizeInput
+ */
 public class TokenizeOutput {
-protected String filename;
-protected PrintWriter file;
+    protected String filename;
+    protected PrintWriter file;
 
-/**
-@param f filename
-*/
-public TokenizeOutput (String f) {
-  filename = f;
-  file = IO.getPrintWriter(filename);
-}
+    /**
+     * @param f filename
+     */
+    public TokenizeOutput(String f) {
+        filename = f;
+        file = IO.getPrintWriter(filename);
+    }
 
-public void putBoolean(boolean b) {file.println(b? "true" : "false");}
-public void putInteger(int integer) {file.println(integer);}
-public void putLong(long integer) {file.println(integer);}
-public void putDouble(double real) {file.println(real);}
-public void putString(String string) {file.println(string);}
-public void close() {if (file != null) file.close(); file = null;}
-/**
-close the file if necessary
-*/
-protected void finalize() throws Throwable {super.finalize(); close();}
+    public void putBoolean(boolean b) {
+        file.println(b ? "true" : "false");
+    }
+
+    public void putInteger(int integer) {
+        file.println(integer);
+    }
+
+    public void putLong(long integer) {
+        file.println(integer);
+    }
+
+    public void putDouble(double real) {
+        file.println(real);
+    }
+
+    public void putString(String string) {
+        file.println(string);
+    }
+
+    public void close() {
+        if (file != null) file.close();
+        file = null;
+    }
+
+    /**
+     * close the file if necessary
+     */
+    protected void finalize() throws Throwable {
+        super.finalize();
+        close();
+    }
 }

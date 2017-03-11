@@ -20,20 +20,34 @@ package gov.nasa.javaGenes.core;
 
 
 public class StudentFitness extends FitnessMultiObjective {
-public StudentFitness(StudentFitnessFunction f) {super(f);}
+    protected double _grade = Fitness.BAD_FITNESS;
 
-protected double _grade = Fitness.BAD_FITNESS;
-public double getGrade() {return _grade;}
-public void setGrade(double grade) {_grade = grade;}
+    public StudentFitness(StudentFitnessFunction f) {
+        super(f);
+    }
 
-public double asDouble() {return getGrade();}
-public boolean fitterThan(Fitness f) {
-  StudentFitness fitness = (StudentFitness)f;
-  if (getGrade() < fitness.getGrade())
-    return true;
-  if (getGrade() > fitness.getGrade())
-    return false;
-  return super.fitterThan(f);
-}
-public String toString() {return getGrade() + "";}
+    public double getGrade() {
+        return _grade;
+    }
+
+    public void setGrade(double grade) {
+        _grade = grade;
+    }
+
+    public double asDouble() {
+        return getGrade();
+    }
+
+    public boolean fitterThan(Fitness f) {
+        StudentFitness fitness = (StudentFitness) f;
+        if (getGrade() < fitness.getGrade())
+            return true;
+        if (getGrade() > fitness.getGrade())
+            return false;
+        return super.fitterThan(f);
+    }
+
+    public String toString() {
+        return getGrade() + "";
+    }
 }

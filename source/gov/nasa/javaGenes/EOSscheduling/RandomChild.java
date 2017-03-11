@@ -18,22 +18,27 @@
 //
 //  Created by Al Globus on Wed Dec 04 2002.
 package gov.nasa.javaGenes.EOSscheduling;
-import gov.nasa.javaGenes.permutation.PermutationChildMaker;
-import gov.nasa.javaGenes.core.Evolvable;
+
 import gov.nasa.alsUtility.Error;
+import gov.nasa.javaGenes.core.Evolvable;
+import gov.nasa.javaGenes.permutation.PermutationChildMaker;
 
 public class RandomChild extends PermutationChildMaker {
-public int numberOfParents() {return 1;} // need to know size, don't actually use parent
-public Evolvable[] makeChildren(Evolvable[] parents) {
-    Error.assertTrue(parents.length == 1);
-    Error.assertTrue(parents[0] instanceof EOSschedulingEvolvable);
-    EOSschedulingEvolvable kid = new EOSschedulingEvolvable(parents[0].getSize());
-    Evolvable[] child = new Evolvable[1];
-    child[0] = kid;
-    return child;
-}
-public String toString() {
-	return "RandomChild";
-}
+    public int numberOfParents() {
+        return 1;
+    } // need to know size, don't actually use parent
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Error.assertTrue(parents.length == 1);
+        Error.assertTrue(parents[0] instanceof EOSschedulingEvolvable);
+        EOSschedulingEvolvable kid = new EOSschedulingEvolvable(parents[0].getSize());
+        Evolvable[] child = new Evolvable[1];
+        child[0] = kid;
+        return child;
+    }
+
+    public String toString() {
+        return "RandomChild";
+    }
 
 }

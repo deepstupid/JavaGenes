@@ -19,21 +19,24 @@
 //  Created by Al Globus on Wed Jul 03 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.Evolvable;
+import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.FitnessDouble;
-import gov.nasa.alsUtility.Error;
 
 public class NumberOfTakeImagesFitness extends SchedulingFitnessFunction {
 
-public NumberOfTakeImagesFitness(Scheduler scheduler) {
-    super(scheduler);
-}
-public Fitness evaluateFitness (Evolvable evolvable){
-    EOSschedulingEvolvable schedule = (EOSschedulingEvolvable)evolvable;
-    createSchedule(schedule);
-    int count = schedule.getScheduledTaskCount();
-    return new FitnessDouble((double)schedule.getSize() - count);
-}
-public String toString() {return "NumberOfTakeImages";}
+    public NumberOfTakeImagesFitness(Scheduler scheduler) {
+        super(scheduler);
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        EOSschedulingEvolvable schedule = (EOSschedulingEvolvable) evolvable;
+        createSchedule(schedule);
+        int count = schedule.getScheduledTaskCount();
+        return new FitnessDouble((double) schedule.getSize() - count);
+    }
+
+    public String toString() {
+        return "NumberOfTakeImages";
+    }
 }

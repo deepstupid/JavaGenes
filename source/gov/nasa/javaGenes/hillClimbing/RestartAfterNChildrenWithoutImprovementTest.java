@@ -19,37 +19,39 @@
 //  Created by Al Globus on Wed Jan 29 2003.
 package gov.nasa.javaGenes.hillClimbing;
 
-import junit.framework.TestCase;
-import gov.nasa.javaGenes.core.FitnessFunctionFixed;
 import gov.nasa.alsUtility.RandomNumber;
-import gov.nasa.javaGenes.permutation.PermutationEvolvable;
+import gov.nasa.javaGenes.core.FitnessFunctionFixed;
 import gov.nasa.javaGenes.core.Individual;
+import gov.nasa.javaGenes.permutation.PermutationEvolvable;
+import junit.framework.TestCase;
 
 public class RestartAfterNChildrenWithoutImprovementTest extends TestCase {
 
-public RestartAfterNChildrenWithoutImprovementTest(String name) {super(name);}
-
-public void testAll() {
-    final int size = 10;
-    RestartAfterNChildrenWithoutImprovement r = new RestartAfterNChildrenWithoutImprovement(size);
-    Individual worse = new Individual(new PermutationEvolvable(2),new FitnessFunctionFixed(3));
-    Individual better = new Individual(new PermutationEvolvable(2),new FitnessFunctionFixed(2));
-    for(int i = 0; i < 10 * size; i++) {
-        if (i > 0 && (i+5 % size == 0)) {
-            assertTrue(i+"", r.shouldRestart());
-            r.restarting();
-        } else
-            assertTrue(i+"", !r.shouldRestart());
-        if (i >= 5) 
-            r.childCreated(better,worse); 
-        else {
-            if (RandomNumber.getBoolean())
-                r.childCreated(better,better);
-            else
-                r.childCreated(worse,better);
-        }
-        r.lastChildAccepted();
+    public RestartAfterNChildrenWithoutImprovementTest(String name) {
+        super(name);
     }
-}
+
+    public void testAll() {
+        final int size = 10;
+        RestartAfterNChildrenWithoutImprovement r = new RestartAfterNChildrenWithoutImprovement(size);
+        Individual worse = new Individual(new PermutationEvolvable(2), new FitnessFunctionFixed(3));
+        Individual better = new Individual(new PermutationEvolvable(2), new FitnessFunctionFixed(2));
+        for (int i = 0; i < 10 * size; i++) {
+            if (i > 0 && (i + 5 % size == 0)) {
+                assertTrue(i + "", r.shouldRestart());
+                r.restarting();
+            } else
+                assertTrue(i + "", !r.shouldRestart());
+            if (i >= 5)
+                r.childCreated(better, worse);
+            else {
+                if (RandomNumber.getBoolean())
+                    r.childCreated(better, better);
+                else
+                    r.childCreated(worse, better);
+            }
+            r.lastChildAccepted();
+        }
+    }
 }
 

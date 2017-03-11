@@ -19,29 +19,36 @@
 package gov.nasa.javaGenes.evolvableDoubleList;
 
 import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.RandomNumber;
 
 public class SelectOneNeighboringPair extends NeighboringPairsSelector {
 
-public SelectOneNeighboringPair(){this(1,0);}
-public SelectOneNeighboringPair(int firstModulo){this(firstModulo,0);}
-public SelectOneNeighboringPair(int firstModulo, int firstOffset) {
-	super(new SelectOne(), firstModulo, firstOffset);
-}
-public Indices getIndices(int size) {
-	Indices selection = new Indices();
-	if (size < 2)
-		return selection;
-	int[] theFirstIndex = simpleSelector.getIndicesArray(size - 1);
-	Error.assertTrue(theFirstIndex.length <= 1);
-	if (theFirstIndex.length == 0)
-		return selection;
-    selection.addIndex(theFirstIndex[0]);
-    selection.addIndex(theFirstIndex[0]+1);
-	return selection;
-}
-public String toString() {
-    return "SelectOneNeighboringPair modulo=" + simpleSelector.modulo + " offset=" + simpleSelector.offset;
-}
+    public SelectOneNeighboringPair() {
+        this(1, 0);
+    }
+
+    public SelectOneNeighboringPair(int firstModulo) {
+        this(firstModulo, 0);
+    }
+
+    public SelectOneNeighboringPair(int firstModulo, int firstOffset) {
+        super(new SelectOne(), firstModulo, firstOffset);
+    }
+
+    public Indices getIndices(int size) {
+        Indices selection = new Indices();
+        if (size < 2)
+            return selection;
+        int[] theFirstIndex = simpleSelector.getIndicesArray(size - 1);
+        Error.assertTrue(theFirstIndex.length <= 1);
+        if (theFirstIndex.length == 0)
+            return selection;
+        selection.addIndex(theFirstIndex[0]);
+        selection.addIndex(theFirstIndex[0] + 1);
+        return selection;
+    }
+
+    public String toString() {
+        return "SelectOneNeighboringPair modulo=" + simpleSelector.modulo + " offset=" + simpleSelector.offset;
+    }
 
 }

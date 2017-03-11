@@ -19,11 +19,12 @@
 package gov.nasa.javaGenes.forceFields.crystals;
 
 public class BodyCenteredCubic extends CubicCell {
-static final private double[][] bodyCenteredCubicUniqueAtomLocations = {
-    {0,0,0},
-    {0.5,0.5,0.5}
-};
-public BodyCenteredCubic(String element, double maxDistanceFromUniqueAtoms) {
-    super(element,maxDistanceFromUniqueAtoms,bodyCenteredCubicUniqueAtomLocations);
-}
+    static final private double[][] bodyCenteredCubicUniqueAtomLocations = {
+            {0, 0, 0},
+            {0.5, 0.5, 0.5}
+    };
+
+    public BodyCenteredCubic(String element, double maxDistanceFromUniqueAtoms) {
+        super(element, maxDistanceFromUniqueAtoms, bodyCenteredCubicUniqueAtomLocations);
+    }
 }

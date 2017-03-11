@@ -20,26 +20,26 @@
 package gov.nasa.javaGenes.hillClimbing;
 
 import junit.framework.TestCase;
-import gov.nasa.javaGenes.core.FitnessDouble;
-import gov.nasa.alsUtility.RandomNumber;
 
 public class RestartAfterNChildrenWithoutAcceptanceTest extends TestCase {
 
-public RestartAfterNChildrenWithoutAcceptanceTest(String name) {super(name);}
-
-public void testAll() {
-    final int size = 10;
-    RestartAfterNChildrenWithoutAcceptance r = new RestartAfterNChildrenWithoutAcceptance(size);
-    for(int i = 0; i < 10 * size; i++) {
-        if (i > 0 && (i+5 % size == 0)) {
-            assertTrue(i+"", r.shouldRestart());
-            r.restarting();
-        } else
-            assertTrue(i+"", !r.shouldRestart());
-        r.childCreated(null,null);
-        if (i >= 5)
-            r.lastChildAccepted();
+    public RestartAfterNChildrenWithoutAcceptanceTest(String name) {
+        super(name);
     }
-}
+
+    public void testAll() {
+        final int size = 10;
+        RestartAfterNChildrenWithoutAcceptance r = new RestartAfterNChildrenWithoutAcceptance(size);
+        for (int i = 0; i < 10 * size; i++) {
+            if (i > 0 && (i + 5 % size == 0)) {
+                assertTrue(i + "", r.shouldRestart());
+                r.restarting();
+            } else
+                assertTrue(i + "", !r.shouldRestart());
+            r.childCreated(null, null);
+            if (i >= 5)
+                r.lastChildAccepted();
+        }
+    }
 }
 

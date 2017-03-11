@@ -19,21 +19,34 @@
 package gov.nasa.alsUtility;
 
 
-import java.io.Serializable;
-
 public class IndexIterator implements java.io.Serializable {
-private int _limit = 0;
-private int _current = 0;
+    private int _limit = 0;
+    private int _current = 0;
 
-public IndexIterator(){}
-public IndexIterator(int limit) {
-  setLimit(limit);
-}
-public boolean more() {return _current < _limit;}
-public void increment() {_current++;}
-public int index() {
-  return _current;
-}
-public void reset() {_limit = 0;}
-public void setLimit(int limit) {_limit = limit;}
+    public IndexIterator() {
+    }
+
+    public IndexIterator(int limit) {
+        setLimit(limit);
+    }
+
+    public boolean more() {
+        return _current < _limit;
+    }
+
+    public void increment() {
+        _current++;
+    }
+
+    public int index() {
+        return _current;
+    }
+
+    public void reset() {
+        _limit = 0;
+    }
+
+    public void setLimit(int limit) {
+        _limit = limit;
+    }
 }

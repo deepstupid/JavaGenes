@@ -18,28 +18,29 @@
 //
 package gov.nasa.alsUtility;
 
-import gov.nasa.alsUtility.Error;
-
 public class MinMaxes {
-protected DoubleInterval[] intervals;
+    protected DoubleInterval[] intervals;
 
-public void add(double[] array) {
-  if (intervals == null) {
-    intervals = new DoubleInterval[array.length];
-    for(int i = 0; i < array.length; i++)
-      intervals[i] = new DoubleInterval(array[i],array[i]);
-  }
-  else {
-    Error.assertTrue(array.length == intervals.length);
-    for(int i = 0; i < array.length; i++)
-      intervals[i].extendIfNecessary(array[i]);
-  }
-}
-/**
-do not modify return value
-*/
-public DoubleInterval getDoubleInterval(int i) {
-  return intervals[i];
-}
-public int size() {return intervals.length;}
+    public void add(double[] array) {
+        if (intervals == null) {
+            intervals = new DoubleInterval[array.length];
+            for (int i = 0; i < array.length; i++)
+                intervals[i] = new DoubleInterval(array[i], array[i]);
+        } else {
+            Error.assertTrue(array.length == intervals.length);
+            for (int i = 0; i < array.length; i++)
+                intervals[i].extendIfNecessary(array[i]);
+        }
+    }
+
+    /**
+     * do not modify return value
+     */
+    public DoubleInterval getDoubleInterval(int i) {
+        return intervals[i];
+    }
+
+    public int size() {
+        return intervals.length;
+    }
 }

@@ -18,42 +18,43 @@
 //
 package gov.nasa.javaGenes.graph;
 
-import java.io.Serializable;
 import gov.nasa.alsUtility.IntegerInterval;
 import gov.nasa.javaGenes.core.Parameters;
 
-/**
-Parameters and setup for genetic graph runs.
-
-@see GraphIndividual
-@see GraphPopulation
-@see GraphReporter
-*/
-public class GraphParameters extends Parameters implements Serializable{
+import java.io.Serializable;
 
 /**
-an interval to choose a random number of Graph vertices from. Used
-for generation of a random GraphPopulation.
+ * Parameters and setup for genetic graph runs.
+ *
+ * @see GraphIndividual
+ * @see GraphPopulation
+ * @see GraphReporter
+ */
+public class GraphParameters extends Parameters implements Serializable {
 
-@see GraphPopulation
-*/
-public IntegerInterval verticesInterval = new IntegerInterval(2,10);
-/**
-an interval to choose a random number of Graph cycles from. Used
-for generation of a random GraphPopulation.
+    /**
+     * an interval to choose a random number of Graph vertices from. Used
+     * for generation of a random GraphPopulation.
+     *
+     * @see GraphPopulation
+     */
+    public IntegerInterval verticesInterval = new IntegerInterval(2, 10);
+    /**
+     * an interval to choose a random number of Graph cycles from. Used
+     * for generation of a random GraphPopulation.
+     *
+     * @see GraphPopulation
+     */
+    public IntegerInterval cyclesInterval = new IntegerInterval(0, 2);
+    /**
+     * will provide random vertices and edges for random GraphPopulation
+     * construction.
+     *
+     * @see GraphPopulation
+     */
+    public VertexAndEdgeProvider provider = new VertexAndEdgeProvider();
 
-@see GraphPopulation
-*/
-public IntegerInterval cyclesInterval = new IntegerInterval(0,2);
-/**
-will provide random vertices and edges for random GraphPopulation
-construction.
 
-@see GraphPopulation
-*/
-public VertexAndEdgeProvider provider = new VertexAndEdgeProvider();
-
-
-public boolean layoutGraph2d = true;
-public GraphLayout layout = new GraphLayout();
+    public boolean layoutGraph2d = true;
+    public GraphLayout layout = new GraphLayout();
 }

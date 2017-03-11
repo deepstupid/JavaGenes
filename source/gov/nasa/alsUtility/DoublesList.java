@@ -20,24 +20,26 @@
 
 package gov.nasa.alsUtility;
 
-import java.util.Vector;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class DoublesList {
-protected Vector list = new Vector();
-final static public String separator = ",";
+    final static public String separator = ",";
+    protected Vector list = new Vector();
 
-public DoublesList(String commaSeparatedList) {
-    StringTokenizer tokenizer = new StringTokenizer(commaSeparatedList,separator);
-    while(tokenizer.hasMoreTokens()) {
-        String next = tokenizer.nextToken();
-        list.addElement(new Double(next));
+    public DoublesList(String commaSeparatedList) {
+        StringTokenizer tokenizer = new StringTokenizer(commaSeparatedList, separator);
+        while (tokenizer.hasMoreTokens()) {
+            String next = tokenizer.nextToken();
+            list.addElement(new Double(next));
+        }
     }
-}
-public int size() {
-    return list.size();
-}
-public double get(int i) {
-    return ((Double)list.elementAt(i)).doubleValue();
-}
+
+    public int size() {
+        return list.size();
+    }
+
+    public double get(int i) {
+        return ((Double) list.elementAt(i)).doubleValue();
+    }
 }

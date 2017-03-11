@@ -21,11 +21,12 @@ package gov.nasa.javaGenes.forceFields;
 import gov.nasa.alsUtility.Utility;
 
 public class ForceFitnessTanimoto extends ForceFitnessRMS {
-public ForceFitnessTanimoto(Potential p, double lengthScale, String forcesFilename) {
-  super(p,lengthScale,forcesFilename);
-}
-protected double calculateDistance(double energy, double otherEnergy) {
-  return Utility.TanimotoDistance(energy,otherEnergy);
-}
+    public ForceFitnessTanimoto(Potential p, double lengthScale, String forcesFilename) {
+        super(p, lengthScale, forcesFilename);
+    }
+
+    protected double calculateDistance(double energy, double otherEnergy) {
+        return Utility.TanimotoDistance(energy, otherEnergy);
+    }
 
 }

@@ -21,25 +21,50 @@ package gov.nasa.javaGenes.graph;
 import gov.nasa.alsUtility.Error;
 
 public class DirectedEdge extends Edge {
-/**
-not implemented
-*/
-public void setVertices(Vertex in, Vertex out) {
-	Error.notImplemented();
-}
-public void setDirectedVertices(DirectedVertex in, DirectedVertex out) {
-	setInVertex(in);
-  setOutVertex(out);
-}
-public void setInVertex(DirectedVertex vertex) {vertices[0] = vertex;}
-public void setOutVertex(DirectedVertex vertex) {vertices[1] = vertex;}
-public DirectedVertex getInVertex() {return (DirectedVertex)vertices[0];}
-public DirectedVertex getOutVertex() {return (DirectedVertex)vertices[1];}
-public boolean isInVertex(Vertex vertex) {return vertex == vertices[0];}
-public boolean isOutVertex(Vertex vertex) {return vertex == vertices[1];}
-public String toString() {return "directedEdge";}
-/**
-it is an error to call this
-*/
-public void stealVertices(Edge e) {Error.notApplicable();}
+    /**
+     * not implemented
+     */
+    public void setVertices(Vertex in, Vertex out) {
+        Error.notImplemented();
+    }
+
+    public void setDirectedVertices(DirectedVertex in, DirectedVertex out) {
+        setInVertex(in);
+        setOutVertex(out);
+    }
+
+    public DirectedVertex getInVertex() {
+        return (DirectedVertex) vertices[0];
+    }
+
+    public void setInVertex(DirectedVertex vertex) {
+        vertices[0] = vertex;
+    }
+
+    public DirectedVertex getOutVertex() {
+        return (DirectedVertex) vertices[1];
+    }
+
+    public void setOutVertex(DirectedVertex vertex) {
+        vertices[1] = vertex;
+    }
+
+    public boolean isInVertex(Vertex vertex) {
+        return vertex == vertices[0];
+    }
+
+    public boolean isOutVertex(Vertex vertex) {
+        return vertex == vertices[1];
+    }
+
+    public String toString() {
+        return "directedEdge";
+    }
+
+    /**
+     * it is an error to call this
+     */
+    public void stealVertices(Edge e) {
+        Error.notApplicable();
+    }
 } 

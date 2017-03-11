@@ -18,36 +18,47 @@
 //
 package gov.nasa.javaGenes.EOSscheduling.HBSS.contention;
 
-import gov.nasa.javaGenes.weightNetwork.Weight;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.javaGenes.weightNetwork.Weight;
 
 public class SSRcontendersNode extends Weight {
-protected AccessWindowWeight accessWindowWeight;
+    protected AccessWindowWeight accessWindowWeight;
 
-public SSRcontendersNode(AccessWindowWeight in) {
-    accessWindowWeight = in;
-    accessWindowWeight.setSSRcontendersNode(this);
-}
+    public SSRcontendersNode(AccessWindowWeight in) {
+        accessWindowWeight = in;
+        accessWindowWeight.setSSRcontendersNode(this);
+    }
 
-// these two ar meant to be noops
-public float getWeight() {return 0;}
-public void weightChanged(float oldWeight, float newWeight) {
-    Error.assertTrue(newWeight == 0); // this is true when called from removeFromWeightList(), the only time this happens
-}
-public int getSSRuse() {
-    return getTaskWeight().getSSRuse();
-}
-public SSRcontenders getSSRcontenders() {
-    return (SSRcontenders)getWeightList();
-}
-public SSRcontendersNode getNextSCN() {
-    return (SSRcontendersNode)getNext();
-}
-public AccessWindowWeight getAccessWindowWeight() {
-    return accessWindowWeight;
-}
-public TaskWeight getTaskWeight() {
-    return getAccessWindowWeight().getTaskWeight();
-}
-public float getSSRneed() {return accessWindowWeight.getSSRneed();}
+    // these two ar meant to be noops
+    public float getWeight() {
+        return 0;
+    }
+
+    public void weightChanged(float oldWeight, float newWeight) {
+        Error.assertTrue(newWeight == 0); // this is true when called from removeFromWeightList(), the only time this happens
+    }
+
+    public int getSSRuse() {
+        return getTaskWeight().getSSRuse();
+    }
+
+    public SSRcontenders getSSRcontenders() {
+        return (SSRcontenders) getWeightList();
+    }
+
+    public SSRcontendersNode getNextSCN() {
+        return (SSRcontendersNode) getNext();
+    }
+
+    public AccessWindowWeight getAccessWindowWeight() {
+        return accessWindowWeight;
+    }
+
+    public TaskWeight getTaskWeight() {
+        return getAccessWindowWeight().getTaskWeight();
+    }
+
+    public float getSSRneed() {
+        return accessWindowWeight.getSSRneed();
+    }
 }

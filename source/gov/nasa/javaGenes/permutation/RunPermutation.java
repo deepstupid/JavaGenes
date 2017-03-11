@@ -18,19 +18,20 @@
 //
 package gov.nasa.javaGenes.permutation;
 
-import gov.nasa.javaGenes.core.Run;
 import gov.nasa.javaGenes.core.Parameters;
 import gov.nasa.javaGenes.core.Reporter;
+import gov.nasa.javaGenes.core.Run;
 
 public class RunPermutation extends Run {
-public RunPermutation() {}
+    public RunPermutation() {
+    }
 
-protected void startSpecialized(String[] arguments) {
-    PermutationParameters p = new PermutationParameters();
-    parameters = (Parameters)p;
-    generationTimer.start();
-    population = new PermutationPopulation(p);
-    reporter = new Reporter(parameters);
-    generationTimer.stop();
-}
+    protected void startSpecialized(String[] arguments) {
+        PermutationParameters p = new PermutationParameters();
+        parameters = (Parameters) p;
+        generationTimer.start();
+        population = new PermutationPopulation(p);
+        reporter = new Reporter(parameters);
+        generationTimer.stop();
+    }
 }

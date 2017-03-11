@@ -20,12 +20,20 @@ package gov.nasa.alsUtility;
 
 
 /**
-implement marking. Used for graph traversal algorithms.
-*/
+ * implement marking. Used for graph traversal algorithms.
+ */
 public class Mark {
-private boolean mark = false;
+    private boolean mark = false;
 
-public boolean isMarked(boolean m) {return mark == m;}
-public boolean getMark() {return mark;}
-public void setMark(boolean m) {mark = m;}
+    public boolean isMarked(boolean m) {
+        return mark == m;
+    }
+
+    public boolean getMark() {
+        return mark;
+    }
+
+    public void setMark(boolean m) {
+        mark = m;
+    }
 }

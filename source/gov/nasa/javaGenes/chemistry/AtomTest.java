@@ -17,54 +17,60 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.chemistry;
-import junit.framework.TestCase;
+
 import gov.nasa.alsUtility.Vector3d;
+import junit.framework.TestCase;
 
 public class AtomTest extends TestCase {
 
-public AtomTest(String name) {super(name);}
-private Atom Si;
-private Atom F;
-private Atom Si2;
-private Atom C;
-private Atom[] array;
-private Molecule molecule;
+    private Atom Si;
+    private Atom F;
+    private Atom Si2;
+    private Atom C;
+    private Atom[] array;
+    private Molecule molecule;
+    public AtomTest(String name) {
+        super(name);
+    }
 
-public void setUp() {
-  Si = new Atom("Si");
-  F = new Atom("F");
-  Si2 = new Atom("Si");
-  C = new Atom("C");
-  array = new Atom[3];
-  array[0] = Si;
-  array[1] = F;
-  array[2] = Si2;
-  molecule = new Molecule();
-  molecule.add(Si);
-  molecule.add(F);
-  molecule.add(Si2);
-  molecule.add(C);
-  molecule.makeBond(1,3,1); // Si to Si2
-  molecule.makeBond(2,3,1);  // F to Si2
-  molecule.makeBond(3,4,1); // C to Si2
-}
-public void testIsIn() {
-  assertTrue("Si in", Si.isIn(array));
-  assertTrue("F in", F.isIn(array));
-  assertTrue("C out", !C.isIn(array));
-}
-public void testIsElement() {
-  assertTrue("Si is", Si.isElement("Si"));
-  assertTrue("Si isn't", !Si.isElement("C"));
-  assertTrue("bad symbol", !Si.isElement("lskjfd"));
-}
-public void testTranslateWithNeighbors() {
-  Vector3d translate = new Vector3d(1,1,1);
-  Vector3d zero = new Vector3d(0,0,0);
-  Atom a[] = {C};
-  Si2.translateWithNeighbors(translate,a);
-  assertTrue("C still", zero.nearlyEqual(C.getLocationVector()));
-  for(int i = 0; i < array.length; i++)
-    assertTrue(i + " moved", translate.nearlyEqual(array[i].getLocationVector()));
-}
+    public void setUp() {
+        Si = new Atom("Si");
+        F = new Atom("F");
+        Si2 = new Atom("Si");
+        C = new Atom("C");
+        array = new Atom[3];
+        array[0] = Si;
+        array[1] = F;
+        array[2] = Si2;
+        molecule = new Molecule();
+        molecule.add(Si);
+        molecule.add(F);
+        molecule.add(Si2);
+        molecule.add(C);
+        molecule.makeBond(1, 3, 1); // Si to Si2
+        molecule.makeBond(2, 3, 1);  // F to Si2
+        molecule.makeBond(3, 4, 1); // C to Si2
+    }
+
+    public void testIsIn() {
+        assertTrue("Si in", Si.isIn(array));
+        assertTrue("F in", F.isIn(array));
+        assertTrue("C out", !C.isIn(array));
+    }
+
+    public void testIsElement() {
+        assertTrue("Si is", Si.isElement("Si"));
+        assertTrue("Si isn't", !Si.isElement("C"));
+        assertTrue("bad symbol", !Si.isElement("lskjfd"));
+    }
+
+    public void testTranslateWithNeighbors() {
+        Vector3d translate = new Vector3d(1, 1, 1);
+        Vector3d zero = new Vector3d(0, 0, 0);
+        Atom a[] = {C};
+        Si2.translateWithNeighbors(translate, a);
+        assertTrue("C still", zero.nearlyEqual(C.getLocationVector()));
+        for (int i = 0; i < array.length; i++)
+            assertTrue(i + " moved", translate.nearlyEqual(array[i].getLocationVector()));
+    }
 }

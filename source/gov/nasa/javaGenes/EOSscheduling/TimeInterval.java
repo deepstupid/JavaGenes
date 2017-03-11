@@ -20,12 +20,15 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 abstract public class TimeInterval implements java.io.Serializable {
-public abstract int getStart();
-public abstract int getEnd();
-public boolean includes(int time) {
-    return getStart() <= time && time < getEnd();
-}
-public int getDuration() {
-    return getEnd() - getStart();
-}
+    public abstract int getStart();
+
+    public abstract int getEnd();
+
+    public boolean includes(int time) {
+        return getStart() <= time && time < getEnd();
+    }
+
+    public int getDuration() {
+        return getEnd() - getStart();
+    }
 }

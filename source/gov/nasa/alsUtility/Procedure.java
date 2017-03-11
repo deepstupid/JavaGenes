@@ -20,11 +20,11 @@ package gov.nasa.alsUtility;
 
 
 /**
-a procedure object is used to execute a procedure on several objects in a collection
-*/
+ * a procedure object is used to execute a procedure on several objects in a collection
+ */
 public interface Procedure {
-/**
-execute the procedure on object
-*/
-void execute(Object object);
+    /**
+     * execute the procedure on object
+     */
+    void execute(Object object);
 }

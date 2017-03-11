@@ -18,19 +18,21 @@
 //
 package gov.nasa.javaGenes.permutation;
 
-import gov.nasa.javaGenes.core.Individual;
 import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.FitnessFunction;
+import gov.nasa.javaGenes.core.Individual;
 
-public class PermutationIndividual extends Individual{
+public class PermutationIndividual extends Individual {
 
-/**
-Sets the evolvable to e and calculates the fitness using
-FitnessFunction f.
-*/
-public PermutationIndividual(Evolvable e, FitnessFunction f) {
-  super(e,f);
-}
+    /**
+     * Sets the evolvable to e and calculates the fitness using
+     * FitnessFunction f.
+     */
+    public PermutationIndividual(Evolvable e, FitnessFunction f) {
+        super(e, f);
+    }
 
-public PermutationEvolvable getPermutationEvolvable() {return (PermutationEvolvable)evolvable;}
+    public PermutationEvolvable getPermutationEvolvable() {
+        return (PermutationEvolvable) evolvable;
+    }
 }

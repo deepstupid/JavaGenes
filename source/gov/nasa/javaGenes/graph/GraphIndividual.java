@@ -18,28 +18,32 @@
 //
 package gov.nasa.javaGenes.graph;
 
-import gov.nasa.javaGenes.core.Individual;
-import gov.nasa.javaGenes.core.FitnessFunction;
 import gov.nasa.javaGenes.core.Evolvable;
-/**
-Represents a genetic software graph individual.
-*/
-public class GraphIndividual extends Individual{
+import gov.nasa.javaGenes.core.FitnessFunction;
+import gov.nasa.javaGenes.core.Individual;
 
 /**
-Sets the evolvable to Graph e and calculates the fitness using
-FitnessFunction f.
-*/
-public GraphIndividual(Evolvable e, FitnessFunction f) {
-  super(e,f);
-}
+ * Represents a genetic software graph individual.
+ */
+public class GraphIndividual extends Individual {
+
+    /**
+     * Sets the evolvable to Graph e and calculates the fitness using
+     * FitnessFunction f.
+     */
+    public GraphIndividual(Evolvable e, FitnessFunction f) {
+        super(e, f);
+    }
 /*
 public GraphIndividual(TokenizeInput tokenizer) {
 	super(tokenizer);
 }
 */
-/**
-@return the evolvable as a Graph
-*/
-public Graph getGraph() {return (Graph)evolvable;}
+
+    /**
+     * @return the evolvable as a Graph
+     */
+    public Graph getGraph() {
+        return (Graph) evolvable;
+    }
 }

@@ -19,15 +19,20 @@
 
 package gov.nasa.javaGenes.EOSscheduling;
 
-import java.util.Vector;
-import gov.nasa.alsUtility.Error;
-
 abstract public class Slewable implements java.io.Serializable {
-protected SlewTimeline slewTimeline;
+    protected SlewTimeline slewTimeline;
 
-abstract public boolean isWithinLimits(SlewRequirement s);
-abstract public int slewTime(SlewRequirement from, SlewRequirement to);
-abstract public boolean equivalent(SlewRequirement one, SlewRequirement other);
-public SlewTimeline getSlewTimeline() {return slewTimeline;}
-public int getTotalSlewTime() {return getSlewTimeline().getTotalSlewTime(this);}
+    abstract public boolean isWithinLimits(SlewRequirement s);
+
+    abstract public int slewTime(SlewRequirement from, SlewRequirement to);
+
+    abstract public boolean equivalent(SlewRequirement one, SlewRequirement other);
+
+    public SlewTimeline getSlewTimeline() {
+        return slewTimeline;
+    }
+
+    public int getTotalSlewTime() {
+        return getSlewTimeline().getTotalSlewTime(this);
+    }
 }

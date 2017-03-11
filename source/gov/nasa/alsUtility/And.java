@@ -20,23 +20,25 @@ package gov.nasa.alsUtility;
 
 
 /**
-logical and
-*/
+ * logical and
+ */
 public class And implements Predicate {
-protected Predicate left;
-protected Predicate right;
-/**
-arguments are the predicates we want the logical and of
-*/
-public And(Predicate p1, Predicate p2) {
-    left = p1;
-    right = p2;
-}
-/**
-@param object Object on which to find the logical and of the left and right predicates
-*/
-public boolean execute(Object object) {
-    return left.execute(object) && right.execute(object);
-}
+    protected Predicate left;
+    protected Predicate right;
+
+    /**
+     * arguments are the predicates we want the logical and of
+     */
+    public And(Predicate p1, Predicate p2) {
+        left = p1;
+        right = p2;
+    }
+
+    /**
+     * @param object Object on which to find the logical and of the left and right predicates
+     */
+    public boolean execute(Object object) {
+        return left.execute(object) && right.execute(object);
+    }
 }
 

@@ -22,47 +22,70 @@ import gov.nasa.alsUtility.Error;
 
 // NOTE: unit test is in WeightListTest.java
 public class Weight extends UpdateAndPropagatable {
-private static final boolean debug = gov.nasa.javaGenes.EOSscheduling.Debug.debug;
+    private static final boolean debug = gov.nasa.javaGenes.EOSscheduling.Debug.debug;
 
-protected float weight = 1;
+    protected float weight = 1;
 
-protected WeightList weightList; // one 'this' is in
+    protected WeightList weightList; // one 'this' is in
 
-// current Weights in a WeightList are in a double linked list for speedy removal
-protected Weight next;
-protected Weight previous;
-public void setNext(Weight n) {next = n;}
-public Weight getNext() {return next;}
-public void setPrevious(Weight p) {previous = p;}
-public Weight getPrevious() {return previous;}
+    // current Weights in a WeightList are in a double linked list for speedy removal
+    protected Weight next;
+    protected Weight previous;
 
-public float getWeight() {return weight;} // always use even internally in case subclass redefines
-protected void setWeight(float f) {
-    if (debug)
-        Error.assertTrue(f > 0);
-    weight = f;
-}
-public void setWeightAndPropagate(float f) {
-    float oldWeight = getWeight();
-    setWeight(f);
-    weightChanged(oldWeight,getWeight());
-}
-public void reinitialize() {}
-
-public void weightChanged(float oldWeight, float newWeight) {
-    if (debug) {
-        Error.assertTrue(gov.nasa.alsUtility.Utility.nearlyEqual(newWeight,getWeight()));
-        Error.assertTrue(oldWeight > 0);
-        Error.assertTrue(newWeight > 0);
+    public Weight getNext() {
+        return next;
     }
-    weightList.weightChanged(oldWeight,newWeight);
-}
-public void removeFromWeightList() {
-    weightList.removeFromWeightList(this);
-}
-public void setWeightList(WeightList inWeightList) {
-    Error.assertTrue(inWeightList != null);
-    weightList = inWeightList;
-}
-public WeightList getWeightList() {return weightList;}
+
+    public void setNext(Weight n) {
+        next = n;
+    }
+
+    public Weight getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Weight p) {
+        previous = p;
+    }
+
+    public float getWeight() {
+        return weight;
+    } // always use even internally in case subclass redefines
+
+    protected void setWeight(float f) {
+        if (debug)
+            Error.assertTrue(f > 0);
+        weight = f;
+    }
+
+    public void setWeightAndPropagate(float f) {
+        float oldWeight = getWeight();
+        setWeight(f);
+        weightChanged(oldWeight, getWeight());
+    }
+
+    public void reinitialize() {
+    }
+
+    public void weightChanged(float oldWeight, float newWeight) {
+        if (debug) {
+            Error.assertTrue(gov.nasa.alsUtility.Utility.nearlyEqual(newWeight, getWeight()));
+            Error.assertTrue(oldWeight > 0);
+            Error.assertTrue(newWeight > 0);
+        }
+        weightList.weightChanged(oldWeight, newWeight);
+    }
+
+    public void removeFromWeightList() {
+        weightList.removeFromWeightList(this);
+    }
+
+    public WeightList getWeightList() {
+        return weightList;
+    }
+
+    public void setWeightList(WeightList inWeightList) {
+        Error.assertTrue(inWeightList != null);
+        weightList = inWeightList;
+    }
 }

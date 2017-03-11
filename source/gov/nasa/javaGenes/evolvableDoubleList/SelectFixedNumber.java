@@ -18,33 +18,36 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.RandomNumber;
 
 /**
-selects a fixed number of indices, or all of them if there aren't enough */
+ * selects a fixed number of indices, or all of them if there aren't enough
+ */
 public class SelectFixedNumber extends Selector {
-protected int numberToSelect;
+    protected int numberToSelect;
 
-public SelectFixedNumber(int numberToSelect) {
-    Error.assertTrue(numberToSelect > 0);
-    this.numberToSelect = numberToSelect;
-}
-public Indices getIndices(int size) {
-    if (size <= numberToSelect) {
-        Indices selection = new Indices();
-        selection.addAll(size);
+    public SelectFixedNumber(int numberToSelect) {
+        Error.assertTrue(numberToSelect > 0);
+        this.numberToSelect = numberToSelect;
+    }
+
+    public Indices getIndices(int size) {
+        if (size <= numberToSelect) {
+            Indices selection = new Indices();
+            selection.addAll(size);
+            return selection;
+        }
+        double probability = (double) numberToSelect / (double) size;
+        SelectByProbability selectByProbability = new SelectByProbability(probability, numberToSelect);
+        Indices selection = selectByProbability.getIndices(size, MAXIMUM_TRIES);
+        while (selection.size() > numberToSelect)
+            selection.remove(RandomNumber.getIndex(selection.size()));
         return selection;
     }
-    double probability = (double)numberToSelect/(double)size;
-    SelectByProbability selectByProbability = new SelectByProbability(probability, numberToSelect);
-    Indices selection = selectByProbability.getIndices(size,MAXIMUM_TRIES);
-    while (selection.size() > numberToSelect)
-        selection.remove(RandomNumber.getIndex(selection.size()));
-    return selection;
-}
-public String toString() {
-    return "SelectFixedNumber numberToSelect = " + numberToSelect;
-}
+
+    public String toString() {
+        return "SelectFixedNumber numberToSelect = " + numberToSelect;
+    }
 
 }

@@ -20,52 +20,85 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 /**
-just holds data to simplify returning it.
-*/
+ * just holds data to simplify returning it.
+ */
 public class TaskPlacementData implements java.io.Serializable {
-public static final int NO_WINDOW = -1;
+    public static final int NO_WINDOW = -1;
+    protected int windowNumber = NO_WINDOW;
+    private boolean scheduled = false;
+    private int startTime = -1;
+    private int sensorNumber = -1;
+    private SlewRequirement slewRequirement;
 
-private boolean scheduled = false;
-private int startTime = -1;
-protected int windowNumber = NO_WINDOW;
-private int sensorNumber = -1;
-private SlewRequirement slewRequirement;
+    public TaskPlacementData() {
+    }
 
-public TaskPlacementData(){}
-public int getStartTime() {return startTime;}
-public void setStartTime(int inStartTime) {startTime = inStartTime;}
-public int getSensorNumber() {return sensorNumber;}
-public void setSensorNumber(int inSensorNumber) {sensorNumber = inSensorNumber;}
-public SlewRequirement getSlewRequirement() {return slewRequirement;}
-public void setSlewRequirement(SlewRequirement inSlewRequirement) {slewRequirement = inSlewRequirement;}
-public int getWindowNumber() {return windowNumber;}
-public void setWindowNumber(int index) {windowNumber = index;}
-public boolean isScheduled() {return scheduled;}
-public void setScheduled(boolean isScheduled) {scheduled = isScheduled;}
-public void setFrom(TaskPlacementData other) {
-    startTime = other.startTime;
-    sensorNumber = other.sensorNumber;
-    windowNumber = other.windowNumber;
-    scheduled = other.scheduled;
-}
-public void setScheduledAtStartOf(AccessWindow a) {
-    scheduled = true;
-    startTime = a.getStart();
-    windowNumber = a.getNumber();
-    sensorNumber = a.getSensor().getNumber();
-    slewRequirement = a.getSlewRequirement();
-}
+    public int getStartTime() {
+        return startTime;
+    }
 
-public boolean theSameAs(TaskPlacementData other) {
-    return startTime == other.startTime
-        && sensorNumber == other.sensorNumber
-        && windowNumber == other.windowNumber;
-}
-public String toString() {
-    return "scheduled= " + scheduled
-        + " startTime= " + startTime
-        + " windowNumber= " + windowNumber
-        + " sensorNumber= " + sensorNumber
-        + " slewRequirement= " + slewRequirement.getParameter(0); // BUG: only works for 1d slew
-}
+    public void setStartTime(int inStartTime) {
+        startTime = inStartTime;
+    }
+
+    public int getSensorNumber() {
+        return sensorNumber;
+    }
+
+    public void setSensorNumber(int inSensorNumber) {
+        sensorNumber = inSensorNumber;
+    }
+
+    public SlewRequirement getSlewRequirement() {
+        return slewRequirement;
+    }
+
+    public void setSlewRequirement(SlewRequirement inSlewRequirement) {
+        slewRequirement = inSlewRequirement;
+    }
+
+    public int getWindowNumber() {
+        return windowNumber;
+    }
+
+    public void setWindowNumber(int index) {
+        windowNumber = index;
+    }
+
+    public boolean isScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(boolean isScheduled) {
+        scheduled = isScheduled;
+    }
+
+    public void setFrom(TaskPlacementData other) {
+        startTime = other.startTime;
+        sensorNumber = other.sensorNumber;
+        windowNumber = other.windowNumber;
+        scheduled = other.scheduled;
+    }
+
+    public void setScheduledAtStartOf(AccessWindow a) {
+        scheduled = true;
+        startTime = a.getStart();
+        windowNumber = a.getNumber();
+        sensorNumber = a.getSensor().getNumber();
+        slewRequirement = a.getSlewRequirement();
+    }
+
+    public boolean theSameAs(TaskPlacementData other) {
+        return startTime == other.startTime
+                && sensorNumber == other.sensorNumber
+                && windowNumber == other.windowNumber;
+    }
+
+    public String toString() {
+        return "scheduled= " + scheduled
+                + " startTime= " + startTime
+                + " windowNumber= " + windowNumber
+                + " sensorNumber= " + sensorNumber
+                + " slewRequirement= " + slewRequirement.getParameter(0); // BUG: only works for 1d slew
+    }
 }

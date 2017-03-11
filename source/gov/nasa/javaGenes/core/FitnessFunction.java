@@ -22,40 +22,60 @@ package gov.nasa.javaGenes.core;
 import java.io.Serializable;
 
 /**
-fitness function for Evolvables. Low values are highly
-fit.
-
-@see Evolvable
-*/
+ * fitness function for Evolvables. Low values are highly
+ * fit.
+ *
+ * @see Evolvable
+ */
 public abstract class FitnessFunction implements Serializable {
-protected String name = getClass().getName();
-/**
-@return the fitness. Low values are fitter than high values.
-*/
-public abstract Fitness evaluateFitness (Evolvable evolvable);
-public int numberOfObjectives() {return 1;}
-public String getName() {
-  return name;
-}
-public double bestDouble() {return 0;}
-public double worstDouble() {return java.lang.Double.MAX_VALUE;}
-public void setName(String n) {name = n;}
-public String[] getNameArray() {
-  String[] array = new String[1];
-  array[0] = name;
-  return array;
-}
-public FitnessFunction getFunction(int generation) {
-  return this;
-}
-public boolean isNewFunction(int generation) {
-  return false;
-}
+    protected String name = getClass().getName();
 
-/**
-create any files needed, such as a representation of a target. Unclean, really
-shouldn't be here. By default, does nothing.
-*/
-public void makeFiles() {}
-public void report (Population population){}
+    /**
+     * @return the fitness. Low values are fitter than high values.
+     */
+    public abstract Fitness evaluateFitness(Evolvable evolvable);
+
+    public int numberOfObjectives() {
+        return 1;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String n) {
+        name = n;
+    }
+
+    public double bestDouble() {
+        return 0;
+    }
+
+    public double worstDouble() {
+        return java.lang.Double.MAX_VALUE;
+    }
+
+    public String[] getNameArray() {
+        String[] array = new String[1];
+        array[0] = name;
+        return array;
+    }
+
+    public FitnessFunction getFunction(int generation) {
+        return this;
+    }
+
+    public boolean isNewFunction(int generation) {
+        return false;
+    }
+
+    /**
+     * create any files needed, such as a representation of a target. Unclean, really
+     * shouldn't be here. By default, does nothing.
+     */
+    public void makeFiles() {
+    }
+
+    public void report(Population population) {
+    }
 }

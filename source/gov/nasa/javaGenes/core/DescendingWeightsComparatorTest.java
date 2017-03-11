@@ -21,21 +21,21 @@ package gov.nasa.javaGenes.core;
 
 
 import junit.framework.TestCase;
-import java.lang.Math;
-import gov.nasa.alsUtility.Utility;
 
 public class DescendingWeightsComparatorTest extends TestCase {
 
-public DescendingWeightsComparatorTest(String name) {super(name);}
+    public DescendingWeightsComparatorTest(String name) {
+        super(name);
+    }
 
-public void testCompare() {
-    ChangingWeightsObject low = new ChangingWeightsObject(null,1,0);
-    ChangingWeightsObject high = new ChangingWeightsObject(null,2,0);
-    ChangingWeightsObject high2 = new ChangingWeightsObject(null,2,0);
-    DescendingWeightsComparator c = new DescendingWeightsComparator();
-    assertTrue("1", c.compare(low,high) > 0);
-    assertTrue("2", c.compare(high,low) < 0);
-    assertTrue("2", c.compare(high2,high) == 0);
-}
+    public void testCompare() {
+        ChangingWeightsObject low = new ChangingWeightsObject(null, 1, 0);
+        ChangingWeightsObject high = new ChangingWeightsObject(null, 2, 0);
+        ChangingWeightsObject high2 = new ChangingWeightsObject(null, 2, 0);
+        DescendingWeightsComparator c = new DescendingWeightsComparator();
+        assertTrue("1", c.compare(low, high) > 0);
+        assertTrue("2", c.compare(high, low) < 0);
+        assertTrue("2", c.compare(high2, high) == 0);
+    }
 }
 

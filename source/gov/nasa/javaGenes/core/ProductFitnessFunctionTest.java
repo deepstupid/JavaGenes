@@ -23,31 +23,35 @@ import junit.framework.TestCase;
 
 public class ProductFitnessFunctionTest extends TestCase {
 
-public ProductFitnessFunctionTest(String name) {super(name);}
+    public ProductFitnessFunctionTest(String name) {
+        super(name);
+    }
 
-public void testEvaluateFitness() {
-  Evolvable e = new Evolvable();
-  ProductFitnessFunction f = new ProductFitnessFunction();
-  f.add(1,new FitnessFunctionFixed(0));
-  assertTrue("1", f.evaluateFitness(e).asDouble() == 1);
-  f.add(2,new FitnessFunctionFixed(2));
-  assertTrue("2 " + f.evaluateFitness(e).asDouble(), f.evaluateFitness(e).asDouble() == 5);
-  f.add(0,new FitnessFunctionFixed(5));
-  assertTrue("3",f.evaluateFitness(e).asDouble() == 5);
-  f.add(2,new FitnessFunctionFixed(5));
-  assertTrue("4",f.evaluateFitness(e).asDouble() == 55);
-}
-public void testNumberOfObjectives() {
-  WeightedSumFitness f = new WeightedSumFitness();
-  assertTrue(f.numberOfObjectives() == 1);
-}
-public void testNames() {
-  WeightedSumFitness f = new WeightedSumFitness();
-  final String name = "foo";
-  f.setName(name);
-  String[] names = f.getNameArray();
-  assertTrue(name.equals(names[0]));
-  assertTrue(names.length == 1);
-}
+    public void testEvaluateFitness() {
+        Evolvable e = new Evolvable();
+        ProductFitnessFunction f = new ProductFitnessFunction();
+        f.add(1, new FitnessFunctionFixed(0));
+        assertTrue("1", f.evaluateFitness(e).asDouble() == 1);
+        f.add(2, new FitnessFunctionFixed(2));
+        assertTrue("2 " + f.evaluateFitness(e).asDouble(), f.evaluateFitness(e).asDouble() == 5);
+        f.add(0, new FitnessFunctionFixed(5));
+        assertTrue("3", f.evaluateFitness(e).asDouble() == 5);
+        f.add(2, new FitnessFunctionFixed(5));
+        assertTrue("4", f.evaluateFitness(e).asDouble() == 55);
+    }
+
+    public void testNumberOfObjectives() {
+        WeightedSumFitness f = new WeightedSumFitness();
+        assertTrue(f.numberOfObjectives() == 1);
+    }
+
+    public void testNames() {
+        WeightedSumFitness f = new WeightedSumFitness();
+        final String name = "foo";
+        f.setName(name);
+        String[] names = f.getNameArray();
+        assertTrue(name.equals(names[0]));
+        assertTrue(names.length == 1);
+    }
 }
 

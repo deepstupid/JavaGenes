@@ -18,41 +18,46 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import java.lang.Math;
-import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.DoubleInterval;
+import gov.nasa.alsUtility.Error;
 
 public class CrossoverInterval extends ChildMaker {
-protected double expandIntervalsBy;
+    protected double expandIntervalsBy;
 
-public CrossoverInterval(Selector selector, double expandIntervalsBy) {
-    super(selector);
-    this.expandIntervalsBy = expandIntervalsBy;
-}
-public gov.nasa.javaGenes.core.Evolvable[] makeChildren(gov.nasa.javaGenes.core.Evolvable[] parents) {
-    Error.assertTrue(parents.length == 2);
-    for(int i = 0; i < parents.length; i++)
-        Error.assertTrue(parents[i].getSize() > 0);
-    EvolvableDoubleList dad = (EvolvableDoubleList)parents[0];
-    EvolvableDoubleList mom = (EvolvableDoubleList)parents[1];
-
-    EvolvableDoubleList child = (EvolvableDoubleList)(dad.getSize() < mom.getSize() ? dad.copyForEvolution() : mom.copyForEvolution());
-    int[] indices = getSelector().getIndicesArray(child);
-    for(int i = 0; i < indices.length; i++) {
-        int index = indices[i];
-        DoubleInterval interval = new DoubleInterval(dad.getDoubleValue(index),mom.getDoubleValue(index));
-        interval.expand(expandIntervalsBy);
-        interval.limitTo(EvolvableDouble.universalRange);
-        child.getDouble(index).setValue(interval.random());
+    public CrossoverInterval(Selector selector, double expandIntervalsBy) {
+        super(selector);
+        this.expandIntervalsBy = expandIntervalsBy;
     }
 
-    EvolvableDoubleList[] children = new EvolvableDoubleList[1];
-    children[0] = child;
-    return children;
-}
-public int numberOfParents() {return 2;}
-public String toString() {return "CrossoverInterval selector = " + getSelector() + " expandIntervalsBy = " + expandIntervalsBy;}
+    public gov.nasa.javaGenes.core.Evolvable[] makeChildren(gov.nasa.javaGenes.core.Evolvable[] parents) {
+        Error.assertTrue(parents.length == 2);
+        for (int i = 0; i < parents.length; i++)
+            Error.assertTrue(parents[i].getSize() > 0);
+        EvolvableDoubleList dad = (EvolvableDoubleList) parents[0];
+        EvolvableDoubleList mom = (EvolvableDoubleList) parents[1];
+
+        EvolvableDoubleList child = (EvolvableDoubleList) (dad.getSize() < mom.getSize() ? dad.copyForEvolution() : mom.copyForEvolution());
+        int[] indices = getSelector().getIndicesArray(child);
+        for (int i = 0; i < indices.length; i++) {
+            int index = indices[i];
+            DoubleInterval interval = new DoubleInterval(dad.getDoubleValue(index), mom.getDoubleValue(index));
+            interval.expand(expandIntervalsBy);
+            interval.limitTo(EvolvableDouble.universalRange);
+            child.getDouble(index).setValue(interval.random());
+        }
+
+        EvolvableDoubleList[] children = new EvolvableDoubleList[1];
+        children[0] = child;
+        return children;
+    }
+
+    public int numberOfParents() {
+        return 2;
+    }
+
+    public String toString() {
+        return "CrossoverInterval selector = " + getSelector() + " expandIntervalsBy = " + expandIntervalsBy;
+    }
 }
 
 

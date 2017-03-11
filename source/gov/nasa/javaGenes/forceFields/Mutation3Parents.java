@@ -20,51 +20,57 @@ package gov.nasa.javaGenes.forceFields;
 
 import gov.nasa.alsUtility.Error;
 import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.alsUtility.RandomNumber;
-import java.lang.Math;
 
 /**
-Mutates all alleles with a random number chosen
-from a Gaussian distribution with the standard deviation
-taken by the difference in two of the children
-*/
+ * Mutates all alleles with a random number chosen
+ * from a Gaussian distribution with the standard deviation
+ * taken by the difference in two of the children
+ */
 public class Mutation3Parents extends ChromosomeMutation {
-protected double standardDeviationFactor = 1;
+    protected double standardDeviationFactor = 1;
 
-public Mutation3Parents(AlleleTemplate a) {
-    this(a,1);
-}
-public Mutation3Parents(AlleleTemplate a, double inStandardDeviationFactor) {
-    super(a);
-    standardDeviationFactor = inStandardDeviationFactor;
-}
-public Evolvable[] makeChildren(Evolvable[] parents) {
-    Error.assertTrue(parents.length == 3);
-    Chromosome parent = (Chromosome)parents[0];
-    Chromosome limit1 = (Chromosome)parents[1];
-    Chromosome limit2 = (Chromosome)parents[2];
-    
-    Chromosome[] chromosome = new Chromosome[1];
-    chromosome[0] = getNewChromosome(alleles);
-    for(int i = 0; i < alleles.numberOfArrays(); i++)
-    for(int j = 0; j < alleles.getSize(i); j++) {
-        Allele allele = alleles.getAllele(i,j);
-        if (allele.dontEvolve()) {
-            chromosome[0].setValue(allele.getNoEvolutionValue(),i,j);
-            continue;
-        }
-    
-        double mean = parent.getValue(i,j);
-        double sd = Math.abs(limit1.getValue(i,j)-limit2.getValue(i,j)) * standardDeviationFactor;
-        double value = allele.getRandomGaussianValue(mean,sd);
-        if (limitToOriginalInterval)
-            value = forceInsideAlleleLimits(allele,value,mean);
-        chromosome[0].setValue(value,i,j);
+    public Mutation3Parents(AlleleTemplate a) {
+        this(a, 1);
     }
-    return chromosome;
-}
-public int numberOfParents() {return 3;}
-public String toString() {return "Mutation3Parents standardDeviationFactor: " + standardDeviationFactor;}
+
+    public Mutation3Parents(AlleleTemplate a, double inStandardDeviationFactor) {
+        super(a);
+        standardDeviationFactor = inStandardDeviationFactor;
+    }
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Error.assertTrue(parents.length == 3);
+        Chromosome parent = (Chromosome) parents[0];
+        Chromosome limit1 = (Chromosome) parents[1];
+        Chromosome limit2 = (Chromosome) parents[2];
+
+        Chromosome[] chromosome = new Chromosome[1];
+        chromosome[0] = getNewChromosome(alleles);
+        for (int i = 0; i < alleles.numberOfArrays(); i++)
+            for (int j = 0; j < alleles.getSize(i); j++) {
+                Allele allele = alleles.getAllele(i, j);
+                if (allele.dontEvolve()) {
+                    chromosome[0].setValue(allele.getNoEvolutionValue(), i, j);
+                    continue;
+                }
+
+                double mean = parent.getValue(i, j);
+                double sd = Math.abs(limit1.getValue(i, j) - limit2.getValue(i, j)) * standardDeviationFactor;
+                double value = allele.getRandomGaussianValue(mean, sd);
+                if (limitToOriginalInterval)
+                    value = forceInsideAlleleLimits(allele, value, mean);
+                chromosome[0].setValue(value, i, j);
+            }
+        return chromosome;
+    }
+
+    public int numberOfParents() {
+        return 3;
+    }
+
+    public String toString() {
+        return "Mutation3Parents standardDeviationFactor: " + standardDeviationFactor;
+    }
 }
 
 

@@ -20,15 +20,16 @@ package gov.nasa.alsUtility;
 
 
 /**
-abstract class for a distribution of double numbers.
-*/
+ * abstract class for a distribution of double numbers.
+ */
 public abstract class Distribution {
-/**
-number of values available
-*/
-public abstract int size();
-/**
-@return the next value from the distribution
-*/
-public abstract double get(int i);
+    /**
+     * number of values available
+     */
+    public abstract int size();
+
+    /**
+     * @return the next value from the distribution
+     */
+    public abstract double get(int i);
 }

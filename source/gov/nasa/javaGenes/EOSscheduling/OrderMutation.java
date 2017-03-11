@@ -20,10 +20,11 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 import gov.nasa.javaGenes.permutation.PermutationOrderMutation;
-import gov.nasa.javaGenes.permutation.PermutationEvolvable;
 
 // only used for compatibility with old funcation tests.
 // User JavaGenes.PermutationOrderMutation instead
 public class OrderMutation extends PermutationOrderMutation {
-public String toString() {return "EOS" + super.toString();}
+    public String toString() {
+        return "EOS" + super.toString();
+    }
 }

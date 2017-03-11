@@ -18,18 +18,18 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.DataTable;
+import gov.nasa.alsUtility.Error;
 
 public class GetLengthsAndAngles {
 
-public static void main(String[] arguments) {
-  Error.assertTrue(arguments.length == 2);
-  String inputFile = arguments[0];
-  String outputFile = arguments[1];
-  ManyMultiBodiesForOneEnergy molecules = new ManyMultiBodiesForOneEnergy(inputFile);
-  DataTable table = molecules.getLengthsAndAngles();
-  table.sort();
-  table.writeColumns(outputFile);
-}
+    public static void main(String[] arguments) {
+        Error.assertTrue(arguments.length == 2);
+        String inputFile = arguments[0];
+        String outputFile = arguments[1];
+        ManyMultiBodiesForOneEnergy molecules = new ManyMultiBodiesForOneEnergy(inputFile);
+        DataTable table = molecules.getLengthsAndAngles();
+        table.sort();
+        table.writeColumns(outputFile);
+    }
 }

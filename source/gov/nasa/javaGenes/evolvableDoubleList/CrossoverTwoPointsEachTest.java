@@ -20,42 +20,42 @@
 package gov.nasa.javaGenes.evolvableDoubleList;
 
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.DoubleInterval;
-import gov.nasa.alsUtility.IntegerInterval;
-import gov.nasa.alsUtility.RandomNumber;
 
 public class CrossoverTwoPointsEachTest extends TestCase {
 
-public CrossoverTwoPointsEachTest(String name) {super(name);}
+    public CrossoverTwoPointsEachTest(String name) {
+        super(name);
+    }
 
-public void testCrossover() {
-	double[] insertIntoValues = {1,2,3,4,5};
-	double[] takeFromValues = {4,5,6,7};
-	int[] insertInto1 = {1,2,3,4};
-	int[] takeFrom1 = {0,1,2,3};
-	double[] resultValues1 = {1,2,5,6,5};
-	testCrossover("1 ", insertIntoValues, takeFromValues, insertInto1, takeFrom1, resultValues1);
-	int[] insertInto2 = {2,3,3,4};
-	int[] takeFrom2 = {1,2,2,3};
-	double[] resultValues2 = {1,2,3,6,5};
-	testCrossover("2 ", insertIntoValues, takeFromValues, insertInto2, takeFrom2, resultValues2);
-	int[] insertInto3 = {};
-	int[] takeFrom3 = {};
-	double[] resultValues3 = {1,2,3,4,5};
-	testCrossover("3 ", insertIntoValues, takeFromValues, insertInto3, takeFrom3, resultValues3);
-	int[] insertInto4 = {2,3,3,4};
-	int[] takeFrom4 = {0,1,2,3};
-	double[] resultValues4 = {1,2,3,5,6,5};
-	testCrossover("4 ", insertIntoValues, takeFromValues, insertInto4, takeFrom4, resultValues4);
-}
-private void testCrossover(String name, double[] insertIntoValues, double[] takeFromValues, int[] insertInto, int[] takeFrom, double[] resultValues) {
-	double divideBy = 10;
-	EvolvableDoubleList insertIntoList = new EvolvableDoubleList(insertIntoValues,divideBy);
-	EvolvableDoubleList takeFromList = new EvolvableDoubleList(takeFromValues,divideBy);
-    CrossoverTwoPointsEach xover = new CrossoverTwoPointsEach();
-	EvolvableDoubleList child = (EvolvableDoubleList)insertIntoList.copyForEvolution();
-	xover.crossover(child,insertIntoList,takeFromList,insertInto,takeFrom);
-	EvolvableDoubleList result = new EvolvableDoubleList(resultValues,divideBy);
-	assertTrue(name + child.toString(), child.isEqual(result));
-}
+    public void testCrossover() {
+        double[] insertIntoValues = {1, 2, 3, 4, 5};
+        double[] takeFromValues = {4, 5, 6, 7};
+        int[] insertInto1 = {1, 2, 3, 4};
+        int[] takeFrom1 = {0, 1, 2, 3};
+        double[] resultValues1 = {1, 2, 5, 6, 5};
+        testCrossover("1 ", insertIntoValues, takeFromValues, insertInto1, takeFrom1, resultValues1);
+        int[] insertInto2 = {2, 3, 3, 4};
+        int[] takeFrom2 = {1, 2, 2, 3};
+        double[] resultValues2 = {1, 2, 3, 6, 5};
+        testCrossover("2 ", insertIntoValues, takeFromValues, insertInto2, takeFrom2, resultValues2);
+        int[] insertInto3 = {};
+        int[] takeFrom3 = {};
+        double[] resultValues3 = {1, 2, 3, 4, 5};
+        testCrossover("3 ", insertIntoValues, takeFromValues, insertInto3, takeFrom3, resultValues3);
+        int[] insertInto4 = {2, 3, 3, 4};
+        int[] takeFrom4 = {0, 1, 2, 3};
+        double[] resultValues4 = {1, 2, 3, 5, 6, 5};
+        testCrossover("4 ", insertIntoValues, takeFromValues, insertInto4, takeFrom4, resultValues4);
+    }
+
+    private void testCrossover(String name, double[] insertIntoValues, double[] takeFromValues, int[] insertInto, int[] takeFrom, double[] resultValues) {
+        double divideBy = 10;
+        EvolvableDoubleList insertIntoList = new EvolvableDoubleList(insertIntoValues, divideBy);
+        EvolvableDoubleList takeFromList = new EvolvableDoubleList(takeFromValues, divideBy);
+        CrossoverTwoPointsEach xover = new CrossoverTwoPointsEach();
+        EvolvableDoubleList child = (EvolvableDoubleList) insertIntoList.copyForEvolution();
+        xover.crossover(child, insertIntoList, takeFromList, insertInto, takeFrom);
+        EvolvableDoubleList result = new EvolvableDoubleList(resultValues, divideBy);
+        assertTrue(name + child.toString(), child.isEqual(result));
+    }
 }

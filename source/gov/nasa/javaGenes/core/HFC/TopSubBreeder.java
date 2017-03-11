@@ -19,28 +19,29 @@
 package gov.nasa.javaGenes.core.HFC;
 
 import gov.nasa.alsUtility.Error;
-import gov.nasa.javaGenes.core.Population;
-import gov.nasa.javaGenes.core.Individual;
-import gov.nasa.javaGenes.core.ChildMakerProvider;
-import gov.nasa.javaGenes.core.FitnessFunction;
-import gov.nasa.javaGenes.core.AntiTournament;
+import gov.nasa.javaGenes.core.*;
 
 public class TopSubBreeder extends SubBreeder {
 
-public TopSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction) {
-	super(childMakerProvider,fitnessFunction);
-	grimReaper = new AntiTournament(2);
-}
+    public TopSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction) {
+        super(childMakerProvider, fitnessFunction);
+        grimReaper = new AntiTournament(2);
+    }
 
-public void promote(Individual individual, Population population) {
-	Error.assertNotNull(individual);
-	Error.assertNotNull(population);
-	breeder.topSubPopulationReceivedNewBestIndividual(individual);
-	setIndividual(population,getIndexToKill(population),individual);
-}
+    public void promote(Individual individual, Population population) {
+        Error.assertNotNull(individual);
+        Error.assertNotNull(population);
+        breeder.topSubPopulationReceivedNewBestIndividual(individual);
+        setIndividual(population, getIndexToKill(population), individual);
+    }
 
-public void promoteTooFitIndividuals(Population population) {}
-public void parentsOfPromoted(int[] parentIndices, Population population) {}
+    public void promoteTooFitIndividuals(Population population) {
+    }
 
-public String toString() {return "TopSubBreeder " + super.toString();}
+    public void parentsOfPromoted(int[] parentIndices, Population population) {
+    }
+
+    public String toString() {
+        return "TopSubBreeder " + super.toString();
+    }
 }

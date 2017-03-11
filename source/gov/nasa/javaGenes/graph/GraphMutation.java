@@ -22,22 +22,26 @@ import gov.nasa.javaGenes.core.ChildMaker;
 import gov.nasa.javaGenes.core.Evolvable;
 
 /**
-abstract class for graph mutation operators
-*/
+ * abstract class for graph mutation operators
+ */
 abstract class GraphMutation extends ChildMaker {
-/**
-@return 1
-*/
-public int numberOfParents() {return 1;}
-public Evolvable[] makeChildren(Evolvable[] parents) {
-  Graph c = makeChild(((Graph)parents[0]).deepCopyGraph());
-  if (c == null) return new Evolvable[0];
-  Graph[] g = new Graph[1];
-  g[0] = c;
-  return (Evolvable[])g;
-}
-/**
-@return parameter graph mutated. No new graph created.
-*/
-abstract public Graph makeChild(Graph child);
+    /**
+     * @return 1
+     */
+    public int numberOfParents() {
+        return 1;
+    }
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Graph c = makeChild(((Graph) parents[0]).deepCopyGraph());
+        if (c == null) return new Evolvable[0];
+        Graph[] g = new Graph[1];
+        g[0] = c;
+        return (Evolvable[]) g;
+    }
+
+    /**
+     * @return parameter graph mutated. No new graph created.
+     */
+    abstract public Graph makeChild(Graph child);
 }

@@ -21,61 +21,80 @@ package gov.nasa.javaGenes.core;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.ExtendedVector;
 
-public class FitnessFunctionMultiObjective extends FitnessFunction  {
-protected ExtendedVector weights = new ExtendedVector();
-protected ExtendedVector fitnessFunctions = new ExtendedVector();
-/**
-@param weight the weight for this fitness function. Smaller values indicate more influence since 0 is perfect fitness
-@param function the fitness function.
-*/
-public void add(double weight, FitnessFunction function) {
-	Error.assertTrue(weight >= 0);
-	weights.addElement(new Double(weight));
-	fitnessFunctions.addElement(function);
-}
-public void add(FitnessFunction function) {
-  add(1,function);
-}
-public int numberOfObjectives() {return fitnessFunctions.size();}
-public double bestDouble() {Error.notImplemented(); return super.bestDouble();}
-public double worstDouble() {Error.notImplemented(); return super.worstDouble();}
+public class FitnessFunctionMultiObjective extends FitnessFunction {
+    protected ExtendedVector weights = new ExtendedVector();
+    protected ExtendedVector fitnessFunctions = new ExtendedVector();
 
-public Fitness evaluateFitness (Evolvable evolvable) {
-    FitnessMultiObjective f = getNewFitness();
-    for(int i = 0; i < fitnessFunctions.size(); i++)
-        f.add(getFitnessFunction(i).evaluateFitness(evolvable));
-    return f;
-}
-// subclasses can change class of return value
-public FitnessMultiObjective getNewFitness() {
-  return new FitnessMultiObjective(this);
-}
-public FitnessFunction getFitnessFunction(int i) {
-  return (FitnessFunction)fitnessFunctions.elementAt(i);
-}
-public double getWeight(int i) {
-  return ((Double)weights.elementAt(i)).doubleValue();
-}
-/**
-tells the constituent fitness functions to makeFiles()
-*/
-public void makeFiles() {
-	for(int i = 0; i < fitnessFunctions.size(); i++){
-		((FitnessFunction)fitnessFunctions.elementAt(i)).makeFiles();
-	}
-}
-public String[] getNameArray() {
-  String[] array = new String[fitnessFunctions.size()];
-	for(int i = 0; i < fitnessFunctions.size(); i++)
-    array[i] = getFitnessFunction(i).getName();
-  return array;
-}
-public String toString() {
-	String s = "fitness function " + new String(getName()) + "\n";
-	for(int i = 0; i < fitnessFunctions.size(); i++){
-		s += weights.elementAt(i).toString() + "\t" + fitnessFunctions.elementAt(i).toString() + "\n";
-	}
-	s += "end fitness function\n";
-	return s;
-}
+    /**
+     * @param weight   the weight for this fitness function. Smaller values indicate more influence since 0 is perfect fitness
+     * @param function the fitness function.
+     */
+    public void add(double weight, FitnessFunction function) {
+        Error.assertTrue(weight >= 0);
+        weights.addElement(new Double(weight));
+        fitnessFunctions.addElement(function);
+    }
+
+    public void add(FitnessFunction function) {
+        add(1, function);
+    }
+
+    public int numberOfObjectives() {
+        return fitnessFunctions.size();
+    }
+
+    public double bestDouble() {
+        Error.notImplemented();
+        return super.bestDouble();
+    }
+
+    public double worstDouble() {
+        Error.notImplemented();
+        return super.worstDouble();
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        FitnessMultiObjective f = getNewFitness();
+        for (int i = 0; i < fitnessFunctions.size(); i++)
+            f.add(getFitnessFunction(i).evaluateFitness(evolvable));
+        return f;
+    }
+
+    // subclasses can change class of return value
+    public FitnessMultiObjective getNewFitness() {
+        return new FitnessMultiObjective(this);
+    }
+
+    public FitnessFunction getFitnessFunction(int i) {
+        return (FitnessFunction) fitnessFunctions.elementAt(i);
+    }
+
+    public double getWeight(int i) {
+        return ((Double) weights.elementAt(i)).doubleValue();
+    }
+
+    /**
+     * tells the constituent fitness functions to makeFiles()
+     */
+    public void makeFiles() {
+        for (int i = 0; i < fitnessFunctions.size(); i++) {
+            ((FitnessFunction) fitnessFunctions.elementAt(i)).makeFiles();
+        }
+    }
+
+    public String[] getNameArray() {
+        String[] array = new String[fitnessFunctions.size()];
+        for (int i = 0; i < fitnessFunctions.size(); i++)
+            array[i] = getFitnessFunction(i).getName();
+        return array;
+    }
+
+    public String toString() {
+        String s = "fitness function " + new String(getName()) + "\n";
+        for (int i = 0; i < fitnessFunctions.size(); i++) {
+            s += weights.elementAt(i).toString() + "\t" + fitnessFunctions.elementAt(i).toString() + "\n";
+        }
+        s += "end fitness function\n";
+        return s;
+    }
 }

@@ -18,50 +18,99 @@
 //
 package gov.nasa.alsUtility;
 
-import java.io.PrintWriter;
 import java.io.OutputStream;
-import gov.nasa.alsUtility.Error;
+import java.io.PrintWriter;
 
 /**
-print things out in ASCII with tabs separating each print on a line
-*/
-public class PrintTabSeparatedData extends PrintWriter{
-private boolean needsTab = false;
+ * print things out in ASCII with tabs separating each print on a line
+ */
+public class PrintTabSeparatedData extends PrintWriter {
+    private boolean needsTab = false;
 
 
-public PrintTabSeparatedData(OutputStream out) {
-	super(out);
-  Error.assertTrue(out != null);
-}
-public void print(String argument) {
-	if (needsTab)
-		super.print("\t");
-	super.print(argument);
-	needsTab = true;
-}
-public void print(boolean argument) {print(String.valueOf(argument));}
-public void print(int argument) {print(String.valueOf(argument));}
-public void print(long argument) {print(String.valueOf(argument));}
-public void print(float argument) {print(String.valueOf(argument));}
-public void print(double argument) {print(String.valueOf(argument));}
-public void print(Object argument) {print(String.valueOf(argument));}
-public void print(char argument) {print(String.valueOf(argument));}
-public void print(char[] argument) {print(String.valueOf(argument));}
+    public PrintTabSeparatedData(OutputStream out) {
+        super(out);
+        Error.assertTrue(out != null);
+    }
 
-public void println() {
-	super.println();
-	needsTab = false;
-}
-public void println(String argument) {
-	print(argument);
-	println();
-}
-public void println(boolean argument) {println(String.valueOf(argument));}
-public void println(int argument) {println(String.valueOf(argument));}
-public void println(long argument) {println(String.valueOf(argument));}
-public void println(float argument) {println(String.valueOf(argument));}
-public void println(double argument) {println(String.valueOf(argument));}
-public void println(Object argument) {println(String.valueOf(argument));}
-public void println(char argument) {println(String.valueOf(argument));}
-public void println(char[] argument) {println(String.valueOf(argument));}
+    public void print(String argument) {
+        if (needsTab)
+            super.print("\t");
+        super.print(argument);
+        needsTab = true;
+    }
+
+    public void print(boolean argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void print(int argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void print(long argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void print(float argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void print(double argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void print(Object argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void print(char argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void print(char[] argument) {
+        print(String.valueOf(argument));
+    }
+
+    public void println() {
+        super.println();
+        needsTab = false;
+    }
+
+    public void println(String argument) {
+        print(argument);
+        println();
+    }
+
+    public void println(boolean argument) {
+        println(String.valueOf(argument));
+    }
+
+    public void println(int argument) {
+        println(String.valueOf(argument));
+    }
+
+    public void println(long argument) {
+        println(String.valueOf(argument));
+    }
+
+    public void println(float argument) {
+        println(String.valueOf(argument));
+    }
+
+    public void println(double argument) {
+        println(String.valueOf(argument));
+    }
+
+    public void println(Object argument) {
+        println(String.valueOf(argument));
+    }
+
+    public void println(char argument) {
+        println(String.valueOf(argument));
+    }
+
+    public void println(char[] argument) {
+        println(String.valueOf(argument));
+    }
 }

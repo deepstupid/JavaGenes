@@ -18,17 +18,17 @@
 //
 package gov.nasa.javaGenes.chemistry;
 
-import gov.nasa.javaGenes.graph.GraphIndividual;
 import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.FitnessFunction;
+import gov.nasa.javaGenes.graph.GraphIndividual;
 
 /**
-represents an individual molecule
-*/
+ * represents an individual molecule
+ */
 public class MoleculeIndividual extends GraphIndividual {
-public MoleculeIndividual(Evolvable e, FitnessFunction f) {
-  super(e,f);
-}
+    public MoleculeIndividual(Evolvable e, FitnessFunction f) {
+        super(e, f);
+    }
 /*
 public MoleculeIndividual(TokenizeInput tokenizer) {
 	super(tokenizer);
@@ -41,8 +41,10 @@ public void stateSave(TokenizeOutput tokenizer) {
 }
 */
 
-/**
-@return the evolvable as a Molecule
-*/
-public Molecule getMolecule() {return (Molecule)evolvable;}
+    /**
+     * @return the evolvable as a Molecule
+     */
+    public Molecule getMolecule() {
+        return (Molecule) evolvable;
+    }
 } 

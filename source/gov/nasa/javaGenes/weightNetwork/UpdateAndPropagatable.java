@@ -21,11 +21,22 @@ package gov.nasa.javaGenes.weightNetwork;
 import gov.nasa.alsUtility.Error;
 
 abstract public class UpdateAndPropagatable implements java.io.Serializable {
-private static final boolean debug = gov.nasa.javaGenes.EOSscheduling.Debug.debug;
-protected boolean needToUpdateAndPropagate = false;
+    private static final boolean debug = gov.nasa.javaGenes.EOSscheduling.Debug.debug;
+    protected boolean needToUpdateAndPropagate = false;
 
-public void startUpdateAndPropagate() {needToUpdateAndPropagate = true;}
-public void updateAndPropagateDone() {needToUpdateAndPropagate = false;}
-public boolean mustToUpdateAndPropagate() {return needToUpdateAndPropagate;}
-public void updateAndPropagate(int which) {Error.notImplemented();}
+    public void startUpdateAndPropagate() {
+        needToUpdateAndPropagate = true;
+    }
+
+    public void updateAndPropagateDone() {
+        needToUpdateAndPropagate = false;
+    }
+
+    public boolean mustToUpdateAndPropagate() {
+        return needToUpdateAndPropagate;
+    }
+
+    public void updateAndPropagate(int which) {
+        Error.notImplemented();
+    }
 }

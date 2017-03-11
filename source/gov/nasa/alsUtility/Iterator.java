@@ -20,16 +20,18 @@ package gov.nasa.alsUtility;
 
 
 public interface Iterator {
-/**
-@return true if there are more objects to iterator over
-*/
-boolean more();
-/**
-move to the next object
-*/
-void next();
-/**
-@return the current object
-*/
-Object object();
+    /**
+     * @return true if there are more objects to iterator over
+     */
+    boolean more();
+
+    /**
+     * move to the next object
+     */
+    void next();
+
+    /**
+     * @return the current object
+     */
+    Object object();
 }

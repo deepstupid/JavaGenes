@@ -18,34 +18,35 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import java.lang.Math;
 import gov.nasa.javaGenes.chemistry.Constants;
 
 public class StillingerWeberSi extends StillingerWeber {
 
-protected int[] getChromosomeArraySizes() {
-  int[] arraySizes = {numberOfTwoBodyParameters,numberOfThreeBodyParameters};
-  return arraySizes;
-}
-protected void formSetup() {
-  super.formSetup();
-  alleleSetup.add("SiSi", 0);
-  alleleSetup.add("SiSiSi", 1);
-}
-protected void setupChromosomeFromPaper() {
-  ChromosomeParametersData SiSi = new ChromosomeParametersData("SiSi");
-  SiSi.add("A",7.049556277);
-  SiSi.add("B",0.6022245584);
-  SiSi.add("C",1); // factored out in the paper
-  SiSi.add("p",4);
-  SiSi.add("q",0);
-  SiSi.addNoEvolution("a",1.8);
+    protected int[] getChromosomeArraySizes() {
+        int[] arraySizes = {numberOfTwoBodyParameters, numberOfThreeBodyParameters};
+        return arraySizes;
+    }
 
-  ChromosomeParametersData SiSiSi = new ChromosomeParametersData("SiSiSi");
-  SiSiSi.add("alpha",0);
-  SiSiSi.add("lambda",21);
-  SiSiSi.addNoEvolution("theta0",Constants.TetrahedronAngle);
-  SiSiSi.add("gamma",1.2);
-  SiSiSi.addNoEvolution("a1",1.8);
-}
+    protected void formSetup() {
+        super.formSetup();
+        alleleSetup.add("SiSi", 0);
+        alleleSetup.add("SiSiSi", 1);
+    }
+
+    protected void setupChromosomeFromPaper() {
+        ChromosomeParametersData SiSi = new ChromosomeParametersData("SiSi");
+        SiSi.add("A", 7.049556277);
+        SiSi.add("B", 0.6022245584);
+        SiSi.add("C", 1); // factored out in the paper
+        SiSi.add("p", 4);
+        SiSi.add("q", 0);
+        SiSi.addNoEvolution("a", 1.8);
+
+        ChromosomeParametersData SiSiSi = new ChromosomeParametersData("SiSiSi");
+        SiSiSi.add("alpha", 0);
+        SiSiSi.add("lambda", 21);
+        SiSiSi.addNoEvolution("theta0", Constants.TetrahedronAngle);
+        SiSiSi.add("gamma", 1.2);
+        SiSiSi.addNoEvolution("a1", 1.8);
+    }
 }

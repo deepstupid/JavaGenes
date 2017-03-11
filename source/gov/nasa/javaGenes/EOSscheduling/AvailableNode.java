@@ -20,33 +20,46 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 public class AvailableNode extends Node {
-boolean isAvailable;
-protected boolean isAvailable() {return isAvailable;}
-protected boolean isUnAvailable() {return !isAvailable;}
-protected void setAvailable(boolean inIsAvailable) {isAvailable = inIsAvailable;}
-protected AvailableNode nextAvailableNode() { 
-    AvailableNode n = (AvailableNode)next(); 
-    while (n != null && n.isUnAvailable())
-        n = (AvailableNode)n.next();
-    return n;
-}
-protected AvailableNode previousAvailableNode() { 
-    AvailableNode n = (AvailableNode)previous(); 
-    while (n != null && n.isUnAvailable())
-        n = (AvailableNode)n.previous();
-    return n;
-}
-protected AvailableNode nextUnAvailableNode() { 
-    AvailableNode n = (AvailableNode)next(); 
-    while (n != null && n.isAvailable())
-        n = (AvailableNode)n.next();
-    return n;
-}
-protected AvailableNode previousUnAvailableNode() { 
-    AvailableNode n = (AvailableNode)previous(); 
-    while (n != null && n.isAvailable())
-        n = (AvailableNode)n.previous();
-    return n;
-}
-    
+    boolean isAvailable;
+
+    protected boolean isAvailable() {
+        return isAvailable;
+    }
+
+    protected void setAvailable(boolean inIsAvailable) {
+        isAvailable = inIsAvailable;
+    }
+
+    protected boolean isUnAvailable() {
+        return !isAvailable;
+    }
+
+    protected AvailableNode nextAvailableNode() {
+        AvailableNode n = (AvailableNode) next();
+        while (n != null && n.isUnAvailable())
+            n = (AvailableNode) n.next();
+        return n;
+    }
+
+    protected AvailableNode previousAvailableNode() {
+        AvailableNode n = (AvailableNode) previous();
+        while (n != null && n.isUnAvailable())
+            n = (AvailableNode) n.previous();
+        return n;
+    }
+
+    protected AvailableNode nextUnAvailableNode() {
+        AvailableNode n = (AvailableNode) next();
+        while (n != null && n.isAvailable())
+            n = (AvailableNode) n.next();
+        return n;
+    }
+
+    protected AvailableNode previousUnAvailableNode() {
+        AvailableNode n = (AvailableNode) previous();
+        while (n != null && n.isAvailable())
+            n = (AvailableNode) n.previous();
+        return n;
+    }
+
 }

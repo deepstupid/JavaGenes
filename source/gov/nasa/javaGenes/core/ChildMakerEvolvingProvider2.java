@@ -18,56 +18,61 @@
 //
 package gov.nasa.javaGenes.core;
 
-import java.util.Collections;
 import gov.nasa.alsUtility.Error;
 
+import java.util.Collections;
+
 /**
-starts with a set of random ChildMakers.  Every n get()s, throws out the worst ones and creates new ones to take their place
-*/
+ * starts with a set of random ChildMakers.  Every n get()s, throws out the worst ones and creates new ones to take their place
+ */
 public class ChildMakerEvolvingProvider2 extends ChildMakerProvider {
-protected int numberOfGetsPerGeneration;
-protected double numberToKill;
-protected ChildMakerRandomCreator childMakerCreator;
-protected int numberOfGetsSoFar;
-protected double evolutionScaleFactor; // used to reduce the influence of old data on the evolutionary comparison
-protected ChildMakerDownFractionComparator downFractionComparator = new ChildMakerDownFractionComparator();
+    protected int numberOfGetsPerGeneration;
+    protected double numberToKill;
+    protected ChildMakerRandomCreator childMakerCreator;
+    protected int numberOfGetsSoFar;
+    protected double evolutionScaleFactor; // used to reduce the influence of old data on the evolutionary comparison
+    protected ChildMakerDownFractionComparator downFractionComparator = new ChildMakerDownFractionComparator();
 
-public ChildMakerEvolvingProvider2(int numberOfGetsPerGeneration, int numberOfChildMakers, int numberToKill, double evolutionScaleFactor, ChildMakerRandomCreator childMakerCreator) {
-	Error.assertTrue(numberOfChildMakers > 0);
-	Error.assertTrue(numberOfGetsPerGeneration > 0);
-	Error.assertTrue(numberToKill > 0);
-	Error.assertTrue(evolutionScaleFactor >= 0);
-	Error.assertNotNull(childMakerCreator);
-	this.numberOfGetsPerGeneration = numberOfGetsPerGeneration;
-	this.numberToKill = numberToKill;
-	this.evolutionScaleFactor = evolutionScaleFactor;
-	this.childMakerCreator = childMakerCreator;
-	for(int i = 0; i < numberOfChildMakers; i++)
-		add(childMakerCreator.create());
-}
-public ChildMaker get() {
-	if (numberOfGetsSoFar >= numberOfGetsPerGeneration) {
-		evolve();
-		numberOfGetsSoFar = 0;
-		for(int i = 0; i < childMakers.size(); i++)
-			get(i).forEvolution.scaleBy(evolutionScaleFactor);
-	}
-	numberOfGetsSoFar++;
-	return super.get();
-}
-protected void evolve() {
-	Error.assertTrue(size() > 0);
-	String[] names = get(0).getFitnessFunctionNames();
-	Collections.sort(childMakers,downFractionComparator);
-	for(int i = 0; i < numberToKill; i++)
-		removeLastChildMaker();
-	for(int i = 0; i < numberToKill; i++) {
-		ChildMaker cm = childMakerCreator.create();
-		cm.setFitnessFunctionNames(names);
-		add(cm);
-	}
-}
+    public ChildMakerEvolvingProvider2(int numberOfGetsPerGeneration, int numberOfChildMakers, int numberToKill, double evolutionScaleFactor, ChildMakerRandomCreator childMakerCreator) {
+        Error.assertTrue(numberOfChildMakers > 0);
+        Error.assertTrue(numberOfGetsPerGeneration > 0);
+        Error.assertTrue(numberToKill > 0);
+        Error.assertTrue(evolutionScaleFactor >= 0);
+        Error.assertNotNull(childMakerCreator);
+        this.numberOfGetsPerGeneration = numberOfGetsPerGeneration;
+        this.numberToKill = numberToKill;
+        this.evolutionScaleFactor = evolutionScaleFactor;
+        this.childMakerCreator = childMakerCreator;
+        for (int i = 0; i < numberOfChildMakers; i++)
+            add(childMakerCreator.create());
+    }
 
-public String toString() {return "ChildMakerEvolvingProvider2 numberOfGetsPerGeneration=" + numberOfGetsPerGeneration +
-		" numberToKill= " + numberToKill + " childMakerCreator=" + childMakerCreator + " " + super.toString();}
+    public ChildMaker get() {
+        if (numberOfGetsSoFar >= numberOfGetsPerGeneration) {
+            evolve();
+            numberOfGetsSoFar = 0;
+            for (int i = 0; i < childMakers.size(); i++)
+                get(i).forEvolution.scaleBy(evolutionScaleFactor);
+        }
+        numberOfGetsSoFar++;
+        return super.get();
+    }
+
+    protected void evolve() {
+        Error.assertTrue(size() > 0);
+        String[] names = get(0).getFitnessFunctionNames();
+        Collections.sort(childMakers, downFractionComparator);
+        for (int i = 0; i < numberToKill; i++)
+            removeLastChildMaker();
+        for (int i = 0; i < numberToKill; i++) {
+            ChildMaker cm = childMakerCreator.create();
+            cm.setFitnessFunctionNames(names);
+            add(cm);
+        }
+    }
+
+    public String toString() {
+        return "ChildMakerEvolvingProvider2 numberOfGetsPerGeneration=" + numberOfGetsPerGeneration +
+                " numberToKill= " + numberToKill + " childMakerCreator=" + childMakerCreator + " " + super.toString();
+    }
 }

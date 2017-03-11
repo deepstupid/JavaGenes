@@ -21,31 +21,42 @@ package gov.nasa.javaGenes.core;
 
 
 /**
-returns weights for an object.  These weights vary linearly with a 'distance' parameter.
-*/
+ * returns weights for an object.  These weights vary linearly with a 'distance' parameter.
+ */
 public class ChangingWeightsObject implements java.io.Serializable {
-protected double start = 1;
-protected double slope = 0;
-double currentWeight = 1;
-protected Object weightedObject;
+    protected double start = 1;
+    protected double slope = 0;
+    protected Object weightedObject;
+    double currentWeight = 1;
 
-public ChangingWeightsObject(Object inWeightedObject) {weightedObject = inWeightedObject;}
-public ChangingWeightsObject(Object inWeightedObject, double inStart, double inSlope) {
-    this(inWeightedObject);
-    start = inStart;
-    slope = inSlope;
-    currentWeight = start;
-}
-public ChangingWeightsObject(Object inWeightedObject, double inStart, double end, double maxDistance ) {
-    this(inWeightedObject,inStart,(end - inStart)/maxDistance);
-}
+    public ChangingWeightsObject(Object inWeightedObject) {
+        weightedObject = inWeightedObject;
+    }
 
-public double getWeight() {return currentWeight;}
-public void calculateWeight(double distance) {
-    currentWeight = start + distance*slope;
-}
-public Object getObject() {return weightedObject;}
-public String toString() {
-    return "ChangingWeightsObject start " + start + " slope " + slope + " object " + weightedObject;
-}
+    public ChangingWeightsObject(Object inWeightedObject, double inStart, double inSlope) {
+        this(inWeightedObject);
+        start = inStart;
+        slope = inSlope;
+        currentWeight = start;
+    }
+
+    public ChangingWeightsObject(Object inWeightedObject, double inStart, double end, double maxDistance) {
+        this(inWeightedObject, inStart, (end - inStart) / maxDistance);
+    }
+
+    public double getWeight() {
+        return currentWeight;
+    }
+
+    public void calculateWeight(double distance) {
+        currentWeight = start + distance * slope;
+    }
+
+    public Object getObject() {
+        return weightedObject;
+    }
+
+    public String toString() {
+        return "ChangingWeightsObject start " + start + " slope " + slope + " object " + weightedObject;
+    }
 }

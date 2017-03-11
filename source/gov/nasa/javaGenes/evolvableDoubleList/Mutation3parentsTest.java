@@ -19,38 +19,41 @@
 
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class Mutation3parentsTest extends TestCase {
 
-public Mutation3parentsTest(String name) {super(name);}
+    public Mutation3parentsTest(String name) {
+        super(name);
+    }
 
-public void testMutation3parents() {
-    RandomNumber.setSeed(990639400906L);   // to get deterministic results
-    assertTrue("1", testMutation3parents(0.5, 3, 8) >= 3); 
-    assertTrue("2", testMutation3parents(0.001, 9, 8) == 8);
-    assertTrue("3", testMutation3parents(1, 6, 8) == 8);
-}
-public int testMutation3parents(double probability, int minimumNumberToSelect, int length) {
-    SelectByProbability selector = new SelectByProbability(probability,minimumNumberToSelect);
-    EvolvableDoubleList[] lists = {
-        new EvolvableDoubleList(length),
-        new EvolvableDoubleList(length-1),
-        new EvolvableDoubleList(length+1)
-    };
-    double[] initialValues = new double[lists[0].getSize()];
-    for(int i = 0; i < lists[0].getSize(); i++)
-        initialValues[i] = lists[0].getDoubleValue(i);
-    Mutation3parents mutator = new Mutation3parents(selector);
-    EvolvableDoubleList[] children = (EvolvableDoubleList[])mutator.makeChildren(lists);
-    assertTrue("length", children.length == 1);
-    EvolvableDoubleList child = children[0];
-    int changes = 0;
-    for(int i = 0; i < child.getSize(); i++)
-        if (!Utility.nearlyEqual(initialValues[i],child.getDoubleValue(i)))
-            changes++;
-    return changes;
-}
+    public void testMutation3parents() {
+        RandomNumber.setSeed(990639400906L);   // to get deterministic results
+        assertTrue("1", testMutation3parents(0.5, 3, 8) >= 3);
+        assertTrue("2", testMutation3parents(0.001, 9, 8) == 8);
+        assertTrue("3", testMutation3parents(1, 6, 8) == 8);
+    }
+
+    public int testMutation3parents(double probability, int minimumNumberToSelect, int length) {
+        SelectByProbability selector = new SelectByProbability(probability, minimumNumberToSelect);
+        EvolvableDoubleList[] lists = {
+                new EvolvableDoubleList(length),
+                new EvolvableDoubleList(length - 1),
+                new EvolvableDoubleList(length + 1)
+        };
+        double[] initialValues = new double[lists[0].getSize()];
+        for (int i = 0; i < lists[0].getSize(); i++)
+            initialValues[i] = lists[0].getDoubleValue(i);
+        Mutation3parents mutator = new Mutation3parents(selector);
+        EvolvableDoubleList[] children = (EvolvableDoubleList[]) mutator.makeChildren(lists);
+        assertTrue("length", children.length == 1);
+        EvolvableDoubleList child = children[0];
+        int changes = 0;
+        for (int i = 0; i < child.getSize(); i++)
+            if (!Utility.nearlyEqual(initialValues[i], child.getDoubleValue(i)))
+                changes++;
+        return changes;
+    }
 }

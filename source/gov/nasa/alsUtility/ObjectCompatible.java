@@ -20,19 +20,24 @@ package gov.nasa.alsUtility;
 
 
 /**
-@see Compatible
-*/
+ * @see Compatible
+ */
 public class ObjectCompatible implements Predicate {
-/**
-object to be compatible with
-*/
-protected Compatible object;
+    /**
+     * object to be compatible with
+     */
+    protected Compatible object;
 
-public ObjectCompatible(Object o) {object = (Compatible)o;}
-/**
-@param o must implement Compatible
-@see Compatible
-@return true if Object o is compatible with object
-*/
-public boolean execute(Object o) {return ((Compatible)o).isCompatible(object);}
+    public ObjectCompatible(Object o) {
+        object = (Compatible) o;
+    }
+
+    /**
+     * @param o must implement Compatible
+     * @return true if Object o is compatible with object
+     * @see Compatible
+     */
+    public boolean execute(Object o) {
+        return ((Compatible) o).isCompatible(object);
+    }
 }

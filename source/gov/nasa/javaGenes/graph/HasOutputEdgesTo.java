@@ -19,14 +19,17 @@
 package gov.nasa.javaGenes.graph;
 
 import gov.nasa.alsUtility.Predicate;
-import gov.nasa.javaGenes.graph.DirectedVertex;
 
 public class HasOutputEdgesTo implements Predicate {
-protected DirectedVertex vertex;
-public HasOutputEdgesTo(DirectedVertex v) {vertex = v;}
-public boolean execute(Object object) {
-	DirectedVertex other = (DirectedVertex)object;
-  return other.hasOutputEdgeTo(vertex);
-}
+    protected DirectedVertex vertex;
+
+    public HasOutputEdgesTo(DirectedVertex v) {
+        vertex = v;
+    }
+
+    public boolean execute(Object object) {
+        DirectedVertex other = (DirectedVertex) object;
+        return other.hasOutputEdgeTo(vertex);
+    }
 }
 

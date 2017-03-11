@@ -20,5 +20,5 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 public class Debug {
-static public final boolean debug = false;
+    static public final boolean debug = false;
 }

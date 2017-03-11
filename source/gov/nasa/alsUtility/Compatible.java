@@ -20,9 +20,9 @@ package gov.nasa.alsUtility;
 
 
 /**
-for objects to decide if they are compatible with each other. For example,
-double bonds are compatible with other double bonds but not with single bonds.
-*/
+ * for objects to decide if they are compatible with each other. For example,
+ * double bonds are compatible with other double bonds but not with single bonds.
+ */
 public interface Compatible {
-boolean isCompatible(Compatible c);
+    boolean isCompatible(Compatible c);
 }

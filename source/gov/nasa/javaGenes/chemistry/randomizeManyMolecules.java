@@ -18,25 +18,25 @@
 //
 package gov.nasa.javaGenes.chemistry;
 
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.Utility;
 
 public class randomizeManyMolecules {
-public static void main(String[] arguments) {
-  Error.assertTrue(arguments.length == 3);
-  String inputFile = arguments[0];
-  String outputFile = arguments[1];
-  double distanceToRandomize = Utility.string2double(arguments[2]);
-  Error.assertTrue(distanceToRandomize > 0);
+    public static void main(String[] arguments) {
+        Error.assertTrue(arguments.length == 3);
+        String inputFile = arguments[0];
+        String outputFile = arguments[1];
+        double distanceToRandomize = Utility.string2double(arguments[2]);
+        Error.assertTrue(distanceToRandomize > 0);
 
-  Molecules molecules = xyzFormat.readMolecules(inputFile);
-  for(int i = 0; i < molecules.size(); i++) {
-    Molecule next = molecules.get(i);
-    next.randomizeAtomicPositionsBy(distanceToRandomize);
-   if (i == 0)
-      xyzFormat.writeToFile(next,outputFile);
-    else
-      xyzFormat.appendToFile(next,outputFile);
-  }
-}
+        Molecules molecules = xyzFormat.readMolecules(inputFile);
+        for (int i = 0; i < molecules.size(); i++) {
+            Molecule next = molecules.get(i);
+            next.randomizeAtomicPositionsBy(distanceToRandomize);
+            if (i == 0)
+                xyzFormat.writeToFile(next, outputFile);
+            else
+                xyzFormat.appendToFile(next, outputFile);
+        }
+    }
 }

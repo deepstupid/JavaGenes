@@ -20,10 +20,7 @@
 package gov.nasa.javaGenes.hillClimbing;
 
 import gov.nasa.javaGenes.core.Fitness;
-import gov.nasa.alsUtility.RandomNumber;
-import java.lang.Math;
-import gov.nasa.alsUtility.Error;
 
 abstract public class Accepter implements java.io.Serializable {
-abstract public boolean accept(Fitness kid,Fitness parent); 
+    abstract public boolean accept(Fitness kid, Fitness parent);
 }

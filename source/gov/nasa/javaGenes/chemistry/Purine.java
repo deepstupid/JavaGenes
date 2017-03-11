@@ -21,24 +21,24 @@ package gov.nasa.javaGenes.chemistry;
 
 public class Purine extends Molecule {
 
-public Purine() {
-    for(int i = 0; i < 5; i++)
-        add(new Atom(6));
-    for(int i = 0; i < 4; i++)
-        add(new Atom(7));
+    public Purine() {
+        for (int i = 0; i < 5; i++)
+            add(new Atom(6));
+        for (int i = 0; i < 4; i++)
+            add(new Atom(7));
 
-    // aromatic ring 1
-    makeBond(1, 2, 1);
-    makeBond(2, 3, 2);
-    makeBond(3, 6, 1);
-    makeBond(6, 4, 2);
-    makeBond(4, 7, 1);
-    makeBond(7, 1, 2);
+        // aromatic ring 1
+        makeBond(1, 2, 1);
+        makeBond(2, 3, 2);
+        makeBond(3, 6, 1);
+        makeBond(6, 4, 2);
+        makeBond(4, 7, 1);
+        makeBond(7, 1, 2);
 
-    // aromatic ring 2
-    makeBond(2, 8, 1);
-    makeBond(8, 5, 1);
-    makeBond(5, 9, 2);
-    makeBond(9, 3, 1);
-}
+        // aromatic ring 2
+        makeBond(2, 8, 1);
+        makeBond(8, 5, 1);
+        makeBond(5, 9, 2);
+        makeBond(9, 3, 1);
+    }
 }

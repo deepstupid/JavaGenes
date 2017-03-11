@@ -18,33 +18,39 @@
 //
 package gov.nasa.javaGenes.core;
 
-import java.lang.Double;
-
 /**
- this fitness function is a weighted sum of fitness functions
-*/
-public class WeightedSumFitness extends FitnessFunctionMultiObjectiveToOne  {
-protected boolean normalizeByWeight = true;
-public WeightedSumFitness() {this(true);}
-public WeightedSumFitness(boolean normalizeByWeight) {
-    setNormalizeByWeight(normalizeByWeight);
-}
-public Fitness evaluateFitness (Evolvable evolvable) {
-	double fitness = 0;
-	double weightSum = 0;
-	for(int i = 0; i < weights.size(); i++){
-		double weight = getWeight(i);
-		if (weight != 0.0) {
-			weightSum += weight;
-			double f = getFitnessFunction(i).evaluateFitness(evolvable).asDouble();
-			fitness += f*weight;
-		}
-	}
-	if (weightSum == 0.0)
-		return new FitnessDouble(0.0);
+ * this fitness function is a weighted sum of fitness functions
+ */
+public class WeightedSumFitness extends FitnessFunctionMultiObjectiveToOne {
+    protected boolean normalizeByWeight = true;
+
+    public WeightedSumFitness() {
+        this(true);
+    }
+
+    public WeightedSumFitness(boolean normalizeByWeight) {
+        setNormalizeByWeight(normalizeByWeight);
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        double fitness = 0;
+        double weightSum = 0;
+        for (int i = 0; i < weights.size(); i++) {
+            double weight = getWeight(i);
+            if (weight != 0.0) {
+                weightSum += weight;
+                double f = getFitnessFunction(i).evaluateFitness(evolvable).asDouble();
+                fitness += f * weight;
+            }
+        }
+        if (weightSum == 0.0)
+            return new FitnessDouble(0.0);
         if (normalizeByWeight)
             fitness /= weightSum;
-	return new FitnessDouble(fitness);
-}
-public void setNormalizeByWeight(boolean value) {normalizeByWeight = value;}
+        return new FitnessDouble(fitness);
+    }
+
+    public void setNormalizeByWeight(boolean value) {
+        normalizeByWeight = value;
+    }
 }

@@ -23,36 +23,41 @@ import junit.framework.TestCase;
 
 public class NodeTest extends TestCase {
 
-public NodeTest(String name) {super(name);}
-private Node list;
-private final int startTime = 5;
-private final int endTime = 10;
+    private final int startTime = 5;
+    private final int endTime = 10;
+    private Node list;
+    public NodeTest(String name) {
+        super(name);
+    }
 
-protected void setUp() {
-    NodeFactory factory = new NodeFactory();
-    list = (Node)factory.newAvailableNode(startTime,null,null);
-    Node next = (Node)factory.newUnAvailableNode(endTime,null,null);
-    next.setPrevious(list);
-    list.setNext(next);
-    list.setEnd(endTime);
-}
-protected void tearDown() {
-}
-public void testIsDurationAvailable() {
-    assertTrue("1",list.isDurationAvailable(5,5));
-    assertTrue("2",!list.isDurationAvailable(5,6));
-    assertTrue("3",list.isDurationAvailable(6,2));
-    assertTrue("4",list.isDurationAvailable(9,1));
-    assertTrue("5",!list.isDurationAvailable(4,2));
-}
-public void testIncludes() {
-    assertTrue("1",list.includes(7));
-    assertTrue("2",list.includes(5));
-    assertTrue("3",list.includes(9));
-    assertTrue("3.5",!list.includes(2));
-    assertTrue("4",!list.includes(4));
-    assertTrue("5",list.includes(9));
-    assertTrue("6",!list.includes(10));
-    assertTrue("7",!list.includes(17));
-}
+    protected void setUp() {
+        NodeFactory factory = new NodeFactory();
+        list = (Node) factory.newAvailableNode(startTime, null, null);
+        Node next = (Node) factory.newUnAvailableNode(endTime, null, null);
+        next.setPrevious(list);
+        list.setNext(next);
+        list.setEnd(endTime);
+    }
+
+    protected void tearDown() {
+    }
+
+    public void testIsDurationAvailable() {
+        assertTrue("1", list.isDurationAvailable(5, 5));
+        assertTrue("2", !list.isDurationAvailable(5, 6));
+        assertTrue("3", list.isDurationAvailable(6, 2));
+        assertTrue("4", list.isDurationAvailable(9, 1));
+        assertTrue("5", !list.isDurationAvailable(4, 2));
+    }
+
+    public void testIncludes() {
+        assertTrue("1", list.includes(7));
+        assertTrue("2", list.includes(5));
+        assertTrue("3", list.includes(9));
+        assertTrue("3.5", !list.includes(2));
+        assertTrue("4", !list.includes(4));
+        assertTrue("5", list.includes(9));
+        assertTrue("6", !list.includes(10));
+        assertTrue("7", !list.includes(17));
+    }
 }

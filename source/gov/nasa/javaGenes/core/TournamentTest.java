@@ -18,40 +18,44 @@
 //
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.IntegerInterval;
 import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class TournamentTest extends TestCase {
 
-public TournamentTest(String name) {super(name);}
-private Population population = new Population(50);
-private Tournament tournament = new Tournament(2);
+    private Population population = new Population(50);
+    private Tournament tournament = new Tournament(2);
+    public TournamentTest(String name) {
+        super(name);
+    }
 
-public void setUp() {
-	for(int i = 0; i < population.getSize(); i++)
-		population.setIndividual(i, new Individual(new FitnessDouble(i)));
-}
-public void testTournament() {
-	int[] array1 = {1,3,5};
-	Error.assertTrue("1", tournament.tournament(array1,population) == 1);
-	array1[0] = 6;
-	Error.assertTrue("2", tournament.tournament(array1,population) == 3);
-	array1[1] = 12;
-	Error.assertTrue("3", tournament.tournament(array1,population) == 5);
-}
-public void testGetParentIndices() {
-	RandomNumber.setSeed(990639400906L); // used to generate repeatable runs.
-	for(int i = 0; i < 10000; i++) {
-		tournament = new Tournament(new IntegerInterval(1,5).random());
-		int number = new IntegerInterval(1,3).random();
-		int bottom = new IntegerInterval(0,30).random();
-		IntegerInterval range = new IntegerInterval(bottom, bottom+new IntegerInterval(6,19).random());
-		int[] indices = tournament.getParentIndices(number,range,population);
-		Error.assertTrue("1-"+i, Utility.areDifferent(indices));
-		Error.assertTrue("2-"+i, indices.length == number);
-	}
-}
+    public void setUp() {
+        for (int i = 0; i < population.getSize(); i++)
+            population.setIndividual(i, new Individual(new FitnessDouble(i)));
+    }
+
+    public void testTournament() {
+        int[] array1 = {1, 3, 5};
+        Error.assertTrue("1", tournament.tournament(array1, population) == 1);
+        array1[0] = 6;
+        Error.assertTrue("2", tournament.tournament(array1, population) == 3);
+        array1[1] = 12;
+        Error.assertTrue("3", tournament.tournament(array1, population) == 5);
+    }
+
+    public void testGetParentIndices() {
+        RandomNumber.setSeed(990639400906L); // used to generate repeatable runs.
+        for (int i = 0; i < 10000; i++) {
+            tournament = new Tournament(new IntegerInterval(1, 5).random());
+            int number = new IntegerInterval(1, 3).random();
+            int bottom = new IntegerInterval(0, 30).random();
+            IntegerInterval range = new IntegerInterval(bottom, bottom + new IntegerInterval(6, 19).random());
+            int[] indices = tournament.getParentIndices(number, range, population);
+            Error.assertTrue("1-" + i, Utility.areDifferent(indices));
+            Error.assertTrue("2-" + i, indices.length == number);
+        }
+    }
 }

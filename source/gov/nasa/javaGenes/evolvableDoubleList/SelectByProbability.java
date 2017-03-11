@@ -21,35 +21,40 @@ package gov.nasa.javaGenes.evolvableDoubleList;
 import gov.nasa.alsUtility.RandomNumber;
 
 public class SelectByProbability extends Selector {
-protected double probability;
-protected int minimumNumberToSelect;
-public final int DEFAULT_MAXIMUM_TRIES = 5;
+    public final int DEFAULT_MAXIMUM_TRIES = 5;
+    protected double probability;
+    protected int minimumNumberToSelect;
 
-public SelectByProbability(double probability, int minimumNumberToSelect) {
-    this.probability = probability;
-    this.minimumNumberToSelect = minimumNumberToSelect;
-}
-public Indices getIndices(int size) {return getIndices(size, DEFAULT_MAXIMUM_TRIES);}
-/**
-@arg maxTries number of times to go through the list trying to select at least the minimum number
-*/
-public Indices getIndices(int size, int maxTries) {
-    Indices selection = new Indices();
-    if (size <= minimumNumberToSelect) {
-        selection.addAll(size);
+    public SelectByProbability(double probability, int minimumNumberToSelect) {
+        this.probability = probability;
+        this.minimumNumberToSelect = minimumNumberToSelect;
+    }
+
+    public Indices getIndices(int size) {
+        return getIndices(size, DEFAULT_MAXIMUM_TRIES);
+    }
+
+    /**
+     * @arg maxTries number of times to go through the list trying to select at least the minimum number
+     */
+    public Indices getIndices(int size, int maxTries) {
+        Indices selection = new Indices();
+        if (size <= minimumNumberToSelect) {
+            selection.addAll(size);
+            return selection;
+        }
+        for (int tries = 0; tries < maxTries; tries++) {
+            for (int i = 0; i < size; i++)
+                if (RandomNumber.getProbability(probability))
+                    selection.addIndex(i);
+            if (selection.size() >= minimumNumberToSelect)
+                return selection;
+        }
         return selection;
     }
-    for(int tries = 0; tries < maxTries; tries++) {
-        for(int i = 0; i < size; i++)
-            if (RandomNumber.getProbability(probability))
-                selection.addIndex(i);
-    	if (selection.size() >= minimumNumberToSelect)
-            return selection;
+
+    public String toString() {
+        return "SelectByProbability probability = " + probability + " minimumNumberToSelect = " + minimumNumberToSelect;
     }
-    return selection;
-}
-public String toString() {
-    return "SelectByProbability probability = " + probability + " minimumNumberToSelect = " + minimumNumberToSelect;
-}
 
 }

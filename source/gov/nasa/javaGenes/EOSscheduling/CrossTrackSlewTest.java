@@ -20,70 +20,71 @@
 
 package gov.nasa.javaGenes.EOSscheduling;
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.FieldRecordText;
-import gov.nasa.alsUtility.EasyFile;
+import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class CrossTrackSlewTest extends TestCase {
-private String StkAerGeneratedPointingDataFile = "testData/pointingTestData.csv";
+    private String StkAerGeneratedPointingDataFile = "testData/pointingTestData.csv";
+    private FieldRecordText pointingData;
 
-public CrossTrackSlewTest(String name) {super(name);}
-private FieldRecordText pointingData;
+    public CrossTrackSlewTest(String name) {
+        super(name);
+    }
 //private EasyFile checkPointing;
 
-/*
-public void testCalculateCrossTrackSlew() {
-    // for checking values, not normally used
-    pointingData = new FieldRecordText(StkAerGeneratedPointingDataFile);
-    //checkPointing = new EasyFile("checkPointing.tsd");
-    //checkPointing.println("Azimuth\tElevation\nRange\nCrossTrackPoint");
-     
-    pointingData = new FieldRecordText(StkAerGeneratedPointingDataFile);
-    pointingData.readLine();
-    pointingData.readLine();
-    
-    
-    assertTrue("1", Utility.nearlyEqual(0,getNextCrossTrackSlew(),0.01));
+    /*
+    public void testCalculateCrossTrackSlew() {
+        // for checking values, not normally used
+        pointingData = new FieldRecordText(StkAerGeneratedPointingDataFile);
+        //checkPointing = new EasyFile("checkPointing.tsd");
+        //checkPointing.println("Azimuth\tElevation\nRange\nCrossTrackPoint");
 
-    double first = getNextCrossTrackSlew();
-    double second = getNextCrossTrackSlew();
-    double third = getNextCrossTrackSlew();
-    assertTrue("10", Math.abs(second) > Math.abs(first));
-    assertTrue("11", Utility.signOf(second) == Utility.signOf(first));
-    assertTrue("12", Math.abs(third) > Math.abs(second));
-    assertTrue("13", Utility.signOf(third) == Utility.signOf(second));
+        pointingData = new FieldRecordText(StkAerGeneratedPointingDataFile);
+        pointingData.readLine();
+        pointingData.readLine();
 
-    first = getNextCrossTrackSlew();
 
-    assertTrue("15", Utility.signOf(first) != Utility.signOf(second));
-    second = getNextCrossTrackSlew();
-    third = getNextCrossTrackSlew();
-    assertTrue("20", Math.abs(second) > Math.abs(first));
-    assertTrue("21", Utility.signOf(second) == Utility.signOf(first));
-    assertTrue("22", Math.abs(third) > Math.abs(second));
-    assertTrue("23", Utility.signOf(third) == Utility.signOf(second));
+        assertTrue("1", Utility.nearlyEqual(0,getNextCrossTrackSlew(),0.01));
 
-    pointingData.close();
-    //checkPointing.close();    
-}
-*/
-protected double getNextCrossTrackSlew() {
-    pointingData.readLine();
-    String[] line = pointingData.readLine();
-    double minElevation = 1;
-    PointingRequirement best = null;
-    //checkPointing.println("Azimuth\tElevation\tRange\tCrossTrackPoint");
-    while(line.length > 0) {
-        PointingRequirement p = new PointingRequirement(0,Utility.string2double(line[1]),Utility.string2double(line[2]),Utility.string2double(line[3]));
-        //checkPointing.println(p.getAzimuth() + "\t" + p.getElevation() + "\t" + p.getRange() + "\t" + CrossTrackSlew.calculateCrossTrackSlew(p));
-        if (minElevation > p.getElevation()) {
-            minElevation = p.getElevation();
-            best = p;
-        }
-        line = pointingData.readLine();
+        double first = getNextCrossTrackSlew();
+        double second = getNextCrossTrackSlew();
+        double third = getNextCrossTrackSlew();
+        assertTrue("10", Math.abs(second) > Math.abs(first));
+        assertTrue("11", Utility.signOf(second) == Utility.signOf(first));
+        assertTrue("12", Math.abs(third) > Math.abs(second));
+        assertTrue("13", Utility.signOf(third) == Utility.signOf(second));
+
+        first = getNextCrossTrackSlew();
+
+        assertTrue("15", Utility.signOf(first) != Utility.signOf(second));
+        second = getNextCrossTrackSlew();
+        third = getNextCrossTrackSlew();
+        assertTrue("20", Math.abs(second) > Math.abs(first));
+        assertTrue("21", Utility.signOf(second) == Utility.signOf(first));
+        assertTrue("22", Math.abs(third) > Math.abs(second));
+        assertTrue("23", Utility.signOf(third) == Utility.signOf(second));
+
+        pointingData.close();
+        //checkPointing.close();
     }
-    double r = CrossTrackSlew.calculateCrossTrackSlew(best);
-    return r;
-}
+    */
+    protected double getNextCrossTrackSlew() {
+        pointingData.readLine();
+        String[] line = pointingData.readLine();
+        double minElevation = 1;
+        PointingRequirement best = null;
+        //checkPointing.println("Azimuth\tElevation\tRange\tCrossTrackPoint");
+        while (line.length > 0) {
+            PointingRequirement p = new PointingRequirement(0, Utility.string2double(line[1]), Utility.string2double(line[2]), Utility.string2double(line[3]));
+            //checkPointing.println(p.getAzimuth() + "\t" + p.getElevation() + "\t" + p.getRange() + "\t" + CrossTrackSlew.calculateCrossTrackSlew(p));
+            if (minElevation > p.getElevation()) {
+                minElevation = p.getElevation();
+                best = p;
+            }
+            line = pointingData.readLine();
+        }
+        double r = CrossTrackSlew.calculateCrossTrackSlew(best);
+        return r;
+    }
 }

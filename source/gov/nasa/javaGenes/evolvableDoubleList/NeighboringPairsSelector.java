@@ -20,13 +20,19 @@ package gov.nasa.javaGenes.evolvableDoubleList;
 
 import gov.nasa.alsUtility.Error;
 
-/** used for type checking in Crossover.java and subclasses */
+/**
+ * used for type checking in Crossover.java and subclasses
+ */
 public class NeighboringPairsSelector extends Selector {
-protected SelectModulo simpleSelector;
+    protected SelectModulo simpleSelector;
 
-protected NeighboringPairsSelector(Selector simpleSelector, int modulo, int offset) {
-	this.simpleSelector = new SelectModulo(simpleSelector,modulo,offset);
-}
-public Indices getIndices(int size) {Error.notImplemented(); return null;} // subclasses must implement
+    protected NeighboringPairsSelector(Selector simpleSelector, int modulo, int offset) {
+        this.simpleSelector = new SelectModulo(simpleSelector, modulo, offset);
+    }
+
+    public Indices getIndices(int size) {
+        Error.notImplemented();
+        return null;
+    } // subclasses must implement
 
 }

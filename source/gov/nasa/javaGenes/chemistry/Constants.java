@@ -21,5 +21,5 @@ package gov.nasa.javaGenes.chemistry;
 import gov.nasa.alsUtility.Utility;
 
 public class Constants {
-public static final double TetrahedronAngle = Utility.degrees2radians(109.4712206);
+    public static final double TetrahedronAngle = Utility.degrees2radians(109.4712206);
 } 

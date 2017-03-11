@@ -18,34 +18,40 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import gov.nasa.alsUtility.RootMeanSquares;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.RootMeanSquares;
 
 public class LowestToHighestEnergyGradualFitness extends LowestToHighestEnergyFitness {
-protected double outOfOrderPenalty = 1;
+    protected double outOfOrderPenalty = 1;
 
-/** for testing only */
-protected LowestToHighestEnergyGradualFitness() {}
-public LowestToHighestEnergyGradualFitness(Potential p, ManyMultiBodiesForOneEnergy m) {
-    super(p,m);
-}
-protected double outOfOrder(double[] energy) {
-    double numberOutOfOrder = super.outOfOrder(energy);
-    RootMeanSquares rms = new RootMeanSquares();
-    int fitness = 0;
-    for(int i = 0; i < energy.length; i++)
-        for(int j = i + 1; j < energy.length; j++)
-            if (energy[i] >= energy[j])
-                rms.addDatum(energy[i] - energy[j]);
-    return numberOutOfOrder*outOfOrderPenalty + rms.rms();
-}
-/**
-@arg inOutOfOrderPenalty multiply the number of out-of-order energies by this and add to rms Default = 1. Must be >= 0
-*/
-public void setOutOfOrderPenalty(double inOutOfOrderPenalty) {
-    Error.assertTrue(inOutOfOrderPenalty >= 0);
-    outOfOrderPenalty = inOutOfOrderPenalty;
-}
+    /**
+     * for testing only
+     */
+    protected LowestToHighestEnergyGradualFitness() {
+    }
+
+    public LowestToHighestEnergyGradualFitness(Potential p, ManyMultiBodiesForOneEnergy m) {
+        super(p, m);
+    }
+
+    protected double outOfOrder(double[] energy) {
+        double numberOutOfOrder = super.outOfOrder(energy);
+        RootMeanSquares rms = new RootMeanSquares();
+        int fitness = 0;
+        for (int i = 0; i < energy.length; i++)
+            for (int j = i + 1; j < energy.length; j++)
+                if (energy[i] >= energy[j])
+                    rms.addDatum(energy[i] - energy[j]);
+        return numberOutOfOrder * outOfOrderPenalty + rms.rms();
+    }
+
+    /**
+     * @arg inOutOfOrderPenalty multiply the number of out-of-order energies by this and add to rms Default = 1. Must be >= 0
+     */
+    public void setOutOfOrderPenalty(double inOutOfOrderPenalty) {
+        Error.assertTrue(inOutOfOrderPenalty >= 0);
+        outOfOrderPenalty = inOutOfOrderPenalty;
+    }
 }
 
 

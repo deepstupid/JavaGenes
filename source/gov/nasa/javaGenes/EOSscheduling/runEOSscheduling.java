@@ -22,18 +22,20 @@ package gov.nasa.javaGenes.EOSscheduling;
 import gov.nasa.javaGenes.core.Parameters;
 
 public class runEOSscheduling extends gov.nasa.javaGenes.core.Run {
-public runEOSscheduling() {}
+    public runEOSscheduling() {
+    }
 
-protected void startSpecialized(String[] arguments) {
-    EOSschedulingParameters p = getEOSschedulingParameters(arguments);
-    parameters = (Parameters)p;
-    generationTimer.start();
-    population = new EOSschedulingPopulation(p);
-    reporter = new EOSschedulingReporter(parameters);
-    generationTimer.stop();
-}
-public EOSschedulingParameters getEOSschedulingParameters(String[] arguments) {
-    return new EOSschedulingParameters();
-}
+    protected void startSpecialized(String[] arguments) {
+        EOSschedulingParameters p = getEOSschedulingParameters(arguments);
+        parameters = (Parameters) p;
+        generationTimer.start();
+        population = new EOSschedulingPopulation(p);
+        reporter = new EOSschedulingReporter(parameters);
+        generationTimer.stop();
+    }
+
+    public EOSschedulingParameters getEOSschedulingParameters(String[] arguments) {
+        return new EOSschedulingParameters();
+    }
 }
 

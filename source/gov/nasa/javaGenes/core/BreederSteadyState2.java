@@ -18,51 +18,54 @@
 //
 package gov.nasa.javaGenes.core;
 
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.Error;
 
 public class BreederSteadyState2 extends Breeder {
-protected ChooseParents parentChooser;
-protected ChooseForDeath grimReaper;
+    protected ChooseParents parentChooser;
+    protected ChooseForDeath grimReaper;
 
-public BreederSteadyState2(Parameters p) {
-	this(p,new Tournament(2),new AntiTournament(2));
-}
-public BreederSteadyState2(Parameters p,ChooseParents parentChooser,ChooseForDeath grimReaper) {
-	super(p);
-	Error.assertNotNull(parentChooser);
-	Error.assertNotNull(grimReaper);
-	this.parentChooser = parentChooser;
-	this.grimReaper = grimReaper;
-}
+    public BreederSteadyState2(Parameters p) {
+        this(p, new Tournament(2), new AntiTournament(2));
+    }
 
-public Population breed (Population parents, int kidsPerGeneration) {
-	// to parallelize, make threads here -- do in subclass.
-	generationJustStarting();
-	while (generationNotComplete(kidsPerGeneration)){
-		breedOnce(parents);
-		Checkpointer.ok();
-	}
-	generationIsComplete();
-	return parents;
-}
-public void breedOnce(Population population) {
-	ChildMaker maker = childMakerProvider.getChildMaker(getTotalNumberOfKidsProduced());
-	int[] parentIndices = parentChooser.getParentIndices(maker.numberOfParents(),population);
-	makeChildren(maker,parentIndices,population);
-}
-protected void makeChildren(ChildMaker maker, int[] parentIndices, Population population) {
-	Evolvable[] c = maker.makeChildren(population.makeIndividualArray(parentIndices));
-	for(int i = 0; i < c.length; i++){
-		Individual individual = population.makeIndividual(c[i],getFitnessFunction());
-		// to parallelize, make next three lines synchorized
-		newChild(individual);
-		maker.results(individual,population.makeIndividualArray(parentIndices));
-		int indexToKill = grimReaper.getDeathRowIndex(parentIndices,population);
-		population.setIndividual(indexToKill,individual);
-	}
-}
-public String toString() {
-	return "BreederSteadyState2 parentChooser=" + parentChooser + " grimReaper=" + grimReaper;
-}
+    public BreederSteadyState2(Parameters p, ChooseParents parentChooser, ChooseForDeath grimReaper) {
+        super(p);
+        Error.assertNotNull(parentChooser);
+        Error.assertNotNull(grimReaper);
+        this.parentChooser = parentChooser;
+        this.grimReaper = grimReaper;
+    }
+
+    public Population breed(Population parents, int kidsPerGeneration) {
+        // to parallelize, make threads here -- do in subclass.
+        generationJustStarting();
+        while (generationNotComplete(kidsPerGeneration)) {
+            breedOnce(parents);
+            Checkpointer.ok();
+        }
+        generationIsComplete();
+        return parents;
+    }
+
+    public void breedOnce(Population population) {
+        ChildMaker maker = childMakerProvider.getChildMaker(getTotalNumberOfKidsProduced());
+        int[] parentIndices = parentChooser.getParentIndices(maker.numberOfParents(), population);
+        makeChildren(maker, parentIndices, population);
+    }
+
+    protected void makeChildren(ChildMaker maker, int[] parentIndices, Population population) {
+        Evolvable[] c = maker.makeChildren(population.makeIndividualArray(parentIndices));
+        for (int i = 0; i < c.length; i++) {
+            Individual individual = population.makeIndividual(c[i], getFitnessFunction());
+            // to parallelize, make next three lines synchorized
+            newChild(individual);
+            maker.results(individual, population.makeIndividualArray(parentIndices));
+            int indexToKill = grimReaper.getDeathRowIndex(parentIndices, population);
+            population.setIndividual(indexToKill, individual);
+        }
+    }
+
+    public String toString() {
+        return "BreederSteadyState2 parentChooser=" + parentChooser + " grimReaper=" + grimReaper;
+    }
 }

@@ -20,44 +20,44 @@
 package gov.nasa.alsUtility;
 
 import java.util.Vector;
-import gov.nasa.alsUtility.Error;
-import java.lang.Class;
 
 /**
- cache objects to avoid object re-allocation.  Objects created will not be garbage collected until
- the ObjectCache is garbage collected.  Object class must have a constructor that takes no arguments.
- This constructor will be used to create the objects as needed.
-*/
+ * cache objects to avoid object re-allocation.  Objects created will not be garbage collected until
+ * the ObjectCache is garbage collected.  Object class must have a constructor that takes no arguments.
+ * This constructor will be used to create the objects as needed.
+ */
 public class ObjectCache implements java.io.Serializable {
-private Vector cache = new Vector();
-private int nextIndex = 0;
-private Class theClass;
+    private Vector cache = new Vector();
+    private int nextIndex = 0;
+    private Class theClass;
 
-public ObjectCache(String inClass) {
-    try {
-        theClass = Class.forName(inClass);
-    } catch (Exception e) {
-        Error.fatal(e);
-    }
-}
-public Object getObject() {
-    Object object = null;
-    if (nextIndex >= cache.size()) {
+    public ObjectCache(String inClass) {
         try {
-            object = theClass.newInstance();
-            cache.addElement(object);
+            theClass = Class.forName(inClass);
         } catch (Exception e) {
             Error.fatal(e);
         }
-    } else
-        object = cache.elementAt(nextIndex);
-    nextIndex++;
-    return object;
-}
-/**
-Call when it's ok to reuse all of the objects in the cache.
-*/
-public void reinitialize() {
-    nextIndex = 0;
-}
+    }
+
+    public Object getObject() {
+        Object object = null;
+        if (nextIndex >= cache.size()) {
+            try {
+                object = theClass.newInstance();
+                cache.addElement(object);
+            } catch (Exception e) {
+                Error.fatal(e);
+            }
+        } else
+            object = cache.elementAt(nextIndex);
+        nextIndex++;
+        return object;
+    }
+
+    /**
+     * Call when it's ok to reuse all of the objects in the cache.
+     */
+    public void reinitialize() {
+        nextIndex = 0;
+    }
 }

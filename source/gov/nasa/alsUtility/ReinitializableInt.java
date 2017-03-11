@@ -19,18 +19,46 @@
 package gov.nasa.alsUtility;
 
 public class ReinitializableInt implements java.io.Serializable {
-protected int value = 0;
-protected int initialValue = 0;
+    protected int value = 0;
+    protected int initialValue = 0;
 
-public ReinitializableInt() {this(0);}
-public ReinitializableInt(int inValue) {setInitial(inValue);}
-public void reinitialize() {value = initialValue;}
-public void setInitial(int inValue) {initialValue = inValue; reinitialize();}
-public void addToInitial(int a) {initialValue += a; reinitialize();}
-public void add(int a) {value += a;}
-public void multiply(int m) {value *= m;}
-public int getCurrent() {return value;}
-public int getInitial() {return initialValue;}
+    public ReinitializableInt() {
+        this(0);
+    }
+
+    public ReinitializableInt(int inValue) {
+        setInitial(inValue);
+    }
+
+    public void reinitialize() {
+        value = initialValue;
+    }
+
+    public void addToInitial(int a) {
+        initialValue += a;
+        reinitialize();
+    }
+
+    public void add(int a) {
+        value += a;
+    }
+
+    public void multiply(int m) {
+        value *= m;
+    }
+
+    public int getCurrent() {
+        return value;
+    }
+
+    public int getInitial() {
+        return initialValue;
+    }
+
+    public void setInitial(int inValue) {
+        initialValue = inValue;
+        reinitialize();
+    }
 }
 
 

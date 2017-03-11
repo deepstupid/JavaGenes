@@ -20,20 +20,49 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 public class SchedulingData implements java.io.Serializable {
-protected int duration;
-protected SlewRequirement slewRequirement;
-protected Slewable slewable;
-protected Sensor sensor;
-protected int SSRuse;
+    protected int duration;
+    protected SlewRequirement slewRequirement;
+    protected Slewable slewable;
+    protected Sensor sensor;
+    protected int SSRuse;
 
-public void setDuration(int in) {duration = in;}
-public int getDuration() {return duration;}
-public void setSlewRequirement(SlewRequirement in) {slewRequirement = in;}
-public SlewRequirement getSlewRequirement() {return slewRequirement;}
-public void setSlewable(Slewable in) {slewable = in;}
-public Slewable getSlewable() {return slewable;}
-public void setSensor(Sensor in) {sensor = in;}
-public Sensor getSensor() {return sensor;}
-public int getSSRuse() {return SSRuse;}
-public void setSSRuse(int inSSRuse) {SSRuse = inSSRuse;}
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int in) {
+        duration = in;
+    }
+
+    public SlewRequirement getSlewRequirement() {
+        return slewRequirement;
+    }
+
+    public void setSlewRequirement(SlewRequirement in) {
+        slewRequirement = in;
+    }
+
+    public Slewable getSlewable() {
+        return slewable;
+    }
+
+    public void setSlewable(Slewable in) {
+        slewable = in;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor in) {
+        sensor = in;
+    }
+
+    public int getSSRuse() {
+        return SSRuse;
+    }
+
+    public void setSSRuse(int inSSRuse) {
+        SSRuse = inSSRuse;
+    }
 }

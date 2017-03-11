@@ -18,18 +18,30 @@
 //
 //  Created by Al Globus on Wed Jan 29 2003.
 package gov.nasa.javaGenes.hillClimbing;
+
 import gov.nasa.javaGenes.core.Individual;
 
 public class RestartEveryNChildren extends RestartPolicy {
-protected int limit = 0;
-protected int count = 0;
+    protected int limit = 0;
+    protected int count = 0;
 
-public RestartEveryNChildren(int numberOfChildrenBetweenRestarts) {
-    limit = numberOfChildrenBetweenRestarts;
-}
-boolean shouldRestart() {return count >= limit;}
-void restarting() {count = 0;}
-void childCreated(Individual kid, Individual parent) {count++;}
-void lastKidAccepted() {}
+    public RestartEveryNChildren(int numberOfChildrenBetweenRestarts) {
+        limit = numberOfChildrenBetweenRestarts;
+    }
+
+    boolean shouldRestart() {
+        return count >= limit;
+    }
+
+    void restarting() {
+        count = 0;
+    }
+
+    void childCreated(Individual kid, Individual parent) {
+        count++;
+    }
+
+    void lastKidAccepted() {
+    }
 }
 

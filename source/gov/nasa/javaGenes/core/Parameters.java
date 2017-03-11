@@ -19,82 +19,85 @@
 package gov.nasa.javaGenes.core;
 
 
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.io.File;
-import java.lang.Class;
-import java.lang.reflect.Field;
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.Utility;
+
+import java.io.File;
+import java.io.Serializable;
+import java.lang.reflect.Field;
 
 
 /**
-stores parameters for a run
-*/ 
+ * stores parameters for a run
+ */
 public class Parameters implements Serializable {
 
-public static final String SEPARATOR = " = ";
-/**
-minimum 3 to allow tournament selection
-*/
-public int populationSize = 100;
-public int kidsPerGeneration = populationSize;
-public int maximumGenerations = 100;
-public double tournamentProbability = 1.0;
-public FitnessFunction fitnessFunction;
-public FitnessFunction evaluationFunction; // used by Reporter for independent quality checks. Not used for fitness.  Can be slow (used rarely)
-public FitnessFunction paretoFitness; // used by Reporter to generate a pareto front. Useful when using WeigthedFitness in multi-objective cases
-public Breeder breeder;
-public ChildMakerProvider childMakerProvider = new ChildMakerProvider();
-public boolean separateLogAndEvolvableFiles = false;
-public boolean logBestEvolvableEachGeneration = true;
-public boolean reportVariationOperatorPerformanceEachGeneration = false;
+    public static final String SEPARATOR = " = ";
+    /**
+     * minimum 3 to allow tournament selection
+     */
+    public int populationSize = 100;
+    public int kidsPerGeneration = populationSize;
+    public int maximumGenerations = 100;
+    public double tournamentProbability = 1.0;
+    public FitnessFunction fitnessFunction;
+    public FitnessFunction evaluationFunction; // used by Reporter for independent quality checks. Not used for fitness.  Can be slow (used rarely)
+    public FitnessFunction paretoFitness; // used by Reporter to generate a pareto front. Useful when using WeigthedFitness in multi-objective cases
+    public Breeder breeder;
+    public ChildMakerProvider childMakerProvider = new ChildMakerProvider();
+    public boolean separateLogAndEvolvableFiles = false;
+    public boolean logBestEvolvableEachGeneration = true;
+    public boolean reportVariationOperatorPerformanceEachGeneration = false;
 
-public int randomIndividualTriesPerSpecification = 10;
+    public int randomIndividualTriesPerSpecification = 10;
 
-public int frequencyOfASCIIPopulations = 5;
+    public int frequencyOfASCIIPopulations = 5;
 
-/**
-after each generation check for this file. If exists, end the run.
-*/
-public File stopFile =  new File ("stop");
-/**
-after each generation check for this file. If exists, suspend for suspendTime milliseconds.
-*/
-public File suspendFile = new File ("suspend");
-public int suspendTime = 10000;
-/**
-if true, end run when best fitness equals 0
-*/
-public boolean stopAtPerfection = false;
+    /**
+     * after each generation check for this file. If exists, end the run.
+     */
+    public File stopFile = new File("stop");
+    /**
+     * after each generation check for this file. If exists, suspend for suspendTime milliseconds.
+     */
+    public File suspendFile = new File("suspend");
+    public int suspendTime = 10000;
+    /**
+     * if true, end run when best fitness equals 0
+     */
+    public boolean stopAtPerfection = false;
 
-/**
-create any files necessary to describe the parameters.
-Used for things that won't show up in the string representation.
-*/
-public void makeFiles() {}
-/**
-does not be to be changed when fields are changed, but has a bug that
-occurs when a field is a interface
-*/
-public String toString(){
-    String r = "";
-    Class currentClass = this.getClass();
-    try {
-    	while(currentClass != null) {
-		    Field[] fields = currentClass.getDeclaredFields();
-		    for(int i = 0; i < fields.length; i++){
-                        if (!(fields[i].get(this) instanceof Population)) {
-                            r += fields[i].getName();
-                            r += SEPARATOR + fields[i].get(this) + Utility.lineSeparator();
-                        }
-    		}
-    		if (currentClass.equals(Parameters.class))
-    			break;
-   			currentClass = currentClass.getSuperclass();
-  		}
-    } catch (Exception e) {Error.fatal ("Parameters.toString(): " + e);}
-    
-    return r;
-}
+    /**
+     * create any files necessary to describe the parameters.
+     * Used for things that won't show up in the string representation.
+     */
+    public void makeFiles() {
+    }
+
+    /**
+     * does not be to be changed when fields are changed, but has a bug that
+     * occurs when a field is a interface
+     */
+    public String toString() {
+        String r = "";
+        Class currentClass = this.getClass();
+        try {
+            while (currentClass != null) {
+                Field[] fields = currentClass.getDeclaredFields();
+                for (int i = 0; i < fields.length; i++) {
+                    if (!(fields[i].get(this) instanceof Population)) {
+                        r += fields[i].getName();
+                        r += SEPARATOR + fields[i].get(this) + Utility.lineSeparator();
+                    }
+                }
+                if (currentClass.equals(Parameters.class))
+                    break;
+                currentClass = currentClass.getSuperclass();
+            }
+        } catch (Exception e) {
+            Error.fatal("Parameters.toString(): " + e);
+        }
+
+        return r;
+    }
 }

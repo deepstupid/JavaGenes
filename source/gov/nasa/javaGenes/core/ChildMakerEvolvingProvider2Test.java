@@ -19,49 +19,52 @@
 //  Created by Al Globus on Fri Feb 21 2003.
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Error;
+import junit.framework.TestCase;
 
 public class ChildMakerEvolvingProvider2Test extends TestCase {
-public ChildMakerEvolvingProvider2Test(String name) {super(name);}
+    public ChildMakerEvolvingProvider2Test(String name) {
+        super(name);
+    }
 
-public void testEvolve() {
-	final int numberOfChildMakers = 10;
-	final int numberToKill = 5;
-    ChildMakerEvolvingProvider2 provider = new ChildMakerEvolvingProvider2(15,numberOfChildMakers,numberToKill,0.0,new gov.nasa.javaGenes.evolvableDoubleList.ChildMakerProviderRandom(0,10));
-	String[] names = {"foo"};
-    provider.setFitnessFunctionNames(names);
+    public void testEvolve() {
+        final int numberOfChildMakers = 10;
+        final int numberToKill = 5;
+        ChildMakerEvolvingProvider2 provider = new ChildMakerEvolvingProvider2(15, numberOfChildMakers, numberToKill, 0.0, new gov.nasa.javaGenes.evolvableDoubleList.ChildMakerProviderRandom(0, 10));
+        String[] names = {"foo"};
+        provider.setFitnessFunctionNames(names);
 
-	Error.assertTrue("size", provider.size() == numberOfChildMakers);
-    for(int i = 0; i < provider.size(); i++)
-		provider.get(i).forEvolution.setResults(0,1,1,1);
-	provider.evolve();
-    for(int i = 0; i < provider.size(); i++)
-		if (i < numberOfChildMakers - numberToKill)
-			Error.assertTrue("1-"+i, provider.get(i).forEvolution.checkResults(0,1,1,1));
-		else
-			Error.assertTrue("1-"+i, provider.get(i).forEvolution.checkResults(0,0,0,0));
-}
-public void testGet() {
-	final int numberOfChildMakers = 10;
-	final int numberToKill = 5;
-	final int numberBetweenEvolution = 15;
-    ChildMakerEvolvingProvider2 provider = new ChildMakerEvolvingProvider2(numberBetweenEvolution,numberOfChildMakers,numberToKill,0.0,new gov.nasa.javaGenes.evolvableDoubleList.ChildMakerProviderRandom(0,10));
-	String[] names = {"foo"};
-    provider.setFitnessFunctionNames(names);
+        Error.assertTrue("size", provider.size() == numberOfChildMakers);
+        for (int i = 0; i < provider.size(); i++)
+            provider.get(i).forEvolution.setResults(0, 1, 1, 1);
+        provider.evolve();
+        for (int i = 0; i < provider.size(); i++)
+            if (i < numberOfChildMakers - numberToKill)
+                Error.assertTrue("1-" + i, provider.get(i).forEvolution.checkResults(0, 1, 1, 1));
+            else
+                Error.assertTrue("1-" + i, provider.get(i).forEvolution.checkResults(0, 0, 0, 0));
+    }
 
-    for(int i = 0; i < provider.size(); i++)
-		provider.get(i).forEvolution.setResults(0,1,1,1);
-	for(int i = 0; i < numberBetweenEvolution; i++)
-		provider.get();
-	Error.assertTrue("1", provider.numberOfGetsSoFar == numberBetweenEvolution);
-    for(int i = 0; i < provider.size(); i++)
-		Error.assertTrue("1-"+i, provider.get(i).forEvolution.checkResults(0,1,1,1));
-	provider.get();
-	Error.assertTrue("2", provider.numberOfGetsSoFar == 1);
-    for(int i = 0; i < provider.size(); i++)
-		Error.assertTrue("2-"+i, provider.get(i).forEvolution.checkResults(0,0,0,0));
-}		
+    public void testGet() {
+        final int numberOfChildMakers = 10;
+        final int numberToKill = 5;
+        final int numberBetweenEvolution = 15;
+        ChildMakerEvolvingProvider2 provider = new ChildMakerEvolvingProvider2(numberBetweenEvolution, numberOfChildMakers, numberToKill, 0.0, new gov.nasa.javaGenes.evolvableDoubleList.ChildMakerProviderRandom(0, 10));
+        String[] names = {"foo"};
+        provider.setFitnessFunctionNames(names);
+
+        for (int i = 0; i < provider.size(); i++)
+            provider.get(i).forEvolution.setResults(0, 1, 1, 1);
+        for (int i = 0; i < numberBetweenEvolution; i++)
+            provider.get();
+        Error.assertTrue("1", provider.numberOfGetsSoFar == numberBetweenEvolution);
+        for (int i = 0; i < provider.size(); i++)
+            Error.assertTrue("1-" + i, provider.get(i).forEvolution.checkResults(0, 1, 1, 1));
+        provider.get();
+        Error.assertTrue("2", provider.numberOfGetsSoFar == 1);
+        for (int i = 0; i < provider.size(); i++)
+            Error.assertTrue("2-" + i, provider.get(i).forEvolution.checkResults(0, 0, 0, 0));
+    }
 }
 
 

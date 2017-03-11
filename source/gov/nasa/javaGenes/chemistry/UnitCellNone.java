@@ -20,39 +20,48 @@ package gov.nasa.javaGenes.chemistry;
 
 //  Created by Al Globus on Mon Jun 24 2002.
 
-import java.lang.Math;
 import gov.nasa.javaGenes.graph.Vertex;
 
 /**
-a 'unit cell' that is not a unit cell at all.  Simplifies other code
-where a UnitCell may or may not be in use.
-*/
+ * a 'unit cell' that is not a unit cell at all.  Simplifies other code
+ * where a UnitCell may or may not be in use.
+ */
 public class UnitCellNone extends UnitCell {
 
-public boolean nearlyEquals(UnitCell uc) {
-    return uc instanceof UnitCellNone;
-}
-public boolean isInside(Vertex a ) {
-    return true;
-}
-public void moveInside(Vertex v) {
-    return;
-}
-public UnitCell copy() {
-    return this;
-}
-public String toString() {return "";}
-public double getDistance(Vertex a, Vertex b) {
-    return a.getDistanceTo(b);
-}
-public double getAngle(Vertex x, Vertex center, Vertex z) {
-    return center.getAngleBetween(x,z);
-}
-public double getSeparation(int dimension, double a, double b) {
-    return Math.abs(a - b);
-}
-public boolean isCutoffInBounds(double d) {
-    return true;
-}
-        
+    public boolean nearlyEquals(UnitCell uc) {
+        return uc instanceof UnitCellNone;
+    }
+
+    public boolean isInside(Vertex a) {
+        return true;
+    }
+
+    public void moveInside(Vertex v) {
+        return;
+    }
+
+    public UnitCell copy() {
+        return this;
+    }
+
+    public String toString() {
+        return "";
+    }
+
+    public double getDistance(Vertex a, Vertex b) {
+        return a.getDistanceTo(b);
+    }
+
+    public double getAngle(Vertex x, Vertex center, Vertex z) {
+        return center.getAngleBetween(x, z);
+    }
+
+    public double getSeparation(int dimension, double a, double b) {
+        return Math.abs(a - b);
+    }
+
+    public boolean isCutoffInBounds(double d) {
+        return true;
+    }
+
 }

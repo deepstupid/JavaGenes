@@ -22,37 +22,42 @@ package gov.nasa.javaGenes.core;
 import java.io.Serializable;
 
 /**
-Classes that wish to checkpoint should implement this interface.
-
-@see AbstractCheckpointable
-*/
+ * Classes that wish to checkpoint should implement this interface.
+ *
+ * @see AbstractCheckpointable
+ */
 interface Checkpointable extends Serializable {
-/**
-Start the Checkpointable process for the first time.
+    /**
+     * Start the Checkpointable process for the first time.
+     *
+     * @param arguments the array of strings past to static void main()
+     */
+    void start(String[] arguments);
 
-@param arguments the array of strings past to static void main()
-*/
-void start(String[] arguments);
-/**
-Restart the process after a checkpoint and process death
-*/
-void restart();
-/**
-Remember the Checkpointer object that will checkpoint "this"
-*/
-void setCheckpointer(Checkpointer c);
-/**
-will be called just before a checkpoint.  Can be overridden
-to gain control to set timers, clean up state, etc.
-*/
-void beforeCheckpoint();
-/**
-will be called just after a checkpoint.  Complements beforeCheckpoint()
-*/
-void afterCheckpoint();
-/**
-called to implement a fast checkpoint.  Serialization can also be used but it is slow.
-*/
-void stateSave(TokenizeOutput tokenizer);
+    /**
+     * Restart the process after a checkpoint and process death
+     */
+    void restart();
+
+    /**
+     * Remember the Checkpointer object that will checkpoint "this"
+     */
+    void setCheckpointer(Checkpointer c);
+
+    /**
+     * will be called just before a checkpoint.  Can be overridden
+     * to gain control to set timers, clean up state, etc.
+     */
+    void beforeCheckpoint();
+
+    /**
+     * will be called just after a checkpoint.  Complements beforeCheckpoint()
+     */
+    void afterCheckpoint();
+
+    /**
+     * called to implement a fast checkpoint.  Serialization can also be used but it is slow.
+     */
+    void stateSave(TokenizeOutput tokenizer);
 }
 

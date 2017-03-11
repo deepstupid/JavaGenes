@@ -20,31 +20,42 @@ package gov.nasa.alsUtility;
 
 
 import java.util.Vector;
-import gov.nasa.alsUtility.Iterator;
 
 public class VectorIterator implements Iterator {
-/**
-the vector to iterate over
-*/
-protected Vector vector;
-/**
-the index of the next element
-*/
-protected int place = 0;
-/**
-@param v the vector to iterate over.
-*/
-public VectorIterator(Vector v) {vector = v;}
-/**
-are there any more objects to iterate over?
-*/
-public boolean more() {return vector != null && place < vector.size();}
-/**
-move to the next element
-*/
-public void next() {place++;}
-/**
-@return the next element
-*/
-public Object object() {return vector.elementAt(place);}
+    /**
+     * the vector to iterate over
+     */
+    protected Vector vector;
+    /**
+     * the index of the next element
+     */
+    protected int place = 0;
+
+    /**
+     * @param v the vector to iterate over.
+     */
+    public VectorIterator(Vector v) {
+        vector = v;
+    }
+
+    /**
+     * are there any more objects to iterate over?
+     */
+    public boolean more() {
+        return vector != null && place < vector.size();
+    }
+
+    /**
+     * move to the next element
+     */
+    public void next() {
+        place++;
+    }
+
+    /**
+     * @return the next element
+     */
+    public Object object() {
+        return vector.elementAt(place);
+    }
 }

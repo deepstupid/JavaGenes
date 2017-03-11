@@ -18,37 +18,47 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.ExtendedVector;
 import gov.nasa.alsUtility.Utility;
+import gov.nasa.javaGenes.core.Evolvable;
 
 public class MutationDelete extends ChildMaker {
-protected int minumumEvolvableSize;
+    protected int minumumEvolvableSize;
 
-public MutationDelete(Selector selector) {this(selector,0);}
-public MutationDelete(Selector selector, int minumumEvolvableSize) {
-    super(selector);
-    Error.assertTrue(minumumEvolvableSize >= 0);
-    this.minumumEvolvableSize = minumumEvolvableSize;
-}
-/** @return the input Evolvable in mutated condition */
-public Evolvable mutate(Evolvable child) {
-    EvolvableDoubleList c = (EvolvableDoubleList)child;
-    int[] indices = selector.getIndicesArray(c);
-    Utility.randomize(indices);
-    ExtendedVector toDelete = new ExtendedVector();
-    for(int i = 0; i < indices.length; i++)
-        toDelete.add(c.getDouble(indices[i]));
-    for(int i = 0; i < toDelete.size(); i++) {
-        if (c.getSize() <= minumumEvolvableSize)
-            break;
-        c.remove((EvolvableDouble)toDelete.get(i));
+    public MutationDelete(Selector selector) {
+        this(selector, 0);
     }
-    return child;
-}
-public int getMinumumEvolvableSize() {return minumumEvolvableSize;}
-public String toString() {
-    return "MutationDelete selector = " + getSelector() + " minumumEvolvableSize = " + minumumEvolvableSize;
-}
+
+    public MutationDelete(Selector selector, int minumumEvolvableSize) {
+        super(selector);
+        Error.assertTrue(minumumEvolvableSize >= 0);
+        this.minumumEvolvableSize = minumumEvolvableSize;
+    }
+
+    /**
+     * @return the input Evolvable in mutated condition
+     */
+    public Evolvable mutate(Evolvable child) {
+        EvolvableDoubleList c = (EvolvableDoubleList) child;
+        int[] indices = selector.getIndicesArray(c);
+        Utility.randomize(indices);
+        ExtendedVector toDelete = new ExtendedVector();
+        for (int i = 0; i < indices.length; i++)
+            toDelete.add(c.getDouble(indices[i]));
+        for (int i = 0; i < toDelete.size(); i++) {
+            if (c.getSize() <= minumumEvolvableSize)
+                break;
+            c.remove((EvolvableDouble) toDelete.get(i));
+        }
+        return child;
+    }
+
+    public int getMinumumEvolvableSize() {
+        return minumumEvolvableSize;
+    }
+
+    public String toString() {
+        return "MutationDelete selector = " + getSelector() + " minumumEvolvableSize = " + minumumEvolvableSize;
+    }
 }

@@ -22,10 +22,13 @@ package gov.nasa.javaGenes.EOSscheduling;
 import gov.nasa.alsUtility.RandomNumber;
 
 public class EarliestFromRandomWindowPlacer extends EarliestFirstPlacer {
-protected int getFirstWindow(TaskPlacementData placementData,int numberOfWindows) {
-    placementData.setWindowNumber(RandomNumber.getIndex(numberOfWindows));
-    return placementData.getWindowNumber();
-}
-public String toString() {return "EarliestFromRandomWindowPlacer";}
+    protected int getFirstWindow(TaskPlacementData placementData, int numberOfWindows) {
+        placementData.setWindowNumber(RandomNumber.getIndex(numberOfWindows));
+        return placementData.getWindowNumber();
+    }
+
+    public String toString() {
+        return "EarliestFromRandomWindowPlacer";
+    }
 }
 

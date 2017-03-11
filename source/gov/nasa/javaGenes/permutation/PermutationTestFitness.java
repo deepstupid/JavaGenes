@@ -18,27 +18,28 @@
 //
 package gov.nasa.javaGenes.permutation;
 
-import gov.nasa.javaGenes.core.FitnessFunction;
 import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.FitnessDouble;
+import gov.nasa.javaGenes.core.FitnessFunction;
 
 public class PermutationTestFitness extends FitnessFunction {
 
-// how close to assending order are the indices in the permutation
-public Fitness evaluateFitness (Evolvable evolvable){
-  PermutationEvolvable p = (PermutationEvolvable)evolvable;
-  int last = -1;
-  int count = 0;
-  for(int i = 0; i < p.getSize(); i++) {
-    int current = p.getIndexAt(i);
-    if (current < last)
-      count++;
-    last = current;
-  }
-	return new FitnessDouble((double)count);
-}
-public String toString() {
-	return getClass() + "";
-}
+    // how close to assending order are the indices in the permutation
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        PermutationEvolvable p = (PermutationEvolvable) evolvable;
+        int last = -1;
+        int count = 0;
+        for (int i = 0; i < p.getSize(); i++) {
+            int current = p.getIndexAt(i);
+            if (current < last)
+                count++;
+            last = current;
+        }
+        return new FitnessDouble((double) count);
+    }
+
+    public String toString() {
+        return getClass() + "";
+    }
 }

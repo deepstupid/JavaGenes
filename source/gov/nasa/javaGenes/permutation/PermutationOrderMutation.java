@@ -19,53 +19,64 @@
 package gov.nasa.javaGenes.permutation;
 
 import gov.nasa.alsUtility.Error;
-import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.alsUtility.RandomNumber;
+import gov.nasa.javaGenes.core.Evolvable;
 
 /**
-Gilbert Sysweda's order based mutation
-*/
+ * Gilbert Sysweda's order based mutation
+ */
 public class PermutationOrderMutation extends PermutationChildMaker {
-protected int numberOfSwaps = 1;
+    protected int numberOfSwaps = 1;
 
-public PermutationOrderMutation() {this(1);}
-public PermutationOrderMutation(int inNumberOfSwaps) {
-    numberOfSwaps = inNumberOfSwaps;
-    Error.assertTrue(numberOfSwaps > 0);
-}
-public int numberOfParents() {return 1;}
-public Evolvable[] makeChildren(Evolvable[] parents) {
-    Error.assertTrue(parents.length == 1);
-    PermutationEvolvable kid = ((PermutationEvolvable)parents[0]).deepCopyPermutationEvolvable();
-    for(int i = 0; i < numberOfSwaps; i++) {
+    public PermutationOrderMutation() {
+        this(1);
+    }
+
+    public PermutationOrderMutation(int inNumberOfSwaps) {
+        numberOfSwaps = inNumberOfSwaps;
+        Error.assertTrue(numberOfSwaps > 0);
+    }
+
+    public int numberOfParents() {
+        return 1;
+    }
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Error.assertTrue(parents.length == 1);
+        PermutationEvolvable kid = ((PermutationEvolvable) parents[0]).deepCopyPermutationEvolvable();
+        for (int i = 0; i < numberOfSwaps; i++) {
+            if (Debug.debug)
+                Error.assertTrue(kid.isPermutation());
+            int index1 = getFirstIndex(kid);
+            int index2 = getSecondIndex(kid, index1);
+            mutate(index1, index2, kid);
+        }
         if (Debug.debug)
             Error.assertTrue(kid.isPermutation());
-        int index1 = getFirstIndex(kid);
-        int index2 = getSecondIndex(kid,index1);
-        mutate(index1,index2,kid);
+        PermutationEvolvable[] p = new PermutationEvolvable[1];
+        p[0] = kid;
+        return p;
     }
-    if (Debug.debug)
-        Error.assertTrue(kid.isPermutation());
-    PermutationEvolvable[] p = new PermutationEvolvable[1];
-    p[0] = kid;
-    return p;
-}
-/**
-made public only for testing
-*/
-public void mutate(int index1, int index2, PermutationEvolvable kid) {
-    int temp = kid.getIndexAt(index1);
-    kid.setIndexAt(index1,kid.getIndexAt(index2));
-    kid.setIndexAt(index2,temp);
-}
-protected int getFirstIndex(PermutationEvolvable kid) {
-    return RandomNumber.getIndex(kid.getSize());
-}
-protected int getSecondIndex(PermutationEvolvable kid, int firstIndex) {
-    return RandomNumber.getUniqueIndex(kid.getSize(),firstIndex);
-}
-public String toString() {
-	return "OrderMutation swaps = " + numberOfSwaps;
-}
+
+    /**
+     * made public only for testing
+     */
+    public void mutate(int index1, int index2, PermutationEvolvable kid) {
+        int temp = kid.getIndexAt(index1);
+        kid.setIndexAt(index1, kid.getIndexAt(index2));
+        kid.setIndexAt(index2, temp);
+    }
+
+    protected int getFirstIndex(PermutationEvolvable kid) {
+        return RandomNumber.getIndex(kid.getSize());
+    }
+
+    protected int getSecondIndex(PermutationEvolvable kid, int firstIndex) {
+        return RandomNumber.getUniqueIndex(kid.getSize(), firstIndex);
+    }
+
+    public String toString() {
+        return "OrderMutation swaps = " + numberOfSwaps;
+    }
 }
 

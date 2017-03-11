@@ -19,51 +19,45 @@
 package gov.nasa.javaGenes.chemistry;
 
 import gov.nasa.alsUtility.RandomNumber;
-import gov.nasa.javaGenes.graph.TwoVertexGraphCrossover;
-import gov.nasa.javaGenes.graph.BrokenEdge;
-import gov.nasa.javaGenes.graph.BrokenGraph;
-import gov.nasa.javaGenes.graph.Graph;
-import gov.nasa.javaGenes.graph.Edge;
-import gov.nasa.javaGenes.graph.AcceptableSecondBrokenEdge;
-import gov.nasa.javaGenes.graph.Vertex;
-import gov.nasa.javaGenes.graph.AcceptableSecondVertex;
+import gov.nasa.javaGenes.graph.*;
 
 /**
-Implement the molecule specific part of the crossover operator described in
-"JavaGenes: Evolving Graphs with Crossover," Al Globus, Sean Atsatt,
-John Lawton, Todd Wipke.
-*/
+ * Implement the molecule specific part of the crossover operator described in
+ * "JavaGenes: Evolving Graphs with Crossover," Al Globus, Sean Atsatt,
+ * John Lawton, Todd Wipke.
+ */
 public class MoleculeTwoVertexCrossover extends TwoVertexGraphCrossover {
-/**
-find and connect a second broken edge
-@param b1 the first broken edge to be connected
-*/
-public void processInitialBrokenEdge(Graph g, BrokenEdge b1, BrokenGraph second){
-	Molecule graph = (Molecule)g;
-	if (!b1.vertex.canAcceptEdge())
-  	return;
-  Edge e = b1.edge.shallowCopyEdge();
-  BrokenEdge b2 =
-      	(BrokenEdge)second.getBrokenEdges().getRandomElement(new AcceptableSecondBrokenEdge(b1,true));
-  if (b2 == null)
-  	b2 = (BrokenEdge)second.getBrokenEdges().getRandomElement(new AcceptableSecondBrokenEdge(b1,false));
-  if (b2 != null){
-  	second.getBrokenEdges().removeElement(b2);
-    e.setVertices(b1.vertex,b2.vertex);
-    e.makeCompatibleWithVertices();
-    b1.vertex.add(e);
-    b2.vertex.add(e);
-    graph.add(e);
-  } else if (RandomNumber.getBoolean()) {
-  	// BUG: doesn't try to conserve edge type
-    Vertex v = second.getGraph().getRandomVertex(new AcceptableSecondVertex(b1.vertex));
-    if (v != null) {
-    	e.setVertices(b1.vertex,v);
-      e.makeCompatibleWithVertices();
-      b1.vertex.add(e);
-      v.add(e);
-      graph.add(e);
+    /**
+     * find and connect a second broken edge
+     *
+     * @param b1 the first broken edge to be connected
+     */
+    public void processInitialBrokenEdge(Graph g, BrokenEdge b1, BrokenGraph second) {
+        Molecule graph = (Molecule) g;
+        if (!b1.vertex.canAcceptEdge())
+            return;
+        Edge e = b1.edge.shallowCopyEdge();
+        BrokenEdge b2 =
+                (BrokenEdge) second.getBrokenEdges().getRandomElement(new AcceptableSecondBrokenEdge(b1, true));
+        if (b2 == null)
+            b2 = (BrokenEdge) second.getBrokenEdges().getRandomElement(new AcceptableSecondBrokenEdge(b1, false));
+        if (b2 != null) {
+            second.getBrokenEdges().removeElement(b2);
+            e.setVertices(b1.vertex, b2.vertex);
+            e.makeCompatibleWithVertices();
+            b1.vertex.add(e);
+            b2.vertex.add(e);
+            graph.add(e);
+        } else if (RandomNumber.getBoolean()) {
+            // BUG: doesn't try to conserve edge type
+            Vertex v = second.getGraph().getRandomVertex(new AcceptableSecondVertex(b1.vertex));
+            if (v != null) {
+                e.setVertices(b1.vertex, v);
+                e.makeCompatibleWithVertices();
+                b1.vertex.add(e);
+                v.add(e);
+                graph.add(e);
+            }
+        }
     }
-  }
-}
 }

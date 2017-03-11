@@ -18,41 +18,44 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.RandomNumber;
+import junit.framework.TestCase;
 
 public class SelectOneNeighboringPairTest extends TestCase {
 
-public SelectOneNeighboringPairTest(String name) {super(name);}
+    public SelectOneNeighboringPairTest(String name) {
+        super(name);
+    }
 
-public void testRandom() {
-    RandomNumber.setSeed(990739400906L);   // to get deterministic results
-	test(6,1,0);
-	test(6,2,0);
-	test(6,2,1);
-	test(12,5,3);
-	test(1,1,0);
-}
-private void test(int length, int modulo, int offset) {
-	final int TRIES = 1000;
-	// these can be checked in the debugger for reasonableness
-	int zeroLength = 0;
-	int twoLong = 0;
+    public void testRandom() {
+        RandomNumber.setSeed(990739400906L);   // to get deterministic results
+        test(6, 1, 0);
+        test(6, 2, 0);
+        test(6, 2, 1);
+        test(12, 5, 3);
+        test(1, 1, 0);
+    }
 
-	SelectOneNeighboringPair selector = new SelectOneNeighboringPair(modulo, offset);
-	for(int i = 0; i < TRIES; i++) {
-		int[] array = selector.getIndicesArray(length);
-		if (array.length == 0) {
-			zeroLength++;
-			continue;
-		}
-		Error.assertTrue(array.length == 2);
-		twoLong++;
-		Error.assertTrue((array[0]-offset) % modulo == 0);
-		Error.assertTrue(array[0] < length);
-		Error.assertTrue(array[1] < length);
-		Error.assertTrue(array[0] + 1 == array[1]);
-	}
-}
+    private void test(int length, int modulo, int offset) {
+        final int TRIES = 1000;
+        // these can be checked in the debugger for reasonableness
+        int zeroLength = 0;
+        int twoLong = 0;
+
+        SelectOneNeighboringPair selector = new SelectOneNeighboringPair(modulo, offset);
+        for (int i = 0; i < TRIES; i++) {
+            int[] array = selector.getIndicesArray(length);
+            if (array.length == 0) {
+                zeroLength++;
+                continue;
+            }
+            Error.assertTrue(array.length == 2);
+            twoLong++;
+            Error.assertTrue((array[0] - offset) % modulo == 0);
+            Error.assertTrue(array[0] < length);
+            Error.assertTrue(array[1] < length);
+            Error.assertTrue(array[0] + 1 == array[1]);
+        }
+    }
 }

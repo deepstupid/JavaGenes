@@ -19,21 +19,23 @@
 package gov.nasa.javaGenes.core.HFC;
 
 import gov.nasa.alsUtility.Error;
+import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.Individual;
 import gov.nasa.javaGenes.core.Parameters;
-import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.RandomEvolvableProducer;
 
 abstract public class Breeder extends gov.nasa.javaGenes.core.Breeder {
-private RandomEvolvableProducer randomEvolvableProducer;
+    private RandomEvolvableProducer randomEvolvableProducer;
 
-public Breeder(Parameters p, RandomEvolvableProducer randomEvolvableProducer) {
-	super(p);
-	Error.assertNotNull(randomEvolvableProducer);
-	this.randomEvolvableProducer = randomEvolvableProducer;
-}
-abstract public void topSubPopulationReceivedNewBestIndividual(Individual individual);
-public Evolvable getRandomEvolvable() {
-	return randomEvolvableProducer.getRandomEvolvable();
-}
+    public Breeder(Parameters p, RandomEvolvableProducer randomEvolvableProducer) {
+        super(p);
+        Error.assertNotNull(randomEvolvableProducer);
+        this.randomEvolvableProducer = randomEvolvableProducer;
+    }
+
+    abstract public void topSubPopulationReceivedNewBestIndividual(Individual individual);
+
+    public Evolvable getRandomEvolvable() {
+        return randomEvolvableProducer.getRandomEvolvable();
+    }
 }

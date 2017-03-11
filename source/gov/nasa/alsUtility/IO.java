@@ -18,14 +18,7 @@
 //
 package gov.nasa.alsUtility;
 
-import java.io.PrintWriter;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.File;
+import java.io.*;
 
 /*
 central place for IO functions. Originally created so that one can
@@ -34,46 +27,51 @@ removed.
 */
 public class IO {
 
-public static PrintWriter getPrintWriter(String filename) {
-  return getPrintWriter(filename, false);
-}
-public static PrintWriter getPrintWriter(String filename, boolean append) {
-    PrintWriter file = null;
-    try {
-      FileOutputStream stream =  new FileOutputStream (filename,append);
-    	file = new PrintWriter(stream);
-    } catch (IOException e) {Error.fatal ("Couldn't create " + filename);}            
-    return file;
-}
+    public static PrintWriter getPrintWriter(String filename) {
+        return getPrintWriter(filename, false);
+    }
 
-public static BufferedReader getBufferedReader(String filename) {
-  BufferedReader input = null;
-  try {
-      FileInputStream stream =  new FileInputStream (filename);
-      input = new BufferedReader(new InputStreamReader(stream));
-  } catch (FileNotFoundException e) {
-    	Error.fatal("Can't find file " + filename);
-  }
-  return input;
-}
+    public static PrintWriter getPrintWriter(String filename, boolean append) {
+        PrintWriter file = null;
+        try {
+            FileOutputStream stream = new FileOutputStream(filename, append);
+            file = new PrintWriter(stream);
+        } catch (IOException e) {
+            Error.fatal("Couldn't create " + filename);
+        }
+        return file;
+    }
 
-public static void renameFile(String currentName, String newName) {
-      File n = new File(newName);
-      File c = new File(currentName);
-      n.delete();
-	    c.renameTo(n);
-      c.delete();
-}
-public static void makeDirectory(String name) {
-    File f = new File (name);
-    if (f.isDirectory())
-    	return;
-    if (f.exists())
-    	f.delete();
-    f.mkdir();
-}
-public static void removeFile(String name) {
-    java.io.File file = new java.io.File(name);
-    file.delete();
-}
+    public static BufferedReader getBufferedReader(String filename) {
+        BufferedReader input = null;
+        try {
+            FileInputStream stream = new FileInputStream(filename);
+            input = new BufferedReader(new InputStreamReader(stream));
+        } catch (FileNotFoundException e) {
+            Error.fatal("Can't find file " + filename);
+        }
+        return input;
+    }
+
+    public static void renameFile(String currentName, String newName) {
+        File n = new File(newName);
+        File c = new File(currentName);
+        n.delete();
+        c.renameTo(n);
+        c.delete();
+    }
+
+    public static void makeDirectory(String name) {
+        File f = new File(name);
+        if (f.isDirectory())
+            return;
+        if (f.exists())
+            f.delete();
+        f.mkdir();
+    }
+
+    public static void removeFile(String name) {
+        java.io.File file = new java.io.File(name);
+        file.delete();
+    }
 } 

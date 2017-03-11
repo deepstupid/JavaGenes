@@ -19,13 +19,14 @@
 package gov.nasa.javaGenes.graph;
 
 import gov.nasa.alsUtility.Predicate;
+
 /**
-predicate that determines when vertices can accept an output edge.  The object
-in execute() must be a DirectedVertex.
-*/
+ * predicate that determines when vertices can accept an output edge.  The object
+ * in execute() must be a DirectedVertex.
+ */
 public class VertexAcceptsOutputEdge implements Predicate {
-public boolean execute(Object object) {
-	DirectedVertex vertex = (DirectedVertex)object;
-  return vertex.canAcceptOutputEdge();
-}
+    public boolean execute(Object object) {
+        DirectedVertex vertex = (DirectedVertex) object;
+        return vertex.canAcceptOutputEdge();
+    }
 }

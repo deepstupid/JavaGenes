@@ -18,25 +18,28 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class SelectFixedIndicesTest extends TestCase {
 
-public SelectFixedIndicesTest(String name) {super(name);}
+    public SelectFixedIndicesTest(String name) {
+        super(name);
+    }
 
-public void testSelectFixedIndices() {
-    int[] a = {1,2,4};
-    testSelectFixedIndices("1",5,a,a);
-    int[] b = {1,2};
-    testSelectFixedIndices("2",4,a,b);
-    int[] c = {4,2,1};
-    testSelectFixedIndices("3",6,c,a);    
-    testSelectFixedIndices("4",3,c,b);    
-}
-public void testSelectFixedIndices(String name, int evolvableLength, int[] selections, int[] results) {
-    SelectFixedIndices selector = new SelectFixedIndices(selections);
-    int[] indices = selector.getIndicesArray(evolvableLength);
-    assertTrue(name + Utility.toString(indices), Utility.equals(results,indices));
-}
+    public void testSelectFixedIndices() {
+        int[] a = {1, 2, 4};
+        testSelectFixedIndices("1", 5, a, a);
+        int[] b = {1, 2};
+        testSelectFixedIndices("2", 4, a, b);
+        int[] c = {4, 2, 1};
+        testSelectFixedIndices("3", 6, c, a);
+        testSelectFixedIndices("4", 3, c, b);
+    }
+
+    public void testSelectFixedIndices(String name, int evolvableLength, int[] selections, int[] results) {
+        SelectFixedIndices selector = new SelectFixedIndices(selections);
+        int[] indices = selector.getIndicesArray(evolvableLength);
+        assertTrue(name + Utility.toString(indices), Utility.equals(results, indices));
+    }
 }

@@ -21,15 +21,27 @@ package gov.nasa.javaGenes.core;
 import gov.nasa.alsUtility.Error;
 
 /**
-Classes which wish to be Checkpointable can use this as a superclass
-which will do some standard implementations of the Checkpointable interface.
-*/
+ * Classes which wish to be Checkpointable can use this as a superclass
+ * which will do some standard implementations of the Checkpointable interface.
+ */
 public abstract class AbstractCheckpointable implements Checkpointable {
-protected Checkpointer checkpointer;
-public void setCheckpointer(Checkpointer c) {checkpointer = c;}
-public abstract void start(String[] arguments);
-public abstract void restart();
-public void beforeCheckpoint(){}
-public void afterCheckpoint(){}
-public void stateSave(TokenizeOutput tokenizer) {Error.notImplemented();}
+    protected Checkpointer checkpointer;
+
+    public void setCheckpointer(Checkpointer c) {
+        checkpointer = c;
+    }
+
+    public abstract void start(String[] arguments);
+
+    public abstract void restart();
+
+    public void beforeCheckpoint() {
+    }
+
+    public void afterCheckpoint() {
+    }
+
+    public void stateSave(TokenizeOutput tokenizer) {
+        Error.notImplemented();
+    }
 }

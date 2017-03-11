@@ -20,36 +20,63 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 import gov.nasa.alsUtility.Error;
-import java.lang.Math;
 
 public class Node extends TimeInterval {
-protected int startTime;
-protected Node previous;
-protected Node next;
-private static final boolean debug = Debug.debug;
-/**
-should only be called from NodeFactory and subclasses (via NodeFactory)
-*/
-protected Node() {} 
-protected void setTimeAndNeighbors(int inStartTime, Node previous, Node next) {
-    setStart(inStartTime);
-    setPrevious(previous);
-    setNext(next);
-}
-public int getStart() {return startTime;}
-protected void setStart(int inStartTime) {startTime = inStartTime;}
-public int getEnd() {return next.startTime;}
-protected void setEnd(int inEndTime) {next().setStart(inEndTime);}
-public Node next() {return next;}
-protected void setNext(Node node) {next = node;}
-public Node previous() {return previous;}
-protected void setPrevious(Node node) {previous = node;}
-/**
-@return true if can start in this node and finish by the end of it
-*/
-protected boolean isDurationAvailable(int inStartTime,int inDuration) {
-    if (debug) Error.assertTrue(inDuration > 0);
-    return startTime <= inStartTime && Math.max(inStartTime,startTime) + inDuration <= getEnd();
-}
+    private static final boolean debug = Debug.debug;
+    protected int startTime;
+    protected Node previous;
+    protected Node next;
+
+    /**
+     * should only be called from NodeFactory and subclasses (via NodeFactory)
+     */
+    protected Node() {
+    }
+
+    protected void setTimeAndNeighbors(int inStartTime, Node previous, Node next) {
+        setStart(inStartTime);
+        setPrevious(previous);
+        setNext(next);
+    }
+
+    public int getStart() {
+        return startTime;
+    }
+
+    protected void setStart(int inStartTime) {
+        startTime = inStartTime;
+    }
+
+    public int getEnd() {
+        return next.startTime;
+    }
+
+    protected void setEnd(int inEndTime) {
+        next().setStart(inEndTime);
+    }
+
+    public Node next() {
+        return next;
+    }
+
+    protected void setNext(Node node) {
+        next = node;
+    }
+
+    public Node previous() {
+        return previous;
+    }
+
+    protected void setPrevious(Node node) {
+        previous = node;
+    }
+
+    /**
+     * @return true if can start in this node and finish by the end of it
+     */
+    protected boolean isDurationAvailable(int inStartTime, int inDuration) {
+        if (debug) Error.assertTrue(inDuration > 0);
+        return startTime <= inStartTime && Math.max(inStartTime, startTime) + inDuration <= getEnd();
+    }
 
 }

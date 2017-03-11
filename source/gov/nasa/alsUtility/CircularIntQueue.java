@@ -20,29 +20,36 @@ package gov.nasa.alsUtility;
 
 
 public class CircularIntQueue {
-protected int pushIndex;
-protected int popIndex;
-protected int[] buffer;
+    protected int pushIndex;
+    protected int popIndex;
+    protected int[] buffer;
 
-public CircularIntQueue(int length) {
-	buffer = new int[length];
-  reset();
-}
-public void reset() {
-	pushIndex = 0;
-  popIndex = 0;
-}
-public int length() {return buffer.length;}
-public void push(int value) {
-	buffer[pushIndex] = value;
-  pushIndex = increment(pushIndex);
-}
-public int pop() {
- 	int value = buffer[popIndex];
-  popIndex = increment(popIndex);
-  return value;
-}
-private int increment(int index) {
-	return (index + 1) % buffer.length;
-}
+    public CircularIntQueue(int length) {
+        buffer = new int[length];
+        reset();
+    }
+
+    public void reset() {
+        pushIndex = 0;
+        popIndex = 0;
+    }
+
+    public int length() {
+        return buffer.length;
+    }
+
+    public void push(int value) {
+        buffer[pushIndex] = value;
+        pushIndex = increment(pushIndex);
+    }
+
+    public int pop() {
+        int value = buffer[popIndex];
+        popIndex = increment(popIndex);
+        return value;
+    }
+
+    private int increment(int index) {
+        return (index + 1) % buffer.length;
+    }
 }

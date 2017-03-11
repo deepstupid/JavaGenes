@@ -18,17 +18,20 @@
 //
 //  Created by Al Globus on Wed Jan 29 2003.
 package gov.nasa.javaGenes.hillClimbing;
+
 import gov.nasa.javaGenes.core.Individual;
 
 public class RestartAfterNChildrenWithoutAcceptance extends RestartEveryNChildren {
-public RestartAfterNChildrenWithoutAcceptance(int numberOfConsecutiveChildrenWithoutAcceptanceBetweenRestarts) {
-    super(numberOfConsecutiveChildrenWithoutAcceptanceBetweenRestarts);
-}
-void childCreated(Individual kid, Individual parent) {
+    public RestartAfterNChildrenWithoutAcceptance(int numberOfConsecutiveChildrenWithoutAcceptanceBetweenRestarts) {
+        super(numberOfConsecutiveChildrenWithoutAcceptanceBetweenRestarts);
+    }
+
+    void childCreated(Individual kid, Individual parent) {
         count++;
-}
-void lastChildAccepted() {
-    count = 0;
-}
+    }
+
+    void lastChildAccepted() {
+        count = 0;
+    }
 }
 

@@ -19,39 +19,41 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 
 public class SensorTest extends TestCase {
-private Sensor sensor1;
-private final static double SLEW_RATE = 0.5;
-private String time[] = {
-    "1 Jan 2002 00:00:00.00",
-    "1 Jan 2002 00:00:10.00",
-    "2 Jan 2002 00:00:00.00",
-    "3 Jan 2002 00:00:00.00"
-};
-public SensorTest(String name) {super(name);}
+    private final static double SLEW_RATE = 0.5;
+    private Sensor sensor1;
+    private String time[] = {
+            "1 Jan 2002 00:00:00.00",
+            "1 Jan 2002 00:00:10.00",
+            "2 Jan 2002 00:00:00.00",
+            "3 Jan 2002 00:00:00.00"
+    };
 
-public void setUp() {
-    Horizon horizon = new Horizon(time[0],time[3]);
-    Satellite satellite = new Satellite("satellite");
-    SensorType sensorType1 = new SensorType("sensor");
-    sensor1 = new Sensor(satellite,sensorType1,horizon,100);
-    satellite.addSensor(sensor1);
-    SlewMotor slewMotor = new SlewMotor(SLEW_RATE,-100,100,horizon,100);
-    sensor1.setSlewMotor(slewMotor);
-    satellite.addSlewMotor(slewMotor);
-    slewMotor.addSensor(sensor1);
-}
+    public SensorTest(String name) {
+        super(name);
+    }
 
-public void testSlewTimeAdequate() {
-    SlewRequirement st1 = new CrossTrackSlew(0);
-    SlewRequirement st2 = new CrossTrackSlew(10);
-    assertTrue("1", sensor1.slewTimeAdequate(20,st1,st2));
-    assertTrue("2", sensor1.slewTimeAdequate(20,st2,st1));
-    assertTrue("3", sensor1.slewTimeAdequate(21,st1,st2));
-    assertTrue("4",!sensor1.slewTimeAdequate(19,st1,st2));
-    assertTrue("5",!sensor1.slewTimeAdequate(19,st2,st1));
-}
+    public void setUp() {
+        Horizon horizon = new Horizon(time[0], time[3]);
+        Satellite satellite = new Satellite("satellite");
+        SensorType sensorType1 = new SensorType("sensor");
+        sensor1 = new Sensor(satellite, sensorType1, horizon, 100);
+        satellite.addSensor(sensor1);
+        SlewMotor slewMotor = new SlewMotor(SLEW_RATE, -100, 100, horizon, 100);
+        sensor1.setSlewMotor(slewMotor);
+        satellite.addSlewMotor(slewMotor);
+        slewMotor.addSensor(sensor1);
+    }
+
+    public void testSlewTimeAdequate() {
+        SlewRequirement st1 = new CrossTrackSlew(0);
+        SlewRequirement st2 = new CrossTrackSlew(10);
+        assertTrue("1", sensor1.slewTimeAdequate(20, st1, st2));
+        assertTrue("2", sensor1.slewTimeAdequate(20, st2, st1));
+        assertTrue("3", sensor1.slewTimeAdequate(21, st1, st2));
+        assertTrue("4", !sensor1.slewTimeAdequate(19, st1, st2));
+        assertTrue("5", !sensor1.slewTimeAdequate(19, st2, st1));
+    }
 }
 

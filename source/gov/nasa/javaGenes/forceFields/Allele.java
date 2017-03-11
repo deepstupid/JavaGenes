@@ -18,102 +18,126 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import java.io.Serializable;
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.DoubleInterval;
+import gov.nasa.alsUtility.Error;
+
+import java.io.Serializable;
 
 /**
-Used to control a single double value in a chromosome.  Includes a name
-and the minimum and maximum allowed values (in a DoubleInterval)
-*/
+ * Used to control a single double value in a chromosome.  Includes a name
+ * and the minimum and maximum allowed values (in a DoubleInterval)
+ */
 public class Allele implements Serializable {
-protected String name = "default";
-protected boolean noEvolution = false;
-protected double valueToSet = 0.0; // used when noEvolution is true
-/**
-holds the maximum and minimum values for this allele
-*/
-protected DoubleInterval interval = new DoubleInterval(); //minimum and maximum
+    protected String name = "default";
+    protected boolean noEvolution = false;
+    protected double valueToSet = 0.0; // used when noEvolution is true
+    /**
+     * holds the maximum and minimum values for this allele
+     */
+    protected DoubleInterval interval = new DoubleInterval(); //minimum and maximum
 
-public Allele(DoubleInterval i) {
-    interval.set(i);
-    Error.assertTrue(isLegal());
-}
-public Allele(double low, double high) {
-    interval.set(low,high);
-    Error.assertTrue(isLegal());
-}
-/**
-@param n name of the allele
-*/
-public Allele(String n, DoubleInterval i) {
-	this(i);
-  name = n;
-}
-public DoubleInterval getInterval() {return interval;}
-public void setNoEvolution(double value) {
-  noEvolution = true;
-  valueToSet = value;
-  setInterval(value);
-}
-public boolean dontEvolve() {return noEvolution;}
-public double getNoEvolutionValue() {return valueToSet;}
+    public Allele(DoubleInterval i) {
+        interval.set(i);
+        Error.assertTrue(isLegal());
+    }
 
-/**
-set the interval to only include value
-*/
-public void setInterval(double value) {
-  interval.set(value,true,value,true);
-}
-/**
-@param value is value within the allowed interval?
-*/
-public boolean valueFits(double value) {
-  return interval.isBetween(value);
-}
-/**
-is there any value that can fit in the interval?
-*/
-public boolean isLegal() {
-	return !interval.isEmpty();
-}
-/**
-@return a random value within the interval (flat distribution)
-*/
-public double getRandomValue(){
-    Error.assertTrue(isLegal());
-    return interval.random();
-}
-public double getRandomValueAbove(double value) {
-    Error.assertTrue(valueFits(value));
-    DoubleInterval i = new DoubleInterval(interval);
-    i.setLow(value);
-    return i.random();
-}
-public double getRandomValueBelow(double value) {
-    Error.assertTrue(valueFits(value));
-    DoubleInterval i = new DoubleInterval(interval);
-    i.setHigh(value);
-    return i.random();
-}
-/**
-@return a random value within the interval (log distribution)
-*/
-public double getRandomLogValue(){
-	Error.assertTrue(isLegal());
-  return interval.randomLogFromBothEnds();
-}
-/**
-@return a random value within the interval (Gaussian distribution)
-@param center the center of the Gaussian curve
-@param sd standard deviation as a fraction of the interval
-*/
-public double getRandomGaussianValue(double center, double sd) {
-	Error.assertTrue(isLegal());
-  return interval.randomGaussian(center,sd*interval.interval());
-}
-public String getName() {return name;}
-public String toString() {
-	return name + ": " + interval;
-}
+    public Allele(double low, double high) {
+        interval.set(low, high);
+        Error.assertTrue(isLegal());
+    }
+
+    /**
+     * @param n name of the allele
+     */
+    public Allele(String n, DoubleInterval i) {
+        this(i);
+        name = n;
+    }
+
+    public DoubleInterval getInterval() {
+        return interval;
+    }
+
+    /**
+     * set the interval to only include value
+     */
+    public void setInterval(double value) {
+        interval.set(value, true, value, true);
+    }
+
+    public void setNoEvolution(double value) {
+        noEvolution = true;
+        valueToSet = value;
+        setInterval(value);
+    }
+
+    public boolean dontEvolve() {
+        return noEvolution;
+    }
+
+    public double getNoEvolutionValue() {
+        return valueToSet;
+    }
+
+    /**
+     * @param value is value within the allowed interval?
+     */
+    public boolean valueFits(double value) {
+        return interval.isBetween(value);
+    }
+
+    /**
+     * is there any value that can fit in the interval?
+     */
+    public boolean isLegal() {
+        return !interval.isEmpty();
+    }
+
+    /**
+     * @return a random value within the interval (flat distribution)
+     */
+    public double getRandomValue() {
+        Error.assertTrue(isLegal());
+        return interval.random();
+    }
+
+    public double getRandomValueAbove(double value) {
+        Error.assertTrue(valueFits(value));
+        DoubleInterval i = new DoubleInterval(interval);
+        i.setLow(value);
+        return i.random();
+    }
+
+    public double getRandomValueBelow(double value) {
+        Error.assertTrue(valueFits(value));
+        DoubleInterval i = new DoubleInterval(interval);
+        i.setHigh(value);
+        return i.random();
+    }
+
+    /**
+     * @return a random value within the interval (log distribution)
+     */
+    public double getRandomLogValue() {
+        Error.assertTrue(isLegal());
+        return interval.randomLogFromBothEnds();
+    }
+
+    /**
+     * @param center the center of the Gaussian curve
+     * @param sd     standard deviation as a fraction of the interval
+     * @return a random value within the interval (Gaussian distribution)
+     */
+    public double getRandomGaussianValue(double center, double sd) {
+        Error.assertTrue(isLegal());
+        return interval.randomGaussian(center, sd * interval.interval());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String toString() {
+        return name + ": " + interval;
+    }
 } 

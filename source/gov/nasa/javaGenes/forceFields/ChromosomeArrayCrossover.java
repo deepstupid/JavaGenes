@@ -17,44 +17,46 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
+
 import gov.nasa.alsUtility.Error;
-import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.alsUtility.RandomNumber;
+import gov.nasa.javaGenes.core.Evolvable;
 
 public class ChromosomeArrayCrossover extends ChromosomeCrossover {
 
-public ChromosomeArrayCrossover() {}
-
-public Evolvable[] makeChildren(Evolvable[] parents) {
-	Error.assertTrue(parents.length == 2);
-	Chromosome mom = (Chromosome)parents[0];
-	Chromosome dad = (Chromosome)parents[1];
-  Chromosome[] chromosome = new Chromosome[2];
-  chromosome[0] = getNewChromosome(mom);
-  chromosome[1] = getNewChromosome(dad);
-  boolean lastChoice = false;
-  boolean didBoth = false;
-  for(int i = 0; i < mom.numberOfArrays(); i++) {
-    boolean choose = RandomNumber.getBoolean();
-    if (i != 0 && choose != lastChoice) didBoth = true;
-    if (i == mom.numberOfArrays()-1 && !didBoth)
-      choose = !lastChoice;
-    lastChoice = choose;
-    for(int j = 0; j < mom.getSize(i); j++) {
-  	  double momValue = mom.getValue(i,j);
-  	  double dadValue = dad.getValue(i,j);
-      if (choose) {
-    	  chromosome[0].setValue(momValue,i,j);
-    	  chromosome[1].setValue(dadValue,i,j);
-      } else {
-    	  chromosome[0].setValue(dadValue,i,j);
-    	  chromosome[1].setValue(momValue,i,j);
-      }
+    public ChromosomeArrayCrossover() {
     }
-  }
 
-  return chromosome;
-}
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Error.assertTrue(parents.length == 2);
+        Chromosome mom = (Chromosome) parents[0];
+        Chromosome dad = (Chromosome) parents[1];
+        Chromosome[] chromosome = new Chromosome[2];
+        chromosome[0] = getNewChromosome(mom);
+        chromosome[1] = getNewChromosome(dad);
+        boolean lastChoice = false;
+        boolean didBoth = false;
+        for (int i = 0; i < mom.numberOfArrays(); i++) {
+            boolean choose = RandomNumber.getBoolean();
+            if (i != 0 && choose != lastChoice) didBoth = true;
+            if (i == mom.numberOfArrays() - 1 && !didBoth)
+                choose = !lastChoice;
+            lastChoice = choose;
+            for (int j = 0; j < mom.getSize(i); j++) {
+                double momValue = mom.getValue(i, j);
+                double dadValue = dad.getValue(i, j);
+                if (choose) {
+                    chromosome[0].setValue(momValue, i, j);
+                    chromosome[1].setValue(dadValue, i, j);
+                } else {
+                    chromosome[0].setValue(dadValue, i, j);
+                    chromosome[1].setValue(momValue, i, j);
+                }
+            }
+        }
+
+        return chromosome;
+    }
 
 }
 

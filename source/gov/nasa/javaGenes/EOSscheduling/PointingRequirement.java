@@ -18,29 +18,41 @@
 //
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.Utility;
 
 public class PointingRequirement implements java.io.Serializable {
-protected int time;
-protected double azimuth;
-protected double elevation;
-protected double range;
+    protected int time;
+    protected double azimuth;
+    protected double elevation;
+    protected double range;
 
-public PointingRequirement(int inTime, double azimuthInDegrees, double elevationInDegrees, double inRange) {
-    time = inTime;
-    azimuth = azimuthInDegrees;
-    elevation = elevationInDegrees;
-    range = inRange;
-}
-public double getTime() {return time;}
-public double getAzimuth() {return azimuth;}
-public double getElevation() {return elevation;}
-public double getRange() {return range;}
-public boolean equivalent(PointingRequirement p) {
-     return time == p.time 
-            && Utility.nearlyEqual(azimuth,p.getAzimuth()) 
-            && Utility.nearlyEqual(elevation,p.getElevation())
-            && Utility.nearlyEqual(range,p.getRange());
-}
+    public PointingRequirement(int inTime, double azimuthInDegrees, double elevationInDegrees, double inRange) {
+        time = inTime;
+        azimuth = azimuthInDegrees;
+        elevation = elevationInDegrees;
+        range = inRange;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public double getAzimuth() {
+        return azimuth;
+    }
+
+    public double getElevation() {
+        return elevation;
+    }
+
+    public double getRange() {
+        return range;
+    }
+
+    public boolean equivalent(PointingRequirement p) {
+        return time == p.time
+                && Utility.nearlyEqual(azimuth, p.getAzimuth())
+                && Utility.nearlyEqual(elevation, p.getElevation())
+                && Utility.nearlyEqual(range, p.getRange());
+    }
 }

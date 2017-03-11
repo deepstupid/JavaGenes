@@ -23,46 +23,52 @@ import gov.nasa.alsUtility.DoubleInterval;
 import gov.nasa.alsUtility.Error;
 
 /**
-the first cluster in the ManyMultiBodiesForOneEnergy is used to calulate differences from
-*/
+ * the first cluster in the ManyMultiBodiesForOneEnergy is used to calulate differences from
+ */
 public class MMEFreferenceRMS extends ManyMoleculesEnergyFitness {
-protected double referenceEnergy; // 'correct' energy for first cluster
-protected DoubleInterval referenceEnergyUncertainty; // upper and lower bound for 'correct' energy
-protected double energyRangeDivideBy; // when within referenceEnergyUncertainty improve fitness by division
-protected double targetReferenceEnergy;  // target energy of first cluster
+    protected double referenceEnergy; // 'correct' energy for first cluster
+    protected DoubleInterval referenceEnergyUncertainty; // upper and lower bound for 'correct' energy
+    protected double energyRangeDivideBy; // when within referenceEnergyUncertainty improve fitness by division
+    protected double targetReferenceEnergy;  // target energy of first cluster
 
-public MMEFreferenceRMS(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double inReferenceEnergy, double referenceEnergyLowerBound, double referenceEnergyUpperBound, boolean inDoPerAtomEnergies) {
-    super(p,m,inDoPerAtomEnergies);
-    Error.assertTrue(energies.size() > 0);
-    targetReferenceEnergy = ((Double)energies.elementAt(0)).doubleValue();
-    
-    int numberOfAtoms = m.getMultiBodies(0).getNumberOfAtoms();
-    referenceEnergy = inReferenceEnergy;
-    Error.assertTrue(referenceEnergyLowerBound <= referenceEnergy && referenceEnergy <= referenceEnergyUpperBound);
-    if (inDoPerAtomEnergies) referenceEnergy /= numberOfAtoms;
+    public MMEFreferenceRMS(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double inReferenceEnergy, double referenceEnergyLowerBound, double referenceEnergyUpperBound, boolean inDoPerAtomEnergies) {
+        super(p, m, inDoPerAtomEnergies);
+        Error.assertTrue(energies.size() > 0);
+        targetReferenceEnergy = ((Double) energies.elementAt(0)).doubleValue();
 
-    double low = referenceEnergyLowerBound;
-    if (inDoPerAtomEnergies) low /= numberOfAtoms;
-    double high = referenceEnergyUpperBound;
-    if (inDoPerAtomEnergies) high /= numberOfAtoms;
-    referenceEnergyUncertainty = new DoubleInterval(low-referenceEnergy,high-referenceEnergy);
+        int numberOfAtoms = m.getMultiBodies(0).getNumberOfAtoms();
+        referenceEnergy = inReferenceEnergy;
+        Error.assertTrue(referenceEnergyLowerBound <= referenceEnergy && referenceEnergy <= referenceEnergyUpperBound);
+        if (inDoPerAtomEnergies) referenceEnergy /= numberOfAtoms;
 
-    energyRangeDivideBy = inEnergyRangeDivideBy;
-    Error.assertTrue(energyRangeDivideBy >= 1);
-}
-public MMEFreferenceRMS(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double referenceEnergy) {
-    this(p,m,inEnergyRangeDivideBy,referenceEnergy,referenceEnergy,referenceEnergy,false);
-}
-public MMEFreferenceRMS(Potential p, ManyMultiBodiesForOneEnergy m, boolean inDoPerAtomEnergies) {
-    this(p,m,1,m.getEnergy(0),m.getEnergy(0),m.getEnergy(0),inDoPerAtomEnergies);
-}
-protected double calculateDistance(double energyToCheck, double targetEnergy) {
-    double target = targetEnergy - targetReferenceEnergy;
-    double energy = energyToCheck - referenceEnergy;
-    double delta = calculateDelta(energy,target);
-    if (referenceEnergyUncertainty.isBetween(delta))
-        delta /= energyRangeDivideBy;
-    return delta;
-}
-protected double calculateDelta(double energy,double target) {return energy - target;}
+        double low = referenceEnergyLowerBound;
+        if (inDoPerAtomEnergies) low /= numberOfAtoms;
+        double high = referenceEnergyUpperBound;
+        if (inDoPerAtomEnergies) high /= numberOfAtoms;
+        referenceEnergyUncertainty = new DoubleInterval(low - referenceEnergy, high - referenceEnergy);
+
+        energyRangeDivideBy = inEnergyRangeDivideBy;
+        Error.assertTrue(energyRangeDivideBy >= 1);
+    }
+
+    public MMEFreferenceRMS(Potential p, ManyMultiBodiesForOneEnergy m, double inEnergyRangeDivideBy, double referenceEnergy) {
+        this(p, m, inEnergyRangeDivideBy, referenceEnergy, referenceEnergy, referenceEnergy, false);
+    }
+
+    public MMEFreferenceRMS(Potential p, ManyMultiBodiesForOneEnergy m, boolean inDoPerAtomEnergies) {
+        this(p, m, 1, m.getEnergy(0), m.getEnergy(0), m.getEnergy(0), inDoPerAtomEnergies);
+    }
+
+    protected double calculateDistance(double energyToCheck, double targetEnergy) {
+        double target = targetEnergy - targetReferenceEnergy;
+        double energy = energyToCheck - referenceEnergy;
+        double delta = calculateDelta(energy, target);
+        if (referenceEnergyUncertainty.isBetween(delta))
+            delta /= energyRangeDivideBy;
+        return delta;
+    }
+
+    protected double calculateDelta(double energy, double target) {
+        return energy - target;
+    }
 }

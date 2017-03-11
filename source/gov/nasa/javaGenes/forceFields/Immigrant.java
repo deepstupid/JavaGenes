@@ -17,28 +17,49 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
-import gov.nasa.alsUtility.FieldRecordText;
+
 import gov.nasa.alsUtility.Error;
+import gov.nasa.alsUtility.FieldRecordText;
 
 
 public class Immigrant extends ChromosomeParameterValues {
-protected boolean infinitNumber = false;
-protected int number = 1; // not set when reading file. Set by Immigrants when reading multiple immigrants
-public Immigrant(FieldRecordText file) {super(file);}
-public Immigrant(String filename) {super(filename);}
-public void setNumberInfinit(boolean value) {infinitNumber = value;}
-public boolean isInfinit() {return infinitNumber;}
-public boolean hasMore() {return isInfinit() || getNumber() > 0;}
-public int getNumber() {return number;}
-public void setNumber(int n) {
-  Error.assertTrue(n >= 0);
-  number = n;
-}
-public void setupChromosome(Chromosome chromosome,AlleleTemplate alleles) {
-  for(int i = 0; i < size(); i++) {
-    int[] indices = alleles.getIndices(getName(i));  
-    chromosome.setValue(getValue(i),indices[0],indices[1]);
-  }
-}
+    protected boolean infinitNumber = false;
+    protected int number = 1; // not set when reading file. Set by Immigrants when reading multiple immigrants
+
+    public Immigrant(FieldRecordText file) {
+        super(file);
+    }
+
+    public Immigrant(String filename) {
+        super(filename);
+    }
+
+    public void setNumberInfinit(boolean value) {
+        infinitNumber = value;
+    }
+
+    public boolean isInfinit() {
+        return infinitNumber;
+    }
+
+    public boolean hasMore() {
+        return isInfinit() || getNumber() > 0;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int n) {
+        Error.assertTrue(n >= 0);
+        number = n;
+    }
+
+    public void setupChromosome(Chromosome chromosome, AlleleTemplate alleles) {
+        for (int i = 0; i < size(); i++) {
+            int[] indices = alleles.getIndices(getName(i));
+            chromosome.setValue(getValue(i), indices[0], indices[1]);
+        }
+    }
 }
 

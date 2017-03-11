@@ -20,20 +20,21 @@ package gov.nasa.javaGenes.core;
 
 //  Created by Al Globus on Thu Aug 01 2002.
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class ParametersSerializationTest extends TestCase {
-private String filename = "temp.ParametersSerializationTest";
+    private String filename = "temp.ParametersSerializationTest";
 
-public ParametersSerializationTest(String name) {super(name);}
+    public ParametersSerializationTest(String name) {
+        super(name);
+    }
 
-public void testPermutationParameters() {
-    Parameters p = new gov.nasa.javaGenes.permutation.PermutationParameters();
-    Utility.serialize (p, filename);
-    Utility.deleteFile(filename);
-}
+    public void testPermutationParameters() {
+        Parameters p = new gov.nasa.javaGenes.permutation.PermutationParameters();
+        Utility.serialize(p, filename);
+        Utility.deleteFile(filename);
+    }
 /*
 public void testEOSschedulingParameters() {
     Parameters p = new EOSscheduling.EOSschedulingParameters();

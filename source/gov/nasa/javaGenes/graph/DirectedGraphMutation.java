@@ -22,17 +22,21 @@ import gov.nasa.javaGenes.core.ChildMaker;
 import gov.nasa.javaGenes.core.Evolvable;
 
 abstract class DirectedGraphMutation extends ChildMaker {
-public int numberOfParents() {return 1;}
-public Evolvable[] makeChildren(Evolvable[] parents) {
-  DirectedGraph c = makeChild(((DirectedGraph)parents[0]).deepCopyDirectedGraph());
-  if (c == null) return new Evolvable[0];
-  Graph[] g = new Graph[1];
-  g[0] = c;
-  return (Evolvable[])g;
-}
-/**
-@return parameter graph mutated. No new graph created.
-*/
-abstract public DirectedGraph makeChild(DirectedGraph child);
+    public int numberOfParents() {
+        return 1;
+    }
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        DirectedGraph c = makeChild(((DirectedGraph) parents[0]).deepCopyDirectedGraph());
+        if (c == null) return new Evolvable[0];
+        Graph[] g = new Graph[1];
+        g[0] = c;
+        return (Evolvable[]) g;
+    }
+
+    /**
+     * @return parameter graph mutated. No new graph created.
+     */
+    abstract public DirectedGraph makeChild(DirectedGraph child);
 }
 

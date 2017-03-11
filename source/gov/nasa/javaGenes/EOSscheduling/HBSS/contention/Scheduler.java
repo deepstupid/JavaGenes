@@ -22,19 +22,20 @@ import gov.nasa.javaGenes.EOSscheduling.EOSModel;
 
 public class Scheduler extends gov.nasa.javaGenes.EOSscheduling.HBSS.Scheduler {
 
-public Scheduler(EOSModel model,float priorityWeight,float availableWeight,float SSRweight) {
-    this(model,priorityWeight,availableWeight,SSRweight,0);
-}
-public Scheduler(EOSModel model,float priorityWeight,float availableWeight,float SSRweight,float nadirPointingWeight) {
-    super(model);
-    taskList = new TaskList(model,priorityWeight,availableWeight,SSRweight,nadirPointingWeight);
-}
+    public Scheduler(EOSModel model, float priorityWeight, float availableWeight, float SSRweight) {
+        this(model, priorityWeight, availableWeight, SSRweight, 0);
+    }
 
-public void printContentionStatistics(String filename) {
-    model.beginScheduling();
-    taskList.reinitialize();
-    ContentionStatistics cs = new ContentionStatistics((gov.nasa.javaGenes.EOSscheduling.HBSS.contention.TaskList)taskList);
-    cs.printStatistics("contentionStatistics.tsd");
-    model.endScheduling();
-}
+    public Scheduler(EOSModel model, float priorityWeight, float availableWeight, float SSRweight, float nadirPointingWeight) {
+        super(model);
+        taskList = new TaskList(model, priorityWeight, availableWeight, SSRweight, nadirPointingWeight);
+    }
+
+    public void printContentionStatistics(String filename) {
+        model.beginScheduling();
+        taskList.reinitialize();
+        ContentionStatistics cs = new ContentionStatistics((gov.nasa.javaGenes.EOSscheduling.HBSS.contention.TaskList) taskList);
+        cs.printStatistics("contentionStatistics.tsd");
+        model.endScheduling();
+    }
 }

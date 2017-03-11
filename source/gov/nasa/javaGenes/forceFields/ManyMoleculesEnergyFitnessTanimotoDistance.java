@@ -22,11 +22,12 @@ import gov.nasa.alsUtility.Utility;
 
 public class ManyMoleculesEnergyFitnessTanimotoDistance extends ManyMoleculesEnergyFitness {
 
-public ManyMoleculesEnergyFitnessTanimotoDistance(Potential p, ManyMultiBodiesForOneEnergy m, boolean perAtom) {
-  super(p,m,perAtom);
-}
-protected double calculateDistance(double energy, double otherEnergy) {
-  return Utility.TanimotoDistance(energy,otherEnergy);
-}
+    public ManyMoleculesEnergyFitnessTanimotoDistance(Potential p, ManyMultiBodiesForOneEnergy m, boolean perAtom) {
+        super(p, m, perAtom);
+    }
+
+    protected double calculateDistance(double energy, double otherEnergy) {
+        return Utility.TanimotoDistance(energy, otherEnergy);
+    }
 
 }

@@ -21,25 +21,26 @@ package gov.nasa.javaGenes.chemistry;
 import gov.nasa.javaGenes.core.Run;
 
 /**
-run a genetic algorithm on a Molecule represented as a graph
-*/
+ * run a genetic algorithm on a Molecule represented as a graph
+ */
 public class RunMolecule extends Run {
-public RunMolecule() {}
+    public RunMolecule() {
+    }
 
-/**
-create MoleculeParameters and MoleculePopulation objects
+    /**
+     * create MoleculeParameters and MoleculePopulation objects
+     *
+     * @param arguments should usually have a filename of a .mol file. This is the molecular target.
+     *                  It can be empty, but then a small default molecule will be the target.
+     */
+    protected void startSpecialized(String[] arguments) {
+        if (arguments.length == 1)
+            parameters = new MoleculeParameters(arguments[0]);
+        else
+            parameters = new MoleculeParameters();
 
-@param arguments should usually have a filename of a .mol file. This is the molecular target.
-It can be empty, but then a small default molecule will be the target.
-*/
-protected void startSpecialized(String[] arguments) {
-    if (arguments.length == 1)
-        parameters = new MoleculeParameters(arguments[0]);
-    else
-        parameters = new MoleculeParameters();
-
-    generationTimer.start();
-    population = new MoleculePopulation((MoleculeParameters)parameters);
-    generationTimer.stop();
-}
+        generationTimer.start();
+        population = new MoleculePopulation((MoleculeParameters) parameters);
+        generationTimer.stop();
+    }
 }

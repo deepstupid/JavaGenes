@@ -20,14 +20,19 @@ package gov.nasa.alsUtility;
 
 
 public class ObjectEquals implements Predicate {
-/**
-object to be equal to
-*/
-protected Object object;
+    /**
+     * object to be equal to
+     */
+    protected Object object;
 
-public ObjectEquals(Object o) {object = o;}
-/**
-@return object.equals(o)
-*/
-public boolean execute(Object o) {return object.equals(o);}
+    public ObjectEquals(Object o) {
+        object = o;
+    }
+
+    /**
+     * @return object.equals(o)
+     */
+    public boolean execute(Object o) {
+        return object.equals(o);
+    }
 }

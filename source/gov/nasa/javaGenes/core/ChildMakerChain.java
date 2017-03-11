@@ -18,59 +18,76 @@
 //
 package gov.nasa.javaGenes.core;
 
-import java.util.Vector;
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.DoubleInterval;
+import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.RandomNumber;
 
-/**
-probabalistically mutates the children of a ChildMaker.  Can chain mutators for an unlimited length.
-*/
-public class ChildMakerChain extends ChildMaker {
-protected ChildMaker initialChildMaker;
-protected Vector chain = new Vector(); // of ChainElement
-protected class ChainElement implements java.io.Serializable {
-	ChildMaker childMaker;
-	double probability;
-	public ChainElement(ChildMaker childMaker, double probability) {
-		Error.assertNotNull(childMaker);
-		this.childMaker = childMaker;
-		this.probability = probability;
-	}
-	public String toString() {return childMaker.toString() + " probability=" + probability;}
-}
+import java.util.Vector;
 
-public ChildMakerChain(ChildMaker childMaker) {
-	Error.assertNotNull(childMaker);
-	initialChildMaker = childMaker;
-}
-/** mutator must take one parent only */
-public void addMutator(ChildMaker mutator, double probability) {
-	final DoubleInterval probabilityRange = new DoubleInterval(0,1);
-	Error.assertNotNull(mutator);
-	Error.assertTrue(mutator.numberOfParents() == 1);
-	Error.assertTrue(probabilityRange.isBetween(probability));
-	chain.add(new ChainElement(mutator,probability));
-}
-public int numberOfParents() {return initialChildMaker.numberOfParents();}
-public Evolvable[] makeChildren(Evolvable[] parents) {
-    Error.assertTrue(parents.length == numberOfParents());
-	for(int i = 0; i < parents.length; i++)
-		Error.assertNotNull(parents[i]);
-    Evolvable[] children = initialChildMaker.makeChildren(parents);
-	for(int child = 0; child < children.length; child++)
-		for(int i = 0; i < chain.size(); i++) 
-			if (RandomNumber.getProbability(getFromChain(i).probability))
-				getFromChain(i).childMaker.mutate(children[child]);
-			else
-				break;
-    return children;
-}
-protected ChainElement getFromChain(int index) {return (ChainElement)chain.get(index);}
-public String toString() {
-	String s = "ChildMakerChain " + initialChildMaker.toString();
-	for(int i = 0; i < chain.size(); i++)
-		s += " " + getFromChain(i);
-	return s;
-}
+/**
+ * probabalistically mutates the children of a ChildMaker.  Can chain mutators for an unlimited length.
+ */
+public class ChildMakerChain extends ChildMaker {
+    protected ChildMaker initialChildMaker;
+    protected Vector chain = new Vector(); // of ChainElement
+
+    public ChildMakerChain(ChildMaker childMaker) {
+        Error.assertNotNull(childMaker);
+        initialChildMaker = childMaker;
+    }
+
+    /**
+     * mutator must take one parent only
+     */
+    public void addMutator(ChildMaker mutator, double probability) {
+        final DoubleInterval probabilityRange = new DoubleInterval(0, 1);
+        Error.assertNotNull(mutator);
+        Error.assertTrue(mutator.numberOfParents() == 1);
+        Error.assertTrue(probabilityRange.isBetween(probability));
+        chain.add(new ChainElement(mutator, probability));
+    }
+
+    public int numberOfParents() {
+        return initialChildMaker.numberOfParents();
+    }
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Error.assertTrue(parents.length == numberOfParents());
+        for (int i = 0; i < parents.length; i++)
+            Error.assertNotNull(parents[i]);
+        Evolvable[] children = initialChildMaker.makeChildren(parents);
+        for (int child = 0; child < children.length; child++)
+            for (int i = 0; i < chain.size(); i++)
+                if (RandomNumber.getProbability(getFromChain(i).probability))
+                    getFromChain(i).childMaker.mutate(children[child]);
+                else
+                    break;
+        return children;
+    }
+
+    protected ChainElement getFromChain(int index) {
+        return (ChainElement) chain.get(index);
+    }
+
+    public String toString() {
+        String s = "ChildMakerChain " + initialChildMaker.toString();
+        for (int i = 0; i < chain.size(); i++)
+            s += " " + getFromChain(i);
+        return s;
+    }
+
+    protected class ChainElement implements java.io.Serializable {
+        ChildMaker childMaker;
+        double probability;
+
+        public ChainElement(ChildMaker childMaker, double probability) {
+            Error.assertNotNull(childMaker);
+            this.childMaker = childMaker;
+            this.probability = probability;
+        }
+
+        public String toString() {
+            return childMaker.toString() + " probability=" + probability;
+        }
+    }
 }

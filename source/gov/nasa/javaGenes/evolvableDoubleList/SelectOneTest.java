@@ -18,24 +18,26 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class SelectOneTest extends TestCase {
 
-public SelectOneTest(String name) {super(name);}
+    public SelectOneTest(String name) {
+        super(name);
+    }
 
-public void test() {
-    RandomNumber.setSeed(990739410906L);   // to get deterministic results
-    SelectOne selector = new SelectOne();
-	for(int i = 1; i < 100; i++) {
-		int[] result = selector.getIndicesArray(i);
-		assertTrue(i + " size " + Utility.toString(result), result.length == 1);
-		assertTrue(i + Utility.toString(result), 0 <= result[0] && result[0] < i);
-	}
-	EvolvableDoubleList list = new EvolvableDoubleList();
-	int[] result = selector.getIndicesArray(list.getSize());
-	assertTrue("0", result.length == 0);
-}
+    public void test() {
+        RandomNumber.setSeed(990739410906L);   // to get deterministic results
+        SelectOne selector = new SelectOne();
+        for (int i = 1; i < 100; i++) {
+            int[] result = selector.getIndicesArray(i);
+            assertTrue(i + " size " + Utility.toString(result), result.length == 1);
+            assertTrue(i + Utility.toString(result), 0 <= result[0] && result[0] < i);
+        }
+        EvolvableDoubleList list = new EvolvableDoubleList();
+        int[] result = selector.getIndicesArray(list.getSize());
+        assertTrue("0", result.length == 0);
+    }
 }

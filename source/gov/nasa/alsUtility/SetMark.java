@@ -19,17 +19,22 @@
 package gov.nasa.alsUtility;
 
 /**
-@see Mark
-*/
+ * @see Mark
+ */
 public class SetMark implements Procedure {
-protected boolean value;
+    protected boolean value;
 
-/**
-@param v value to set marks to
-*/
-public SetMark(boolean v) {value = v;}
-/**
-@param object Mark object (or subclass) to set the mark of
-*/
-public void execute(Object object) {((Mark)object).setMark(value);}
+    /**
+     * @param v value to set marks to
+     */
+    public SetMark(boolean v) {
+        value = v;
+    }
+
+    /**
+     * @param object Mark object (or subclass) to set the mark of
+     */
+    public void execute(Object object) {
+        ((Mark) object).setMark(value);
+    }
 }

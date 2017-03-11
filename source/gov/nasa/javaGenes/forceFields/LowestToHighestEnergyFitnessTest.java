@@ -19,26 +19,25 @@
 package gov.nasa.javaGenes.forceFields;
 
 import junit.framework.TestCase;
-import java.io.PrintWriter;
-import gov.nasa.alsUtility.Utility;
-import gov.nasa.alsUtility.DoubleInterval;
 
 public class LowestToHighestEnergyFitnessTest extends TestCase {
 
-public LowestToHighestEnergyFitnessTest(String name) {super(name);}
+    public LowestToHighestEnergyFitnessTest(String name) {
+        super(name);
+    }
 
-public void testOutOfOrder() {
-    LowestToHighestEnergyFitness f = new LowestToHighestEnergyFitness();
-    double[] e1 = {1,2,3};
-    assertTrue("1", f.outOfOrder(e1) == 0);
-    double[] e2 = {2,1,3};
-    assertTrue("2", f.outOfOrder(e2) == 1);
-    double[] e3 = {3,2,1};
-    assertTrue("3", f.outOfOrder(e3) == 3);
-    double[] e4 = {3};
-    assertTrue("4", f.outOfOrder(e4) == 0);
-    double[] e5 = {1,4,3,6,4,5};
-    assertTrue("5", f.outOfOrder(e5) == 4);
-}
+    public void testOutOfOrder() {
+        LowestToHighestEnergyFitness f = new LowestToHighestEnergyFitness();
+        double[] e1 = {1, 2, 3};
+        assertTrue("1", f.outOfOrder(e1) == 0);
+        double[] e2 = {2, 1, 3};
+        assertTrue("2", f.outOfOrder(e2) == 1);
+        double[] e3 = {3, 2, 1};
+        assertTrue("3", f.outOfOrder(e3) == 3);
+        double[] e4 = {3};
+        assertTrue("4", f.outOfOrder(e4) == 0);
+        double[] e5 = {1, 4, 3, 6, 4, 5};
+        assertTrue("5", f.outOfOrder(e5) == 4);
+    }
 
 }

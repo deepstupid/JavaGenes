@@ -19,17 +19,17 @@
 package gov.nasa.alsUtility;
 
 public class AmericanWireGauge {
-private static final double[] gaugeDiameter = { // in mm.  From http://www.reade.com/Conversion/wire_gauge.html
-	8.252, 7.348, 6.543, 5.827, 5.189,
-	4.621, 4.115, 3.665, 3.264, 2.906,
-	2.588, 2.304, 2.052, 1.829, 1.628,
-	1.450, 1.291, 1.150, 1.024, 0.9119,
-	0.8128, 0.7239, 0.6426, 0.574, 0.5106,
-	0.4547, 0.4038, 0.3606, 0.3200, 0.2870
-};
+    private static final double[] gaugeDiameter = { // in mm.  From http://www.reade.com/Conversion/wire_gauge.html
+            8.252, 7.348, 6.543, 5.827, 5.189,
+            4.621, 4.115, 3.665, 3.264, 2.906,
+            2.588, 2.304, 2.052, 1.829, 1.628,
+            1.450, 1.291, 1.150, 1.024, 0.9119,
+            0.8128, 0.7239, 0.6426, 0.574, 0.5106,
+            0.4547, 0.4038, 0.3606, 0.3200, 0.2870
+    };
 
-public static double getRadius(int gauge) {
-	Error.assertTrue("unimplemented guage = " + gauge, 0 <= gauge && gauge < gaugeDiameter.length);
-	return gaugeDiameter[gauge] / 2000;
-}
+    public static double getRadius(int gauge) {
+        Error.assertTrue("unimplemented guage = " + gauge, 0 <= gauge && gauge < gaugeDiameter.length);
+        return gaugeDiameter[gauge] / 2000;
+    }
 }

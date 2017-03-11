@@ -18,22 +18,35 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import gov.nasa.alsUtility.Error;
-
 public class CrossoverTwoPointsEach extends CrossoverTwoPoints {
 
-public CrossoverTwoPointsEach() {this(new SelectTwoNeighboringPairs());}
-public CrossoverTwoPointsEach(int modulo) {this(new SelectTwoNeighboringPairs(modulo,0));}
-public CrossoverTwoPointsEach(int modulo, int offset) {this(new SelectTwoNeighboringPairs(modulo,offset));}
-public CrossoverTwoPointsEach(SelectTwoNeighboringPairs selector) {super(selector);}
+    public CrossoverTwoPointsEach() {
+        this(new SelectTwoNeighboringPairs());
+    }
 
-protected int[] getFirstIndicesArray(gov.nasa.javaGenes.core.Evolvable[] parents) {
-	return getSelector().getIndicesArray((EvolvableDoubleList)parents[0]);
-}
-protected int[] getSecondIndicesArray(gov.nasa.javaGenes.core.Evolvable[] parents) {
-	return getSelector().getIndicesArray((EvolvableDoubleList)parents[1]);
-}
-public String toString() {return "CrossoverTwoPointsEach selector = " + selector.toString();}
+    public CrossoverTwoPointsEach(int modulo) {
+        this(new SelectTwoNeighboringPairs(modulo, 0));
+    }
+
+    public CrossoverTwoPointsEach(int modulo, int offset) {
+        this(new SelectTwoNeighboringPairs(modulo, offset));
+    }
+
+    public CrossoverTwoPointsEach(SelectTwoNeighboringPairs selector) {
+        super(selector);
+    }
+
+    protected int[] getFirstIndicesArray(gov.nasa.javaGenes.core.Evolvable[] parents) {
+        return getSelector().getIndicesArray((EvolvableDoubleList) parents[0]);
+    }
+
+    protected int[] getSecondIndicesArray(gov.nasa.javaGenes.core.Evolvable[] parents) {
+        return getSelector().getIndicesArray((EvolvableDoubleList) parents[1]);
+    }
+
+    public String toString() {
+        return "CrossoverTwoPointsEach selector = " + selector.toString();
+    }
 }
 
 

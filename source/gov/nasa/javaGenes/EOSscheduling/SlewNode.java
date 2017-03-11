@@ -22,16 +22,35 @@ package gov.nasa.javaGenes.EOSscheduling;
 import gov.nasa.alsUtility.Error;
 
 public class SlewNode extends Node {
-protected SlewRequirement slewRequirement;
-protected boolean mustRampToEnd = false;
-public void setSlew(SlewRequirement inSlew) {
-    Error.assertNotNull(inSlew);
-    slewRequirement = inSlew;
-}
-public SlewRequirement getSlew() {return slewRequirement;}
-public void setMustRampToEnd(boolean value) {mustRampToEnd = value;}
-public boolean getMustRampToEnd() {return mustRampToEnd;}
-public int numberOfParameters() {return slewRequirement.numberOfParameters();}
-public double getParameter(int index) {return slewRequirement.getParameter(index);}
-public double[] getParameters() {return slewRequirement.getParameters();}
+    protected SlewRequirement slewRequirement;
+    protected boolean mustRampToEnd = false;
+
+    public SlewRequirement getSlew() {
+        return slewRequirement;
+    }
+
+    public void setSlew(SlewRequirement inSlew) {
+        Error.assertNotNull(inSlew);
+        slewRequirement = inSlew;
+    }
+
+    public boolean getMustRampToEnd() {
+        return mustRampToEnd;
+    }
+
+    public void setMustRampToEnd(boolean value) {
+        mustRampToEnd = value;
+    }
+
+    public int numberOfParameters() {
+        return slewRequirement.numberOfParameters();
+    }
+
+    public double getParameter(int index) {
+        return slewRequirement.getParameter(index);
+    }
+
+    public double[] getParameters() {
+        return slewRequirement.getParameters();
+    }
 }

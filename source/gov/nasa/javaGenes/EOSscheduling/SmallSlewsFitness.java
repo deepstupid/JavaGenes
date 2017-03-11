@@ -19,30 +19,34 @@
 //  Created by Al Globus 
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.core.FitnessDouble;
+import gov.nasa.javaGenes.core.Fitness;
 
 public class SmallSlewsFitness extends SchedulingFitnessFunction {
-protected EOSModel model;
-public SmallSlewsFitness(Scheduler scheduler,EOSModel inModel) {
-    super(scheduler);
-    model = inModel;
-}
-/**
-@return sum of squares of the slews
-*/
-public Fitness evaluateFitness (Evolvable evolvable){
-    EOSschedulingEvolvable schedule = (EOSschedulingEvolvable)evolvable;
-    createSchedule(schedule);
-    double totalSlewing = 0;
-    for(int i = 0; i < schedule.getSize(); i++) {
-        SlewRequirement slew = schedule.getSlewRequirement(i);
-        if (slew != null)
-            for(int j = 0; j < slew.numberOfParameters(); j++)
-                totalSlewing += java.lang.Math.abs(slew.getParameter(j));
+    protected EOSModel model;
+
+    public SmallSlewsFitness(Scheduler scheduler, EOSModel inModel) {
+        super(scheduler);
+        model = inModel;
     }
-    return normalizedFitness(totalSlewing,schedule,model);
-}
-public String toString() {return "SmallSlewsFitness, normization " + normalization;}
+
+    /**
+     * @return sum of squares of the slews
+     */
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        EOSschedulingEvolvable schedule = (EOSschedulingEvolvable) evolvable;
+        createSchedule(schedule);
+        double totalSlewing = 0;
+        for (int i = 0; i < schedule.getSize(); i++) {
+            SlewRequirement slew = schedule.getSlewRequirement(i);
+            if (slew != null)
+                for (int j = 0; j < slew.numberOfParameters(); j++)
+                    totalSlewing += java.lang.Math.abs(slew.getParameter(j));
+        }
+        return normalizedFitness(totalSlewing, schedule, model);
+    }
+
+    public String toString() {
+        return "SmallSlewsFitness, normization " + normalization;
+    }
 }

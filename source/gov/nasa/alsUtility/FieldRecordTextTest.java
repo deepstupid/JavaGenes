@@ -19,106 +19,111 @@
 package gov.nasa.alsUtility;
 
 import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 
 public class FieldRecordTextTest extends TestCase {
-  private String emptyFile = "TEMP1";
-  private String filename = "TEMP2";
-  private java.io.PrintWriter file;
+    private String emptyFile = "TEMP1";
+    private String filename = "TEMP2";
+    private java.io.PrintWriter file;
 
-  public FieldRecordTextTest(String name) {super(name);}
-  protected void setUp() {
-    Utility.makeFile(emptyFile,"");
-    file = Utility.outputFile(filename);
-    file.println("1,22,333,4444");
-    file.println("");
-    file.println(",,");
-    file.println(",,1");
-    file.println("5,6,,7,8");
-    file.close();
-  }
-  protected void tearDown() {
-    java.io.File file = new java.io.File(emptyFile);
-    file.delete();
-    file = new java.io.File(filename);
-    file.delete();
-  }
-  public void testReadFile() throws java.io.FileNotFoundException {
-	String[][] lines = FieldRecordText.readFile(emptyFile, ",");
-    assertTrue(lines.length == 1);
-    assertTrue(lines[0].length == 0);
-    file.close();
+    public FieldRecordTextTest(String name) {
+        super(name);
+    }
 
-	lines = FieldRecordText.readFile(filename, ",");
-	assertTrue(lines.length == 5);
-    String[] fields = lines[0];
-    assertTrue(fields.length == 4);
-    assertTrue(fields[0].equals("1"));
-    assertTrue(fields[1].equals("22"));
-    assertTrue(fields[2].equals("333"));
-    assertTrue(fields[3].equals("4444"));
+    protected void setUp() {
+        Utility.makeFile(emptyFile, "");
+        file = Utility.outputFile(filename);
+        file.println("1,22,333,4444");
+        file.println("");
+        file.println(",,");
+        file.println(",,1");
+        file.println("5,6,,7,8");
+        file.close();
+    }
 
-    fields = lines[1];
-    assertTrue(fields.length == 0);
+    protected void tearDown() {
+        java.io.File file = new java.io.File(emptyFile);
+        file.delete();
+        file = new java.io.File(filename);
+        file.delete();
+    }
 
-    fields = lines[2];
-    assertTrue(fields.length == 3);
-    assertTrue(fields[0].equals(""));
-    assertTrue(fields[1].equals(""));
-    assertTrue(fields[2].equals(""));
+    public void testReadFile() throws java.io.FileNotFoundException {
+        String[][] lines = FieldRecordText.readFile(emptyFile, ",");
+        assertTrue(lines.length == 1);
+        assertTrue(lines[0].length == 0);
+        file.close();
 
-    fields = lines[3];
-    assertTrue(fields.length == 3);
-    assertTrue(fields[0].equals(""));
-    assertTrue(fields[1].equals(""));
-    assertTrue(fields[2].equals("1"));
+        lines = FieldRecordText.readFile(filename, ",");
+        assertTrue(lines.length == 5);
+        String[] fields = lines[0];
+        assertTrue(fields.length == 4);
+        assertTrue(fields[0].equals("1"));
+        assertTrue(fields[1].equals("22"));
+        assertTrue(fields[2].equals("333"));
+        assertTrue(fields[3].equals("4444"));
 
-    fields = lines[4];
-    assertTrue(fields.length == 5);
-    assertTrue(fields[0].equals("5"));
-    assertTrue(fields[1].equals("6"));
-    assertTrue(fields[2].equals(""));
-    assertTrue(fields[3].equals("7"));
-    assertTrue(fields[4].equals("8"));
+        fields = lines[1];
+        assertTrue(fields.length == 0);
 
-    file.close();
-  }
-  public void testReadLine() throws java.io.FileNotFoundException {
-    FieldRecordText file = new FieldRecordText(emptyFile);
-    String[] fields = file.readLine();
-    assertTrue(fields.length == 0);
-    assertTrue(file.readLine() == null);
-    file.close();
+        fields = lines[2];
+        assertTrue(fields.length == 3);
+        assertTrue(fields[0].equals(""));
+        assertTrue(fields[1].equals(""));
+        assertTrue(fields[2].equals(""));
 
-    file = new FieldRecordText(filename);
-    fields = file.readLine();
-    assertTrue(fields.length == 4);
-    assertTrue(fields[0].equals("1"));
-    assertTrue(fields[1].equals("22"));
-    assertTrue(fields[2].equals("333"));
-    assertTrue(fields[3].equals("4444"));
+        fields = lines[3];
+        assertTrue(fields.length == 3);
+        assertTrue(fields[0].equals(""));
+        assertTrue(fields[1].equals(""));
+        assertTrue(fields[2].equals("1"));
 
-    fields = file.readLine();
-    assertTrue(fields.length == 0);
+        fields = lines[4];
+        assertTrue(fields.length == 5);
+        assertTrue(fields[0].equals("5"));
+        assertTrue(fields[1].equals("6"));
+        assertTrue(fields[2].equals(""));
+        assertTrue(fields[3].equals("7"));
+        assertTrue(fields[4].equals("8"));
 
-    fields = file.readLine();
-    assertTrue(fields.length == 3);
-    assertTrue(fields[0].equals(""));
-    assertTrue(fields[1].equals(""));
-    assertTrue(fields[2].equals(""));
+        file.close();
+    }
 
-    fields = file.readLine();
-    assertTrue(fields.length == 3);
-    assertTrue(fields[0].equals(""));
-    assertTrue(fields[1].equals(""));
-    assertTrue(fields[2].equals("1"));
+    public void testReadLine() throws java.io.FileNotFoundException {
+        FieldRecordText file = new FieldRecordText(emptyFile);
+        String[] fields = file.readLine();
+        assertTrue(fields.length == 0);
+        assertTrue(file.readLine() == null);
+        file.close();
 
-    fields = file.readLine();
-    assertTrue(fields.length == 5);
-    assertTrue(fields[0].equals("5"));
-    assertTrue(fields[1].equals("6"));
-    assertTrue(fields[2].equals(""));
-    assertTrue(fields[3].equals("7"));
-    assertTrue(fields[4].equals("8"));
-  }
+        file = new FieldRecordText(filename);
+        fields = file.readLine();
+        assertTrue(fields.length == 4);
+        assertTrue(fields[0].equals("1"));
+        assertTrue(fields[1].equals("22"));
+        assertTrue(fields[2].equals("333"));
+        assertTrue(fields[3].equals("4444"));
+
+        fields = file.readLine();
+        assertTrue(fields.length == 0);
+
+        fields = file.readLine();
+        assertTrue(fields.length == 3);
+        assertTrue(fields[0].equals(""));
+        assertTrue(fields[1].equals(""));
+        assertTrue(fields[2].equals(""));
+
+        fields = file.readLine();
+        assertTrue(fields.length == 3);
+        assertTrue(fields[0].equals(""));
+        assertTrue(fields[1].equals(""));
+        assertTrue(fields[2].equals("1"));
+
+        fields = file.readLine();
+        assertTrue(fields.length == 5);
+        assertTrue(fields[0].equals("5"));
+        assertTrue(fields[1].equals("6"));
+        assertTrue(fields[2].equals(""));
+        assertTrue(fields[3].equals("7"));
+        assertTrue(fields[4].equals("8"));
+    }
 }

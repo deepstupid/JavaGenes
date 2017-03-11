@@ -21,28 +21,30 @@ package gov.nasa.javaGenes.forceFields;
 import gov.nasa.javaGenes.core.Parameters;
 
 /**
-run a genetic algorithm with a Chromosome (two-dimensional array) representation
-*/
+ * run a genetic algorithm with a Chromosome (two-dimensional array) representation
+ */
 public class RunChromosome extends gov.nasa.javaGenes.core.Run {
-public RunChromosome() {}
+    public RunChromosome() {
+    }
 
-/**
-get ChromosomeParameters and ChromosomePopulation objects
+    /**
+     * get ChromosomeParameters and ChromosomePopulation objects
+     *
+     * @param arguments should be empty
+     */
+    protected void startSpecialized(String[] arguments) {
+        ChromosomeParameters p = getChromosomeParameters(arguments);
+        parameters = (Parameters) p;
+        generationTimer.start();
+        population = new ChromosomePopulation(p);
+        reporter = new ChromosomeReporter((Parameters) p);
+        if (p.immigrants != null)
+            p.immigrants.immigrate((ChromosomePopulation) population, p.alleles, p.fitnessFunction);
+        generationTimer.stop();
+    }
 
-@param arguments should be empty
-*/
-protected void startSpecialized(String[] arguments) {
-    ChromosomeParameters p = getChromosomeParameters(arguments);
-    parameters = (Parameters)p;
-    generationTimer.start();
-    population = new ChromosomePopulation(p);
-    reporter = new ChromosomeReporter((Parameters)p);
-    if (p.immigrants != null)
-        p.immigrants.immigrate((ChromosomePopulation)population,p.alleles,p.fitnessFunction);
-    generationTimer.stop();
-}
-public ChromosomeParameters getChromosomeParameters(String[] arguments) {
-    return new ChromosomeParameters();
-}
+    public ChromosomeParameters getChromosomeParameters(String[] arguments) {
+        return new ChromosomeParameters();
+    }
 }
 

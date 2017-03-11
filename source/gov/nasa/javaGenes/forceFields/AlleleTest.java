@@ -19,33 +19,34 @@
 //  Created by Al Globus on Thu Feb 13 2003.
 package gov.nasa.javaGenes.forceFields;
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.DoubleInterval;
-import gov.nasa.javaGenes.core.Evolvable;
+import junit.framework.TestCase;
 
 public class AlleleTest extends TestCase {
 
-public AlleleTest(String name) {super(name);}
-private final int repetitions = 100;
-private Allele allele;
+    private final int repetitions = 100;
+    private Allele allele;
+    public AlleleTest(String name) {
+        super(name);
+    }
 
-public void setUp() {
-    DoubleInterval interval = new DoubleInterval(-1.0,1.0);
-    allele = new Allele("zero",interval);
-}
-public void testRandom() {
-    for(int i = 0; i < repetitions; i++) {
-        double value = allele.getRandomValue();
-        assertTrue("random"+i, -1 <= value && value <= 1);
+    public void setUp() {
+        DoubleInterval interval = new DoubleInterval(-1.0, 1.0);
+        allele = new Allele("zero", interval);
     }
-    for(int i = 0; i < repetitions; i++) {
-        double value = allele.getRandomValueBelow(0.5);
-        assertTrue("randomAbove"+i, -1 <= value && value <= 0.5);
+
+    public void testRandom() {
+        for (int i = 0; i < repetitions; i++) {
+            double value = allele.getRandomValue();
+            assertTrue("random" + i, -1 <= value && value <= 1);
+        }
+        for (int i = 0; i < repetitions; i++) {
+            double value = allele.getRandomValueBelow(0.5);
+            assertTrue("randomAbove" + i, -1 <= value && value <= 0.5);
+        }
+        for (int i = 0; i < repetitions; i++) {
+            double value = allele.getRandomValueAbove(-0.5);
+            assertTrue("randomBelow" + i, -0.5 <= value && value <= 1);
+        }
     }
-    for(int i = 0; i < repetitions; i++) {
-        double value = allele.getRandomValueAbove(-0.5);
-        assertTrue("randomBelow"+i, -0.5 <= value && value <= 1);
-    }
-}
 }

@@ -19,26 +19,27 @@
 //  Created by Al Globus on Wed Jan 29 2003.
 package gov.nasa.javaGenes.hillClimbing;
 
-import junit.framework.TestCase;
-import gov.nasa.javaGenes.core.FitnessDouble;
 import gov.nasa.alsUtility.RandomNumber;
+import junit.framework.TestCase;
 
 public class RestartEveryNChildrenTest extends TestCase {
 
-public RestartEveryNChildrenTest(String name) {super(name);}
-
-public void testAll() {
-    final int size = 10;
-    RestartEveryNChildren r = new RestartEveryNChildren(size);
-    for(int i = 0; i < 10 * size; i++) {
-        if (i > 0 && (i % size == 0)) {
-            assertTrue(i+"", r.shouldRestart());
-            r.restarting();
-        } else
-            assertTrue(i+"", !r.shouldRestart());
-        r.childCreated(null,null);
-        if (RandomNumber.getBoolean())
-            r.lastChildAccepted();
+    public RestartEveryNChildrenTest(String name) {
+        super(name);
     }
-}
+
+    public void testAll() {
+        final int size = 10;
+        RestartEveryNChildren r = new RestartEveryNChildren(size);
+        for (int i = 0; i < 10 * size; i++) {
+            if (i > 0 && (i % size == 0)) {
+                assertTrue(i + "", r.shouldRestart());
+                r.restarting();
+            } else
+                assertTrue(i + "", !r.shouldRestart());
+            r.childCreated(null, null);
+            if (RandomNumber.getBoolean())
+                r.lastChildAccepted();
+        }
+    }
 }

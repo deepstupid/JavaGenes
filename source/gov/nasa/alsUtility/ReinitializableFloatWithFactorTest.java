@@ -18,25 +18,28 @@
 //
 //  Created by Al Globus on Fri Jun 27 2003.
 package gov.nasa.alsUtility;
+
 import junit.framework.TestCase;
 
 public class ReinitializableFloatWithFactorTest extends TestCase {
 
-public ReinitializableFloatWithFactorTest(String name) {super(name);}
+    public ReinitializableFloatWithFactorTest(String name) {
+        super(name);
+    }
 
-public void testReinitializableFloatWithFactor() {
-    ReinitializableFloatWithFactor f = new ReinitializableFloatWithFactor();
-    f.setInitial(3);
-    assertTrue("-1", f.getCurrent() == 3);
-    assertTrue("-2", f.getInitial() == 3);
-    f.setFactor(2);
-    assertTrue("1", f.getCurrent() == 6);
-    assertTrue("2", f.getInitial() == 6);
-    f.add(2);
-    assertTrue("3", f.getCurrent() == 10);
-    assertTrue("4", f.getInitial() == 6);
-    f.reinitialize();
-    assertTrue("5", f.getCurrent() == 6);
-    assertTrue("6", f.getInitial() == 6);
-}
+    public void testReinitializableFloatWithFactor() {
+        ReinitializableFloatWithFactor f = new ReinitializableFloatWithFactor();
+        f.setInitial(3);
+        assertTrue("-1", f.getCurrent() == 3);
+        assertTrue("-2", f.getInitial() == 3);
+        f.setFactor(2);
+        assertTrue("1", f.getCurrent() == 6);
+        assertTrue("2", f.getInitial() == 6);
+        f.add(2);
+        assertTrue("3", f.getCurrent() == 10);
+        assertTrue("4", f.getInitial() == 6);
+        f.reinitialize();
+        assertTrue("5", f.getCurrent() == 6);
+        assertTrue("6", f.getInitial() == 6);
+    }
 }

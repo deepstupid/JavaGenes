@@ -19,7 +19,7 @@
 package gov.nasa.javaGenes.EOSscheduling.HBSS.contention;
 
 public class Constants {
-public final static int SCHEDULED = 1;
-public final static int UNDECIDED = 0;
-public final static int UNSCHEDULABLE = -1;
+    public final static int SCHEDULED = 1;
+    public final static int UNDECIDED = 0;
+    public final static int UNSCHEDULABLE = -1;
 }

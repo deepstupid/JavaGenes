@@ -20,27 +20,29 @@
 
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.Evolvable;
+import gov.nasa.javaGenes.core.Fitness;
 import gov.nasa.javaGenes.core.FitnessDouble;
-import gov.nasa.alsUtility.Error;
 
 /**
-assumes larger priorities are more important (e.g., priorty 1 more important that 2)
-*/
+ * assumes larger priorities are more important (e.g., priorty 1 more important that 2)
+ */
 public class TaskPriorityFitness extends SchedulingFitnessFunction {
-protected EOSModel model;
+    protected EOSModel model;
 
-public TaskPriorityFitness(Scheduler scheduler,EOSModel inModel) {
-    super(scheduler);
-    model = inModel;
-}
-public Fitness evaluateFitness (Evolvable evolvable){
-    EOSschedulingEvolvable schedule = (EOSschedulingEvolvable)evolvable;
-    createSchedule(schedule);
-    return new FitnessDouble(model.getTaskPrioritySum() - schedule.getScheduledPrioritySum(model));
-}
+    public TaskPriorityFitness(Scheduler scheduler, EOSModel inModel) {
+        super(scheduler);
+        model = inModel;
+    }
 
-public String toString() {return "TaskPriority";}
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        EOSschedulingEvolvable schedule = (EOSschedulingEvolvable) evolvable;
+        createSchedule(schedule);
+        return new FitnessDouble(model.getTaskPrioritySum() - schedule.getScheduledPrioritySum(model));
+    }
+
+    public String toString() {
+        return "TaskPriority";
+    }
 }
 

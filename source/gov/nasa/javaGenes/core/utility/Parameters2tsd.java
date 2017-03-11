@@ -21,31 +21,33 @@ package gov.nasa.javaGenes.core.utility;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.Utility;
 
-public class Parameters2tsd  {
+public class Parameters2tsd {
 
-final static String format = "format: java gov.nasa.javaGenes.core.utility.Parameters2tsd outputFilename number_of_parameters [names_of_parameters ...] directories_with_JavaGenes_output ...";
-public static String outputFilename;
-public static String[] parameterNames;
-public static String[] directoryNames;
+    final static String format = "format: java gov.nasa.javaGenes.core.utility.Parameters2tsd outputFilename number_of_parameters [names_of_parameters ...] directories_with_JavaGenes_output ...";
+    public static String outputFilename;
+    public static String[] parameterNames;
+    public static String[] directoryNames;
 
-public static void main(String[] arguments) {
-	processArguments(arguments);
-	CoreUtility.printData2tsd(outputFilename,parameterNames,directoryNames,null);
-}
-public static void processArguments(String[] arguments) {
-	assertTrue(3 <= arguments.length);
+    public static void main(String[] arguments) {
+        processArguments(arguments);
+        CoreUtility.printData2tsd(outputFilename, parameterNames, directoryNames, null);
+    }
 
-	outputFilename = arguments[0];
-	parameterNames = new String[Utility.string2integer(arguments[1])];
-	assertTrue(parameterNames.length+2 <= arguments.length);
-	for(int i = 0; i < parameterNames.length; i++)
-		parameterNames[i] = arguments[i+2];
-	directoryNames = new String[arguments.length - parameterNames.length - 2];
-	for(int i = 0; i < directoryNames.length; i++)
-		directoryNames[i] = arguments[i + 2 + parameterNames.length];
-}
-protected static void assertTrue(boolean b) {
-	if (!b)
-		Error.fatal(format);
-}
+    public static void processArguments(String[] arguments) {
+        assertTrue(3 <= arguments.length);
+
+        outputFilename = arguments[0];
+        parameterNames = new String[Utility.string2integer(arguments[1])];
+        assertTrue(parameterNames.length + 2 <= arguments.length);
+        for (int i = 0; i < parameterNames.length; i++)
+            parameterNames[i] = arguments[i + 2];
+        directoryNames = new String[arguments.length - parameterNames.length - 2];
+        for (int i = 0; i < directoryNames.length; i++)
+            directoryNames[i] = arguments[i + 2 + parameterNames.length];
+    }
+
+    protected static void assertTrue(boolean b) {
+        if (!b)
+            Error.fatal(format);
+    }
 }

@@ -18,38 +18,61 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import java.io.Serializable;
-import java.lang.Cloneable;
 import gov.nasa.alsUtility.Error;
 
-public abstract class MultiBody implements Cloneable,Serializable {
-protected String _name = "none";
-protected double howMany = 1; // used by subclasses in ForceFields.crystals for multiples of the same 2/3 body
+import java.io.Serializable;
 
-public MultiBody(String name) {setName(name);}
-public MultiBody copy() {
-    try {
-        return (MultiBody)clone();
-    } catch (CloneNotSupportedException e) {
-        Error.fatal("can't clone object: " + e);
-        return null;
+public abstract class MultiBody implements Cloneable, Serializable {
+    protected String _name = "none";
+    protected double howMany = 1; // used by subclasses in ForceFields.crystals for multiples of the same 2/3 body
+
+    public MultiBody(String name) {
+        setName(name);
     }
-}
-public void setName(String name) {
-  _name = name;
-  Error.assertTrue(_name != null);
-}
-public String getName() {return _name;}
-public abstract void scaleLengthsBy(double scaleFactor);
-public abstract boolean withinCutoff(Potential form);
-public void removeInternalElementsOutsideOfCutoff(Potential form) {}
-/**
-@return factor to multiple energy by when there are many instances of the same MultiBody in a crystal (or other molecule)
-*/
-public double getHowMany() {return howMany;} 
-public void setHowMany(double inHowMany) {howMany = inHowMany;}
-public void incrementHowMany() {howMany++;}
-public void divideHowManyBy(double number) {howMany /= number;}
 
-public abstract String tabSeparatedString();
+    public MultiBody copy() {
+        try {
+            return (MultiBody) clone();
+        } catch (CloneNotSupportedException e) {
+            Error.fatal("can't clone object: " + e);
+            return null;
+        }
+    }
+
+    public String getName() {
+        return _name;
+    }
+
+    public void setName(String name) {
+        _name = name;
+        Error.assertTrue(_name != null);
+    }
+
+    public abstract void scaleLengthsBy(double scaleFactor);
+
+    public abstract boolean withinCutoff(Potential form);
+
+    public void removeInternalElementsOutsideOfCutoff(Potential form) {
+    }
+
+    /**
+     * @return factor to multiple energy by when there are many instances of the same MultiBody in a crystal (or other molecule)
+     */
+    public double getHowMany() {
+        return howMany;
+    }
+
+    public void setHowMany(double inHowMany) {
+        howMany = inHowMany;
+    }
+
+    public void incrementHowMany() {
+        howMany++;
+    }
+
+    public void divideHowManyBy(double number) {
+        howMany /= number;
+    }
+
+    public abstract String tabSeparatedString();
 } 

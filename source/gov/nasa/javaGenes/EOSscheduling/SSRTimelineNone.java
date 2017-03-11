@@ -19,21 +19,30 @@
 //  Created by Al Globus on Mon Nov 18 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.alsUtility.Error;
-import java.io.PrintWriter;
-import gov.nasa.alsUtility.IO;
-
 public class SSRTimelineNone extends SSRTimeline {
-public void assertIsValid() {}
+    public void assertIsValid() {
+    }
 
-public int findEarliest(int start,int end,SchedulingData schedulingData) {
-    return start;
-}
-public int getNumberOfSSRsegments() {return 0;}
-public void insertAt(int start, SchedulingData schedulingData) {}
-public void printToTsd(String filename) {}
-public void insertDumpAt(int time) {}
-public boolean fits(int start, SchedulingData schedulingData) {return true;}
+    public int findEarliest(int start, int end, SchedulingData schedulingData) {
+        return start;
+    }
+
+    public int getNumberOfSSRsegments() {
+        return 0;
+    }
+
+    public void insertAt(int start, SchedulingData schedulingData) {
+    }
+
+    public void printToTsd(String filename) {
+    }
+
+    public void insertDumpAt(int time) {
+    }
+
+    public boolean fits(int start, SchedulingData schedulingData) {
+        return true;
+    }
 }
 
 

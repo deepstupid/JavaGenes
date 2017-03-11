@@ -20,11 +20,20 @@ package gov.nasa.javaGenes.EOSscheduling;
 
 public class SlewMotorNone extends SlewMotor {
 
-public SlewMotorNone(){
-    super();
-    slewTimeline = new SlewTimelineNone();
-}
-public int slewTime(SlewRequirement from, SlewRequirement to) {return 0;}
-public boolean isWithinLimits(SlewRequirement s) {return true;}
-public double getMaxAbsoluteSlew() {return 0;}
+    public SlewMotorNone() {
+        super();
+        slewTimeline = new SlewTimelineNone();
+    }
+
+    public int slewTime(SlewRequirement from, SlewRequirement to) {
+        return 0;
+    }
+
+    public boolean isWithinLimits(SlewRequirement s) {
+        return true;
+    }
+
+    public double getMaxAbsoluteSlew() {
+        return 0;
+    }
 }

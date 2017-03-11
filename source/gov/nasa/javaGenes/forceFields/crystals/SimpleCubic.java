@@ -19,9 +19,9 @@
 package gov.nasa.javaGenes.forceFields.crystals;
 
 public class SimpleCubic extends CubicCell {
-static private final double[][] simpleCubicUniqueAtomLocations = {{0,0,0}};
+    static private final double[][] simpleCubicUniqueAtomLocations = {{0, 0, 0}};
 
-public SimpleCubic(String element, double maxDistanceFromUniqueAtoms) {
-    super(element,maxDistanceFromUniqueAtoms,simpleCubicUniqueAtomLocations);
-}
+    public SimpleCubic(String element, double maxDistanceFromUniqueAtoms) {
+        super(element, maxDistanceFromUniqueAtoms, simpleCubicUniqueAtomLocations);
+    }
 }

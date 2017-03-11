@@ -19,11 +19,11 @@
 package gov.nasa.javaGenes.core;
 
 /**
-Used for testing and as a placeholder.  getVariations() just makes an array for the input evolvable and returns it.
-*/
+ * Used for testing and as a placeholder.  getVariations() just makes an array for the input evolvable and returns it.
+ */
 public class PhenotypeChangerDummy implements PhenotypeChanger {
-public Evolvable[] getVariations(Evolvable evolvable) {
-	Evolvable[] r = {evolvable};
-	return r;
-}
+    public Evolvable[] getVariations(Evolvable evolvable) {
+        Evolvable[] r = {evolvable};
+        return r;
+    }
 }

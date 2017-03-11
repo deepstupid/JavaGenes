@@ -18,38 +18,41 @@
 //
 package gov.nasa.javaGenes.EOSscheduling.HBSS.contention;
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.Utility;
-import gov.nasa.javaGenes.EOSscheduling.*;
 import gov.nasa.alsUtility.RandomNumber;
+import gov.nasa.javaGenes.EOSscheduling.EOSModel;
+import gov.nasa.javaGenes.EOSscheduling.EOSschedulingEvolvable;
+import junit.framework.TestCase;
 
 public class SchedulerTest extends TestCase {
 
-public SchedulerTest(String name) {super(name);}
-
-// only really checks anything is EOSscheduling.HBSSScheduler.debug == true
-public void testRandomly() {
-    RandomNumber.initialize(); // allows setting the seed to a known value if a failure occures
-    //RandomNumber.setSeed(1059677636010L);
-    modelTest(TestNetwork.buildModel1());
-    modelTest(TestNetwork.buildModel2());
-    modelTest(TestNetwork.buildModel3());
-    modelTest(TestNetwork.buildModel4());
-    modelTest(TestNetwork.buildModel5());
-    modelTest(TestNetwork.buildModel6());
-    modelTest(TestNetwork.buildModel7());
-    //modelTest(TestNetwork.buildModel8()); // one access window too small, FIX
-    modelTest(TestNetwork.buildModel9());
-}
-// only really checks anything is EOSscheduling.HBSSScheduler.debug == true
-public void modelTest(EOSModel model) {
-    final int repetitions = 10;
-
-    Scheduler scheduler = new Scheduler(model,2,3,4,1.2f);
-    EOSschedulingEvolvable evolvable = new EOSschedulingEvolvable(model.getNumberOfTasks());
-    for(int i = 0; i < repetitions; i++) {
-        scheduler.createSchedule(evolvable);
-        scheduler.rescheduleFromPermutation(evolvable);
+    public SchedulerTest(String name) {
+        super(name);
     }
-}
+
+    // only really checks anything is EOSscheduling.HBSSScheduler.debug == true
+    public void testRandomly() {
+        RandomNumber.initialize(); // allows setting the seed to a known value if a failure occures
+        //RandomNumber.setSeed(1059677636010L);
+        modelTest(TestNetwork.buildModel1());
+        modelTest(TestNetwork.buildModel2());
+        modelTest(TestNetwork.buildModel3());
+        modelTest(TestNetwork.buildModel4());
+        modelTest(TestNetwork.buildModel5());
+        modelTest(TestNetwork.buildModel6());
+        modelTest(TestNetwork.buildModel7());
+        //modelTest(TestNetwork.buildModel8()); // one access window too small, FIX
+        modelTest(TestNetwork.buildModel9());
+    }
+
+    // only really checks anything is EOSscheduling.HBSSScheduler.debug == true
+    public void modelTest(EOSModel model) {
+        final int repetitions = 10;
+
+        Scheduler scheduler = new Scheduler(model, 2, 3, 4, 1.2f);
+        EOSschedulingEvolvable evolvable = new EOSschedulingEvolvable(model.getNumberOfTasks());
+        for (int i = 0; i < repetitions; i++) {
+            scheduler.createSchedule(evolvable);
+            scheduler.rescheduleFromPermutation(evolvable);
+        }
+    }
 }

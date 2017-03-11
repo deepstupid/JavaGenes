@@ -20,52 +20,55 @@
 
 package gov.nasa.javaGenes.EOSscheduling;
 
-import java.util.Vector;
 import gov.nasa.alsUtility.ObjectCache;
 
 /**
-used to reuse and avoid garbage collecting Nodes. Number of nodes grows monotonically for life of the object.
-*/
-public class NodeFactory implements java.io.Serializable {    
-private ObjectCache availableNodeCache = new ObjectCache("gov.nasa.javaGenes.EOSscheduling.AvailableNode");
-private ObjectCache slewNodeCache = new ObjectCache("gov.nasa.javaGenes.EOSscheduling.SlewNode");
-private ObjectCache SSRNodeCache = new ObjectCache("gov.nasa.javaGenes.EOSscheduling.SSRNode");
+ * used to reuse and avoid garbage collecting Nodes. Number of nodes grows monotonically for life of the object.
+ */
+public class NodeFactory implements java.io.Serializable {
+    private ObjectCache availableNodeCache = new ObjectCache("gov.nasa.javaGenes.EOSscheduling.AvailableNode");
+    private ObjectCache slewNodeCache = new ObjectCache("gov.nasa.javaGenes.EOSscheduling.SlewNode");
+    private ObjectCache SSRNodeCache = new ObjectCache("gov.nasa.javaGenes.EOSscheduling.SSRNode");
 
-/**
-only call when all Nodes are no longer needed (or suffer a horrible fate)
-*/
-protected void initialize() {
-    availableNodeCache.reinitialize();
-    slewNodeCache.reinitialize();
-    SSRNodeCache.reinitialize();
-}
+    /**
+     * only call when all Nodes are no longer needed (or suffer a horrible fate)
+     */
+    protected void initialize() {
+        availableNodeCache.reinitialize();
+        slewNodeCache.reinitialize();
+        SSRNodeCache.reinitialize();
+    }
 
-protected SSRNode newSSRNode(int capacity, int startTime, Node previous, Node next) {
-    SSRNode n = (SSRNode)SSRNodeCache.getObject();
-    n.setTimeAndNeighbors(startTime, previous, next);
-    n.setCapacity(capacity);
-    return n;
-}
-private AvailableNode createNewAvailableNode(int startTime, Node previous, Node next) {
-    AvailableNode n = (AvailableNode)availableNodeCache.getObject();
-    n.setTimeAndNeighbors(startTime, previous, next);
-    return n;
-}
-protected AvailableNode newAvailableNode(int startTime, Node previous, Node next) {
-    AvailableNode node = createNewAvailableNode(startTime,previous,next);
-    node.setAvailable(true);
-    return node;
-}
-protected AvailableNode newUnAvailableNode(int startTime, Node previous, Node next) {
-    AvailableNode node = createNewAvailableNode(startTime,previous,next);
-    node.setAvailable(false);
-    return node;
-}
-protected SlewNode newSlewNode(SlewRequirement slew, boolean mustRampToEnd, int startTime, Node previous, Node next) {
-    SlewNode s = (SlewNode)slewNodeCache.getObject();
-    s.setTimeAndNeighbors(startTime,previous,next);
-    s.setSlew(slew);
-    s.setMustRampToEnd(mustRampToEnd);
-    return s;
-}
+    protected SSRNode newSSRNode(int capacity, int startTime, Node previous, Node next) {
+        SSRNode n = (SSRNode) SSRNodeCache.getObject();
+        n.setTimeAndNeighbors(startTime, previous, next);
+        n.setCapacity(capacity);
+        return n;
+    }
+
+    private AvailableNode createNewAvailableNode(int startTime, Node previous, Node next) {
+        AvailableNode n = (AvailableNode) availableNodeCache.getObject();
+        n.setTimeAndNeighbors(startTime, previous, next);
+        return n;
+    }
+
+    protected AvailableNode newAvailableNode(int startTime, Node previous, Node next) {
+        AvailableNode node = createNewAvailableNode(startTime, previous, next);
+        node.setAvailable(true);
+        return node;
+    }
+
+    protected AvailableNode newUnAvailableNode(int startTime, Node previous, Node next) {
+        AvailableNode node = createNewAvailableNode(startTime, previous, next);
+        node.setAvailable(false);
+        return node;
+    }
+
+    protected SlewNode newSlewNode(SlewRequirement slew, boolean mustRampToEnd, int startTime, Node previous, Node next) {
+        SlewNode s = (SlewNode) slewNodeCache.getObject();
+        s.setTimeAndNeighbors(startTime, previous, next);
+        s.setSlew(slew);
+        s.setMustRampToEnd(mustRampToEnd);
+        return s;
+    }
 }        

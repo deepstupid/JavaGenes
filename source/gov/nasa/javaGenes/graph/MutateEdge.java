@@ -21,29 +21,37 @@ package gov.nasa.javaGenes.graph;
 import gov.nasa.alsUtility.Predicate;
 
 /**
-mutate an edge
-*/
+ * mutate an edge
+ */
 public class MutateEdge extends GraphMutation {
-/**
-provides the edges to mutate to
-*/
-protected VertexAndEdgeProvider provider;
-public MutateEdge(VertexAndEdgeProvider p) {provider = p;}
+    /**
+     * provides the edges to mutate to
+     */
+    protected VertexAndEdgeProvider provider;
 
-public Graph makeChild(Graph child) {
-  Edge newEdge = provider.getEdge();
-  Edge oldEdge = child.getRandomEdge(new CanReplace(newEdge));
-  if (oldEdge == null) return null;
-  child.replaceEdge(oldEdge,newEdge);
-  return child;
-}
-private class CanReplace implements Predicate {
-  protected Edge replaceWith;
-  public CanReplace(Edge e) {replaceWith = e;}
-  public boolean execute (Object object) {
-    Edge e = (Edge) object;
-    return !replaceWith.isSame (e) && replaceWith.canAcceptVerticesOf (e);
-}
-}
+    public MutateEdge(VertexAndEdgeProvider p) {
+        provider = p;
+    }
+
+    public Graph makeChild(Graph child) {
+        Edge newEdge = provider.getEdge();
+        Edge oldEdge = child.getRandomEdge(new CanReplace(newEdge));
+        if (oldEdge == null) return null;
+        child.replaceEdge(oldEdge, newEdge);
+        return child;
+    }
+
+    private class CanReplace implements Predicate {
+        protected Edge replaceWith;
+
+        public CanReplace(Edge e) {
+            replaceWith = e;
+        }
+
+        public boolean execute(Object object) {
+            Edge e = (Edge) object;
+            return !replaceWith.isSame(e) && replaceWith.canAcceptVerticesOf(e);
+        }
+    }
 }
 

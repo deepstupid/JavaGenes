@@ -18,26 +18,30 @@
 //
 package gov.nasa.javaGenes.EOSscheduling.HBSS;
 
-import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.EOSscheduling.EOSschedulingEvolvable;
-import gov.nasa.javaGenes.permutation.PermutationEvolvable;
 import gov.nasa.alsUtility.Error;
+import gov.nasa.javaGenes.EOSscheduling.EOSschedulingEvolvable;
+import gov.nasa.javaGenes.core.Evolvable;
+import gov.nasa.javaGenes.permutation.PermutationEvolvable;
 
 /**
-NOTE: it doesn't really matter what childmaker is used because the HBSS algorithm
-will rearrange the permutation to reflect the order tasks were chosen by the
-TaskList (a RouletteWheel of one sort or another
-*/
+ * NOTE: it doesn't really matter what childmaker is used because the HBSS algorithm
+ * will rearrange the permutation to reflect the order tasks were chosen by the
+ * TaskList (a RouletteWheel of one sort or another
+ */
 public class ChildMaker extends gov.nasa.javaGenes.core.ChildMaker {
-public int numberOfParents() {return 1;}
-public Evolvable[] makeChildren(Evolvable[] parents) {
-    Error.assertTrue(parents.length == 1);
-    PermutationEvolvable[] p = new PermutationEvolvable[1];
-    p[0] = (PermutationEvolvable)new EOSschedulingEvolvable(parents[0].getSize(),"ascending");
-    return p;
-}
-public String toString() {
-	return "EOSscheduling.HBSS.ChildMaker";
-}
+    public int numberOfParents() {
+        return 1;
+    }
+
+    public Evolvable[] makeChildren(Evolvable[] parents) {
+        Error.assertTrue(parents.length == 1);
+        PermutationEvolvable[] p = new PermutationEvolvable[1];
+        p[0] = (PermutationEvolvable) new EOSschedulingEvolvable(parents[0].getSize(), "ascending");
+        return p;
+    }
+
+    public String toString() {
+        return "EOSscheduling.HBSS.ChildMaker";
+    }
 }
 

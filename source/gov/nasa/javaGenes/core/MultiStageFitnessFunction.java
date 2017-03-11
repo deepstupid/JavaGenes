@@ -18,22 +18,21 @@
 //
 package gov.nasa.javaGenes.core;
 
-import java.lang.Double;
 import gov.nasa.alsUtility.Error;
 
 /**
- this fitness function will return the the first objective with a fitness value at least as great as it's weight, or the
- last fitness value.  Useful when you want to do some quick checks for a decent evolavable before executing
- an expensive test for the fitness function.
-*/
+ * this fitness function will return the the first objective with a fitness value at least as great as it's weight, or the
+ * last fitness value.  Useful when you want to do some quick checks for a decent evolavable before executing
+ * an expensive test for the fitness function.
+ */
 public class MultiStageFitnessFunction extends FitnessFunctionMultiObjectiveToOne {
-public Fitness evaluateFitness (Evolvable evolvable) {
-    for(int i = 0; i < weights.size(); i++) {
-        Fitness fitness = getFitnessFunction(i).evaluateFitness(evolvable);
-        if (i == weights.size()-1 || fitness.asDouble() >= getWeight(i))
-            return fitness;
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        for (int i = 0; i < weights.size(); i++) {
+            Fitness fitness = getFitnessFunction(i).evaluateFitness(evolvable);
+            if (i == weights.size() - 1 || fitness.asDouble() >= getWeight(i))
+                return fitness;
+        }
+        Error.assertTrue(false); // should never get here
+        return null; // should never happen
     }
-    Error.assertTrue(false); // should never get here
-    return null; // should never happen
-}
 }

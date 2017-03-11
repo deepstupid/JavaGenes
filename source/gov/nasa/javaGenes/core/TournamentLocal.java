@@ -18,27 +18,26 @@
 //
 package gov.nasa.javaGenes.core;
 
-import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.alsUtility.IntegerInterval;
-import gov.nasa.javaGenes.core.Population;
 
 public class TournamentLocal extends Tournament {
-protected int extendFromFirstParentIndex;
+    protected int extendFromFirstParentIndex;
 
-public TournamentLocal(int size, int extendFromFirstParentIndex) {
-	super(size);
-	this.extendFromFirstParentIndex = extendFromFirstParentIndex;
-}
-public int[] getParentIndices(int number, IntegerInterval range, Population population) {
-	int firstParentIndex = getChosenIndex(range,population);
-	IntegerInterval newRange = new IntegerInterval(firstParentIndex-extendFromFirstParentIndex,firstParentIndex+extendFromFirstParentIndex);
-	newRange.limitTo(range);
-	int[] alreadyChosen = {firstParentIndex};
-	return getChosenIndices(alreadyChosen,number,newRange,population);
-}
-public String toString() {
-	return "TournamentLocal size=" + size + " extendFromFirstParentIndex=" + extendFromFirstParentIndex;
-}
+    public TournamentLocal(int size, int extendFromFirstParentIndex) {
+        super(size);
+        this.extendFromFirstParentIndex = extendFromFirstParentIndex;
+    }
+
+    public int[] getParentIndices(int number, IntegerInterval range, Population population) {
+        int firstParentIndex = getChosenIndex(range, population);
+        IntegerInterval newRange = new IntegerInterval(firstParentIndex - extendFromFirstParentIndex, firstParentIndex + extendFromFirstParentIndex);
+        newRange.limitTo(range);
+        int[] alreadyChosen = {firstParentIndex};
+        return getChosenIndices(alreadyChosen, number, newRange, population);
+    }
+
+    public String toString() {
+        return "TournamentLocal size=" + size + " extendFromFirstParentIndex=" + extendFromFirstParentIndex;
+    }
 
 }

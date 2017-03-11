@@ -17,46 +17,47 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.alsUtility;
-import junit.framework.*;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class AllTests extends TestSuite {
-  public static Test suite() {
-    TestSuite suite = new TestSuite();
-    System.out.println("gov.nasa.alsUtility unit test");
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        System.out.println("gov.nasa.alsUtility unit test");
 
 
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.AmericanWireGaugeTest.class));
+        //if (2 > 1) {System.out.println("quit early"); return suite;} // use to stop execution when you only want to do a few tests
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.UtilityTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.Brick3dWithSegmentsTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.Brick3dTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.DoubleIntervalTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.Vector3dTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.LogComparisonsTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.IntegerIntervalTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.VecMathTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.KeyCounterTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.MathUtilityTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.WeightedStatisticsTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.ExtendedVectorTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.ExtendedTreeSetTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.ComparativeStatisticsTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.GrowOnlyArrayTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.ReinitializableFloatWithFactorTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.ReinitializableFloatTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.ReinitializableIntTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.RandomNumberTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.SampleTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.ObjectCacheTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.DoublesListTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.PropertiesListTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.MinMaxesTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.IOTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.FieldRecordTextTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.RootMeanSquaresTest.class));
+        suite.addTest(new TestSuite(gov.nasa.alsUtility.DoubleIntervalTest.class));
 
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.AmericanWireGaugeTest.class));
-    //if (2 > 1) {System.out.println("quit early"); return suite;} // use to stop execution when you only want to do a few tests
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.UtilityTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.Brick3dWithSegmentsTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.Brick3dTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.DoubleIntervalTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.Vector3dTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.LogComparisonsTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.IntegerIntervalTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.VecMathTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.KeyCounterTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.MathUtilityTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.WeightedStatisticsTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.ExtendedVectorTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.ExtendedTreeSetTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.ComparativeStatisticsTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.GrowOnlyArrayTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.ReinitializableFloatWithFactorTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.ReinitializableFloatTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.ReinitializableIntTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.RandomNumberTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.SampleTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.ObjectCacheTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.DoublesListTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.PropertiesListTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.MinMaxesTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.IOTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.FieldRecordTextTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.RootMeanSquaresTest.class));
-    suite.addTest(new TestSuite(gov.nasa.alsUtility.DoubleIntervalTest.class));
-
-    return suite;
-  }
+        return suite;
+    }
 }

@@ -17,6 +17,7 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.javaGenes.forceFields;
+
 import java.io.Serializable;
 
 public abstract class FunctionalForm implements Serializable {

@@ -19,24 +19,20 @@
 //  Created by Al Globus on Thu Dec 05 2002.
 package gov.nasa.javaGenes.simulatedAnnealing;
 
-import gov.nasa.alsUtility.Utility;
-import gov.nasa.alsUtility.Error;
-import gov.nasa.javaGenes.core.Individual;
-import gov.nasa.javaGenes.core.Evolvable;
-import gov.nasa.javaGenes.core.Population;
 import gov.nasa.javaGenes.core.Parameters;
-import gov.nasa.javaGenes.core.ChildMaker;
-import gov.nasa.javaGenes.core.Checkpointer;
 
 /**
-implements simulated annealing.  Population size must be 2.  One anneals and the other holds the best so far.
-*/
+ * implements simulated annealing.  Population size must be 2.  One anneals and the other holds the best so far.
+ */
 public class Breeder extends gov.nasa.javaGenes.hillClimbing.Breeder {
 
-public Breeder(Parameters p,gov.nasa.javaGenes.simulatedAnnealing.Accepter inAccepter) {
-    super(p,inAccepter,new gov.nasa.javaGenes.hillClimbing.RestartNever(),null);
-}
-public String toString() {return "Simulated Annealing: " + accepter.toString();}
+    public Breeder(Parameters p, gov.nasa.javaGenes.simulatedAnnealing.Accepter inAccepter) {
+        super(p, inAccepter, new gov.nasa.javaGenes.hillClimbing.RestartNever(), null);
+    }
+
+    public String toString() {
+        return "Simulated Annealing: " + accepter.toString();
+    }
 }
 
 

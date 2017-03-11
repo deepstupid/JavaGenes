@@ -19,31 +19,35 @@
 package gov.nasa.javaGenes.core.HFC;
 
 import gov.nasa.alsUtility.Error;
-import gov.nasa.javaGenes.core.RandomEvolvableProducer;
 import gov.nasa.javaGenes.core.ChildMakerProvider;
 import gov.nasa.javaGenes.core.FitnessFunction;
-import gov.nasa.javaGenes.core.Population;
-import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.Individual;
+import gov.nasa.javaGenes.core.Population;
 
 public class BottomSubBreeder extends SubBreeder {
-public boolean killParents = false;
+    public boolean killParents = false;
 
-public BottomSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction) {
-	this(childMakerProvider,fitnessFunction,false);
-}
-public BottomSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction, boolean killParents) {
-	super(childMakerProvider,fitnessFunction);
-	this.killParents = killParents;
-}
-public void acceptPromotion(Individual individual, Population population) {
-	Error.fatal("should never happen");
-}
-public void parentsOfPromoted(int[] parentIndices, Population population) {
-	if (killParents) {
-		for(int i = 0; i < parentIndices.length; i++) 
-			createRandomIndividual(parentIndices[i],population);
-	}
-}
-public String toString() {return "BottomSubBreeder  killParents=" + killParents + " " + super.toString();}
+    public BottomSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction) {
+        this(childMakerProvider, fitnessFunction, false);
+    }
+
+    public BottomSubBreeder(ChildMakerProvider childMakerProvider, FitnessFunction fitnessFunction, boolean killParents) {
+        super(childMakerProvider, fitnessFunction);
+        this.killParents = killParents;
+    }
+
+    public void acceptPromotion(Individual individual, Population population) {
+        Error.fatal("should never happen");
+    }
+
+    public void parentsOfPromoted(int[] parentIndices, Population population) {
+        if (killParents) {
+            for (int i = 0; i < parentIndices.length; i++)
+                createRandomIndividual(parentIndices[i], population);
+        }
+    }
+
+    public String toString() {
+        return "BottomSubBreeder  killParents=" + killParents + " " + super.toString();
+    }
 }

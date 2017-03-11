@@ -18,30 +18,33 @@
 //
 //  Created by Al Globus on Fri Jun 27 2003.
 package gov.nasa.alsUtility;
+
 import junit.framework.TestCase;
 
 public class ReinitializableIntTest extends TestCase {
 
-public ReinitializableIntTest(String name) {super(name);}
+    public ReinitializableIntTest(String name) {
+        super(name);
+    }
 
-public void testReinitializableInt() {
-    ReinitializableInt i = new ReinitializableInt(1);
-    assertTrue("1", i.getCurrent() == 1);
-    assertTrue("2", i.getInitial() == 1);
-    i.addToInitial(-2);
-    assertTrue("3", i.getCurrent() == -1);
-    assertTrue("4", i.getInitial() == -1);
-    i.add(5);
-    assertTrue("5", i.getCurrent() == 4);
-    assertTrue("6", i.getInitial() == -1);
-    i.reinitialize();
-    assertTrue("7", i.getCurrent() == -1);
-    assertTrue("8", i.getInitial() == -1);
-    i.multiply(3);
-    assertTrue("9", i.getCurrent() == -3);
-    assertTrue("10", i.getInitial() == -1);
-    i.reinitialize();
-    assertTrue("11", i.getCurrent() == -1);
-    assertTrue("12", i.getInitial() == -1);
-}
+    public void testReinitializableInt() {
+        ReinitializableInt i = new ReinitializableInt(1);
+        assertTrue("1", i.getCurrent() == 1);
+        assertTrue("2", i.getInitial() == 1);
+        i.addToInitial(-2);
+        assertTrue("3", i.getCurrent() == -1);
+        assertTrue("4", i.getInitial() == -1);
+        i.add(5);
+        assertTrue("5", i.getCurrent() == 4);
+        assertTrue("6", i.getInitial() == -1);
+        i.reinitialize();
+        assertTrue("7", i.getCurrent() == -1);
+        assertTrue("8", i.getInitial() == -1);
+        i.multiply(3);
+        assertTrue("9", i.getCurrent() == -3);
+        assertTrue("10", i.getInitial() == -1);
+        i.reinitialize();
+        assertTrue("11", i.getCurrent() == -1);
+        assertTrue("12", i.getInitial() == -1);
+    }
 }

@@ -21,22 +21,26 @@ package gov.nasa.javaGenes.graph;
 import gov.nasa.alsUtility.Predicate;
 
 /**
-Used to find a vertex to make an edge to.
-*/
+ * Used to find a vertex to make an edge to.
+ */
 public class AcceptableSecondVertex implements Predicate {
-/**
-vertex seeking a vertex to have an edge with
-*/
-protected Vertex vertex;
-/**
-@param v seeking a vertex to have an edge with
-*/
-public AcceptableSecondVertex(Vertex v) {vertex = v;}
-/**
-@param object Vertex object. Can this be connected to vertex with an edge?
-*/
-public boolean execute(Object object){
-    Vertex v = (Vertex)object;
-    return (!v.equals(vertex)) && v.canAcceptEdge() && (!v.hasEdgeTo(vertex));
-}
+    /**
+     * vertex seeking a vertex to have an edge with
+     */
+    protected Vertex vertex;
+
+    /**
+     * @param v seeking a vertex to have an edge with
+     */
+    public AcceptableSecondVertex(Vertex v) {
+        vertex = v;
+    }
+
+    /**
+     * @param object Vertex object. Can this be connected to vertex with an edge?
+     */
+    public boolean execute(Object object) {
+        Vertex v = (Vertex) object;
+        return (!v.equals(vertex)) && v.canAcceptEdge() && (!v.hasEdgeTo(vertex));
+    }
 }

@@ -20,11 +20,13 @@ package gov.nasa.javaGenes.core;
 
 // always returns the same fitness
 public class FitnessFunctionFixed extends FitnessFunction {
-private Fitness fitness;
-public FitnessFunctionFixed(double d) {
-  fitness = new FitnessDouble(d);
-}
-public Fitness evaluateFitness (Evolvable evolvable) {
-  return fitness;
-}
+    private Fitness fitness;
+
+    public FitnessFunctionFixed(double d) {
+        fitness = new FitnessDouble(d);
+    }
+
+    public Fitness evaluateFitness(Evolvable evolvable) {
+        return fitness;
+    }
 }

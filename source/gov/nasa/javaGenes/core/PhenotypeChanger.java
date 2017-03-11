@@ -19,10 +19,10 @@
 package gov.nasa.javaGenes.core;
 
 /**
-is used by fitness functions that must calculate the fitness of several variants of the phenotype
-to simulatate potential manufacturing errors.  The genotype of the returned evolvables should
-generally be identical, but the phenotype different.
-*/
+ * is used by fitness functions that must calculate the fitness of several variants of the phenotype
+ * to simulatate potential manufacturing errors.  The genotype of the returned evolvables should
+ * generally be identical, but the phenotype different.
+ */
 public interface PhenotypeChanger extends java.io.Serializable {
-public Evolvable[] getVariations(Evolvable evolvable);
+    public Evolvable[] getVariations(Evolvable evolvable);
 }

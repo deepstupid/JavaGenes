@@ -19,7 +19,7 @@
 package gov.nasa.javaGenes.core;
 
 public class NotFoundException extends Exception {
-public String toString() {
-	return super.toString() + "NotFoundException";
-}
+    public String toString() {
+        return super.toString() + "NotFoundException";
+    }
 }

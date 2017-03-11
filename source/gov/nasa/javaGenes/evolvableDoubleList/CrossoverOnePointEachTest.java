@@ -19,46 +19,48 @@
 
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
-import gov.nasa.alsUtility.DoubleInterval;
-import gov.nasa.alsUtility.IntegerInterval;
 import gov.nasa.alsUtility.RandomNumber;
+import junit.framework.TestCase;
 
 public class CrossoverOnePointEachTest extends TestCase {
 
-public CrossoverOnePointEachTest(String name) {super(name);}
+    public CrossoverOnePointEachTest(String name) {
+        super(name);
+    }
 
-public void test() {
-    RandomNumber.setSeed(990639400906L);   // to get deterministic results
-    CrossoverOnePointEach xover = new CrossoverOnePointEach();
-	EvolvableDoubleList parents[] = {new EvolvableDoubleList(4), new EvolvableDoubleList(5)};
-	EvolvableDoubleList child = ((EvolvableDoubleList[])xover.makeChildren(parents))[0];
-	//System.out.println(parents[0]);
-	//System.out.println(parents[1]);
-	//System.out.println(child.toString());
-    double[] values = {0.455328933156024,0.7749004050158379,0.8327765542950442,0.20479234542355457,0.1641624627782836};
-    assertTrue("known", child.isEqual(new EvolvableDoubleList(values)));
-}
-public void testCrossover() {
-	double[] frontValues = {1,2,3,4,5};
-	double[] backValues = {4,5,6,7};
-	double[] resultValues1 = {1,2,6,7};
-	testCrossover("1 ", frontValues, backValues, 1, 2, resultValues1);
-	double[] resultValues2 = {1,2,3,4,5,6,7};
-	testCrossover("2 ", frontValues, backValues, 3, 1, resultValues2);
-	double[] resultValues3 = {1,4,5,6,7};
-	testCrossover("3 ", frontValues, backValues, 0, 0, resultValues3);
-}
-private void testCrossover(String name, double[] frontValues, double[] backValues, int frontIndex, int backIndex, double[] resultValues) {
-	double divideBy = 10;
-	EvolvableDoubleList frontList = new EvolvableDoubleList(frontValues,divideBy);
-	EvolvableDoubleList endList = new EvolvableDoubleList(backValues,divideBy);
-    CrossoverOnePointEach xover = new CrossoverOnePointEach();
-	EvolvableDoubleList child = (EvolvableDoubleList)frontList.copyForEvolution();
-	int[] front = {frontIndex, frontIndex+1};
-	int[] back = {backIndex-1, backIndex};
-	xover.crossover(child,frontList,endList,front,back);
-	EvolvableDoubleList result = new EvolvableDoubleList(resultValues,divideBy);
-	assertTrue(name + child.toString(), child.isEqual(result));
-}
+    public void test() {
+        RandomNumber.setSeed(990639400906L);   // to get deterministic results
+        CrossoverOnePointEach xover = new CrossoverOnePointEach();
+        EvolvableDoubleList parents[] = {new EvolvableDoubleList(4), new EvolvableDoubleList(5)};
+        EvolvableDoubleList child = ((EvolvableDoubleList[]) xover.makeChildren(parents))[0];
+        //System.out.println(parents[0]);
+        //System.out.println(parents[1]);
+        //System.out.println(child.toString());
+        double[] values = {0.455328933156024, 0.7749004050158379, 0.8327765542950442, 0.20479234542355457, 0.1641624627782836};
+        assertTrue("known", child.isEqual(new EvolvableDoubleList(values)));
+    }
+
+    public void testCrossover() {
+        double[] frontValues = {1, 2, 3, 4, 5};
+        double[] backValues = {4, 5, 6, 7};
+        double[] resultValues1 = {1, 2, 6, 7};
+        testCrossover("1 ", frontValues, backValues, 1, 2, resultValues1);
+        double[] resultValues2 = {1, 2, 3, 4, 5, 6, 7};
+        testCrossover("2 ", frontValues, backValues, 3, 1, resultValues2);
+        double[] resultValues3 = {1, 4, 5, 6, 7};
+        testCrossover("3 ", frontValues, backValues, 0, 0, resultValues3);
+    }
+
+    private void testCrossover(String name, double[] frontValues, double[] backValues, int frontIndex, int backIndex, double[] resultValues) {
+        double divideBy = 10;
+        EvolvableDoubleList frontList = new EvolvableDoubleList(frontValues, divideBy);
+        EvolvableDoubleList endList = new EvolvableDoubleList(backValues, divideBy);
+        CrossoverOnePointEach xover = new CrossoverOnePointEach();
+        EvolvableDoubleList child = (EvolvableDoubleList) frontList.copyForEvolution();
+        int[] front = {frontIndex, frontIndex + 1};
+        int[] back = {backIndex - 1, backIndex};
+        xover.crossover(child, frontList, endList, front, back);
+        EvolvableDoubleList result = new EvolvableDoubleList(resultValues, divideBy);
+        assertTrue(name + child.toString(), child.isEqual(result));
+    }
 }

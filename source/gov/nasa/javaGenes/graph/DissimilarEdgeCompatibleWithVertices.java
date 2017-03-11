@@ -21,14 +21,18 @@ package gov.nasa.javaGenes.graph;
 import gov.nasa.alsUtility.Predicate;
 
 public class DissimilarEdgeCompatibleWithVertices implements Predicate {
-protected Edge edge;
-public DissimilarEdgeCompatibleWithVertices(Edge e) {edge = e;}
-/**
-calls edge.dissimilarEdgeCompatibleWithVertices((Edge)object);
+    protected Edge edge;
 
-@see Edge
-*/
-public boolean execute(Object object) {
-  return edge.dissimilarEdgeCompatibleWithVertices((Edge)object);
-}
+    public DissimilarEdgeCompatibleWithVertices(Edge e) {
+        edge = e;
+    }
+
+    /**
+     * calls edge.dissimilarEdgeCompatibleWithVertices((Edge)object);
+     *
+     * @see Edge
+     */
+    public boolean execute(Object object) {
+        return edge.dissimilarEdgeCompatibleWithVertices((Edge) object);
+    }
 }

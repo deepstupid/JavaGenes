@@ -20,8 +20,8 @@ package gov.nasa.javaGenes.core.utility;
 
 public class ParametersAndLog2tsd extends Parameters2tsd {
 
-public static void main(String[] arguments) {
-	processArguments(arguments);
-	CoreUtility.printData2tsd(outputFilename,parameterNames,directoryNames,gov.nasa.javaGenes.core.Reporter.logFilename);
-}
+    public static void main(String[] arguments) {
+        processArguments(arguments);
+        CoreUtility.printData2tsd(outputFilename, parameterNames, directoryNames, gov.nasa.javaGenes.core.Reporter.logFilename);
+    }
 }

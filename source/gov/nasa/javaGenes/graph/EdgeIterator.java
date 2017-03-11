@@ -19,21 +19,27 @@
 package gov.nasa.javaGenes.graph;
 
 
-import java.util.Vector;
 import gov.nasa.alsUtility.VectorIterator;
 
-/**
-serves as an iterator for a vector of Edge objects
+import java.util.Vector;
 
-@see Edge
-*/
+/**
+ * serves as an iterator for a vector of Edge objects
+ *
+ * @see Edge
+ */
 public class EdgeIterator extends VectorIterator {
-/**
-@param v the Vector to iterate over. Must only contain Edge objects
-*/
-public EdgeIterator(Vector v) {super(v);}
-/**
-@return the current Edge object
-*/
-public Edge edge() {return (Edge)object();}
+    /**
+     * @param v the Vector to iterate over. Must only contain Edge objects
+     */
+    public EdgeIterator(Vector v) {
+        super(v);
+    }
+
+    /**
+     * @return the current Edge object
+     */
+    public Edge edge() {
+        return (Edge) object();
+    }
 }

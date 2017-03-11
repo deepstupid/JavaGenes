@@ -19,13 +19,16 @@
 //  Created by Al Globus on Tue Nov 12 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.javaGenes.permutation.PermutationPositionCrossover;
 import gov.nasa.javaGenes.permutation.PermutationEvolvable;
+import gov.nasa.javaGenes.permutation.PermutationPositionCrossover;
 
 public class PositionCrossover extends PermutationPositionCrossover {
-protected void copyIndex(PermutationEvolvable from, int fromIndex, PermutationEvolvable to, int toIndex) {
-    super.copyIndex(from,fromIndex,to,toIndex);
-    ((EOSschedulingEvolvable)to).setTaskPlacement(toIndex,(EOSschedulingEvolvable)from,fromIndex);
-}
-public String toString() {return "EOS" + super.toString();}
+    protected void copyIndex(PermutationEvolvable from, int fromIndex, PermutationEvolvable to, int toIndex) {
+        super.copyIndex(from, fromIndex, to, toIndex);
+        ((EOSschedulingEvolvable) to).setTaskPlacement(toIndex, (EOSschedulingEvolvable) from, fromIndex);
+    }
+
+    public String toString() {
+        return "EOS" + super.toString();
+    }
 }

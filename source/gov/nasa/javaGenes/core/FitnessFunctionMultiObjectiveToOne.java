@@ -19,11 +19,14 @@
 //  Created by Al Globus on Wed Oct 30 2002.
 package gov.nasa.javaGenes.core;
 
-public class FitnessFunctionMultiObjectiveToOne  extends FitnessFunctionMultiObjective {
-public int numberOfObjectives() {return 1;}
-public String[] getNameArray() {
-  String[] array = new String[1];
-  array[0] = name;
-  return array;
-}
+public class FitnessFunctionMultiObjectiveToOne extends FitnessFunctionMultiObjective {
+    public int numberOfObjectives() {
+        return 1;
+    }
+
+    public String[] getNameArray() {
+        String[] array = new String[1];
+        array[0] = name;
+        return array;
+    }
 }

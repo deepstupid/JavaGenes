@@ -18,18 +18,17 @@
 //
 package gov.nasa.javaGenes.permutation;
 
-import gov.nasa.javaGenes.core.Evolvable;
 import gov.nasa.javaGenes.core.Parameters;
 
 public class PermutationParameters extends Parameters {
-public int permutationLength;
+    public int permutationLength;
 
-private void setParameters() {
-	// RandomNumber.setSeed(990639400909L); // used to generate repeatable runs. See seed.txt for seed of last run
-}
+    public PermutationParameters() {
+        setParameters();
+    }
 
-public PermutationParameters() {
-  setParameters();
-}
+    private void setParameters() {
+        // RandomNumber.setSeed(990639400909L); // used to generate repeatable runs. See seed.txt for seed of last run
+    }
 
 }

@@ -24,71 +24,100 @@ import gov.nasa.alsUtility.Error;
 
 public class Sensor implements java.io.Serializable {
 
-/**
-starts at 1 so arrays of sensor numbers automatically initialized to 0 will mean no sensor allocated.
-*/
-static private int nextNumber = 1; 
-protected Satellite satellite;
-protected SensorType sensorType;
-protected int number;
-protected AvailabilityTimeline availableTimeline;
-protected SlewMotor slewMotor = new SlewMotorNone();
-protected Horizon horizon;
-protected int typicalTakeImageTime;
+    /**
+     * starts at 1 so arrays of sensor numbers automatically initialized to 0 will mean no sensor allocated.
+     */
+    static private int nextNumber = 1;
+    protected Satellite satellite;
+    protected SensorType sensorType;
+    protected int number;
+    protected AvailabilityTimeline availableTimeline;
+    protected SlewMotor slewMotor = new SlewMotorNone();
+    protected Horizon horizon;
+    protected int typicalTakeImageTime;
 
-/**
-must be called by all Sensor and subclass constructors to assign numbers
-and maintain allSensor's list
-*/
-public Sensor(Satellite inSatellite,SensorType inSensorType,Horizon inHorizon,int inTypicalTakeImageTime) {
-    satellite = inSatellite;
-    sensorType = inSensorType;
-    horizon = inHorizon.copy();
-    typicalTakeImageTime = inTypicalTakeImageTime;
-     
-    availableTimeline = new AvailabilityTimeline(horizon,typicalTakeImageTime);    
-    
-    number = nextNumber;
-    nextNumber++;
-    setupOk();
-}
-public void setDutyCycles(DutyCycleConstraint[] dutyCycles) {availableTimeline.setDutyCycles(dutyCycles);}
-public Satellite getSatellite() {return satellite;}
-public void setSlewMotor(SlewMotor inSlewMotor) {
-    slewMotor = inSlewMotor;
-}
-public double getMaxAbsoluteSlew() {
-    return slewMotor.getMaxAbsoluteSlew();
-}
-public SlewMotor getSlewMotor() {return slewMotor;}
-public int getMaxSlewTimeFrom(SlewRequirement slew) {
-    if (slewMotor == null) return 0;
-    return slewMotor.getMaxSlewTimeFrom(slew);
-}
-public boolean slewTimeAdequate(int time,SlewRequirement s1, SlewRequirement s2) {
-    if (slewMotor == null) return true;
-    return slewMotor.slewTime(s1,s2) <= time;
-}
-public int getNumber() {return number;}
-public SensorType getSensorType() {return sensorType;}
-public void assertOk() {
-    setupOk();
-    timelinesOk();
-}
-public void setupOk() {
-    Error.assertNotNull(satellite);
-    Error.assertNotNull(sensorType);
-    Error.assertNotNull(availableTimeline);
-    Error.assertNotNull(slewMotor);
-    Error.assertTrue(number > 0);
-}
-public void timelinesOk() {
-    availableTimeline.assertIsValid();
-    getSlewTimeline().assertIsValid();
-}
-public AvailabilityTimeline getAvailabilityTimeline() {return availableTimeline;}
-public SlewTimeline getSlewTimeline() {return slewMotor.getSlewTimeline();}
-public SlewRequirement getSlewRequirement(PointingRequirement pointingRequirement) {
-    return new CrossTrackSlew(pointingRequirement);
-}
+    /**
+     * must be called by all Sensor and subclass constructors to assign numbers
+     * and maintain allSensor's list
+     */
+    public Sensor(Satellite inSatellite, SensorType inSensorType, Horizon inHorizon, int inTypicalTakeImageTime) {
+        satellite = inSatellite;
+        sensorType = inSensorType;
+        horizon = inHorizon.copy();
+        typicalTakeImageTime = inTypicalTakeImageTime;
+
+        availableTimeline = new AvailabilityTimeline(horizon, typicalTakeImageTime);
+
+        number = nextNumber;
+        nextNumber++;
+        setupOk();
+    }
+
+    public void setDutyCycles(DutyCycleConstraint[] dutyCycles) {
+        availableTimeline.setDutyCycles(dutyCycles);
+    }
+
+    public Satellite getSatellite() {
+        return satellite;
+    }
+
+    public double getMaxAbsoluteSlew() {
+        return slewMotor.getMaxAbsoluteSlew();
+    }
+
+    public SlewMotor getSlewMotor() {
+        return slewMotor;
+    }
+
+    public void setSlewMotor(SlewMotor inSlewMotor) {
+        slewMotor = inSlewMotor;
+    }
+
+    public int getMaxSlewTimeFrom(SlewRequirement slew) {
+        if (slewMotor == null) return 0;
+        return slewMotor.getMaxSlewTimeFrom(slew);
+    }
+
+    public boolean slewTimeAdequate(int time, SlewRequirement s1, SlewRequirement s2) {
+        if (slewMotor == null) return true;
+        return slewMotor.slewTime(s1, s2) <= time;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public SensorType getSensorType() {
+        return sensorType;
+    }
+
+    public void assertOk() {
+        setupOk();
+        timelinesOk();
+    }
+
+    public void setupOk() {
+        Error.assertNotNull(satellite);
+        Error.assertNotNull(sensorType);
+        Error.assertNotNull(availableTimeline);
+        Error.assertNotNull(slewMotor);
+        Error.assertTrue(number > 0);
+    }
+
+    public void timelinesOk() {
+        availableTimeline.assertIsValid();
+        getSlewTimeline().assertIsValid();
+    }
+
+    public AvailabilityTimeline getAvailabilityTimeline() {
+        return availableTimeline;
+    }
+
+    public SlewTimeline getSlewTimeline() {
+        return slewMotor.getSlewTimeline();
+    }
+
+    public SlewRequirement getSlewRequirement(PointingRequirement pointingRequirement) {
+        return new CrossTrackSlew(pointingRequirement);
+    }
 }

@@ -19,21 +19,27 @@
 package gov.nasa.javaGenes.graph;
 
 
-import java.util.Vector;
 import gov.nasa.alsUtility.VectorIterator;
 
-/**
-iterate over a Vector containing Vertex objects
+import java.util.Vector;
 
-@see Vertex
-*/
+/**
+ * iterate over a Vector containing Vertex objects
+ *
+ * @see Vertex
+ */
 public class VertexIterator extends VectorIterator {
-/**
-@param v the Vector to iterate over. Must contain only Vertex objects
-*/
-public VertexIterator(Vector v) {super(v);}
-/**
-@return the current Vertex
-*/
-public Vertex vertex() {return (Vertex)object();}
+    /**
+     * @param v the Vector to iterate over. Must contain only Vertex objects
+     */
+    public VertexIterator(Vector v) {
+        super(v);
+    }
+
+    /**
+     * @return the current Vertex
+     */
+    public Vertex vertex() {
+        return (Vertex) object();
+    }
 }

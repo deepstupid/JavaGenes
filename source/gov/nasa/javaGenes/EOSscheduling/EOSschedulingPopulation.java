@@ -19,34 +19,38 @@
 //  Created by Al Globus on Wed Jul 03 2002.
 package gov.nasa.javaGenes.EOSscheduling;
 
-import gov.nasa.javaGenes.core.Population;
-import gov.nasa.javaGenes.core.Individual;
-import gov.nasa.javaGenes.core.FitnessFunction;
 import gov.nasa.javaGenes.core.Evolvable;
+import gov.nasa.javaGenes.core.FitnessFunction;
+import gov.nasa.javaGenes.core.Individual;
+import gov.nasa.javaGenes.core.Population;
 
 public class EOSschedulingPopulation extends Population {
 
-public EOSschedulingPopulation (EOSschedulingParameters parameters) {
-    this(parameters.permutationLength, parameters.populationSize, parameters.fitnessFunction);
-}
-public EOSschedulingPopulation (int permutationLength, int populationSize, FitnessFunction fitness) {
-    super(populationSize);
-    for (int i = 0; i < population.length; i++)
-        population[i] = new EOSschedulingIndividual(new EOSschedulingEvolvable(permutationLength),fitness);
-}
+    public EOSschedulingPopulation(EOSschedulingParameters parameters) {
+        this(parameters.permutationLength, parameters.populationSize, parameters.fitnessFunction);
+    }
 
-/**
-create an empty population with int size members
-*/
-protected EOSschedulingPopulation(int size) {super(size);}
-/**
-@return a new empty population with int size members
-*/
-public Population makePopulation(int size) {
-    return new EOSschedulingPopulation(size);
-}
+    public EOSschedulingPopulation(int permutationLength, int populationSize, FitnessFunction fitness) {
+        super(populationSize);
+        for (int i = 0; i < population.length; i++)
+            population[i] = new EOSschedulingIndividual(new EOSschedulingEvolvable(permutationLength), fitness);
+    }
 
-public Individual makeIndividual(Evolvable e, FitnessFunction f) {
-  return new EOSschedulingIndividual((EOSschedulingEvolvable)e,f);
-}
+    /**
+     * create an empty population with int size members
+     */
+    protected EOSschedulingPopulation(int size) {
+        super(size);
+    }
+
+    /**
+     * @return a new empty population with int size members
+     */
+    public Population makePopulation(int size) {
+        return new EOSschedulingPopulation(size);
+    }
+
+    public Individual makeIndividual(Evolvable e, FitnessFunction f) {
+        return new EOSschedulingIndividual((EOSschedulingEvolvable) e, f);
+    }
 }

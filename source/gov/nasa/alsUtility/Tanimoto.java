@@ -18,49 +18,51 @@
 //
 package gov.nasa.alsUtility;
 
-import java.util.Enumeration;
 import java.math.BigInteger;
+import java.util.Enumeration;
 
 /**
-calculates the Tanimoto coefficient for different data structures. The Tanimoto coefficient
-for sets a and b is 1.0 - (|a|/|b|)
-*/
+ * calculates the Tanimoto coefficient for different data structures. The Tanimoto coefficient
+ * for sets a and b is 1.0 - (|a|/|b|)
+ */
 public class Tanimoto {
-/**
-@return 1.0 maximum/minimum
-*/
-public static double distance(double a, double b) {
-	double unionSize = Math.max(a,b);
-	double intersectionSize = Math.min(a,b);
-	return calculate(unionSize,intersectionSize);
-}
-/**
-@return 1.0 - (|a|/|b|) considering the count of each element in a and b
-*/
-public static double distance(KeyCounter a, KeyCounter b) {
-    double intersectionSize = 0;
-    double unionSize = 0;
-    for (Enumeration e = a.keys(); e.hasMoreElements();) {
-         Object key = e.nextElement();
-         BigInteger i1 = a.getCount(key);
-         BigInteger i2 = b.getCount(key);
-         unionSize += i1.max(i2).doubleValue();
-         intersectionSize += i1.min(i2).doubleValue();
+    /**
+     * @return 1.0 maximum/minimum
+     */
+    public static double distance(double a, double b) {
+        double unionSize = Math.max(a, b);
+        double intersectionSize = Math.min(a, b);
+        return calculate(unionSize, intersectionSize);
     }
-    for (Enumeration e = b.keys(); e.hasMoreElements();) {
-         Object key = e.nextElement();
-         if (!a.containsKey(key))
-            unionSize += b.getCount(key).doubleValue();
+
+    /**
+     * @return 1.0 - (|a|/|b|) considering the count of each element in a and b
+     */
+    public static double distance(KeyCounter a, KeyCounter b) {
+        double intersectionSize = 0;
+        double unionSize = 0;
+        for (Enumeration e = a.keys(); e.hasMoreElements(); ) {
+            Object key = e.nextElement();
+            BigInteger i1 = a.getCount(key);
+            BigInteger i2 = b.getCount(key);
+            unionSize += i1.max(i2).doubleValue();
+            intersectionSize += i1.min(i2).doubleValue();
+        }
+        for (Enumeration e = b.keys(); e.hasMoreElements(); ) {
+            Object key = e.nextElement();
+            if (!a.containsKey(key))
+                unionSize += b.getCount(key).doubleValue();
+        }
+        return calculate(unionSize, intersectionSize);
     }
-	return calculate(unionSize,intersectionSize);
-}
-/**
-@return Tanimoto coefficient handling 0 appropriately
-*/
-protected static double calculate(double unionSize, double intersectionSize) {
-    if (intersectionSize == unionSize) return 0;
-    if (unionSize == 0) return 0;
-    if (intersectionSize == 0) return 1;
-    return 1.0 - ((double)intersectionSize/(double)unionSize);
-}
+
+    /**
+     * @return Tanimoto coefficient handling 0 appropriately
+     */
+    protected static double calculate(double unionSize, double intersectionSize) {
+        if (intersectionSize == unionSize) return 0;
+        if (unionSize == 0) return 0;
+        if (intersectionSize == 0) return 1;
+        return 1.0 - ((double) intersectionSize / (double) unionSize);
+    }
 }

@@ -20,20 +20,27 @@ package gov.nasa.alsUtility;
 
 
 /**
-class to calculate RMS values
-*/
+ * class to calculate RMS values
+ */
 public class RootMeanSquares {
-protected double sumSquares = 0;
-protected int count = 0;
+    protected double sumSquares = 0;
+    protected int count = 0;
 
-/**
-@param value a value to calculate the RMS on
-*/
-public void addDatum(double value) {sumSquares += value*value; count++;}
-/**
-@return the RMS of all values put in addDatum so far
-*/
-public double rms() {if (count <= 0) return 0; else return Math.sqrt(sumSquares/count);}
+    /**
+     * @param value a value to calculate the RMS on
+     */
+    public void addDatum(double value) {
+        sumSquares += value * value;
+        count++;
+    }
+
+    /**
+     * @return the RMS of all values put in addDatum so far
+     */
+    public double rms() {
+        if (count <= 0) return 0;
+        else return Math.sqrt(sumSquares / count);
+    }
 }
 
  

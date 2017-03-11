@@ -18,37 +18,39 @@
 //
 package gov.nasa.javaGenes.forceFields;
 
-import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.EasyFile;
+import gov.nasa.alsUtility.Error;
 
 public class PotentialEnergyTestCase {
-/**
-the ideal energies for bodies
-*/
-protected double[] energy;
-protected Bodies[] bodies;
+    /**
+     * the ideal energies for bodies
+     */
+    protected double[] energy;
+    protected Bodies[] bodies;
 
-/**
-@param e the energies, a copy is not made
-@param b the bodies, a copy is not made
-*/
-public PotentialEnergyTestCase(double[] e, Bodies[] b) {
-	Error.assertTrue(e.length == b.length);
-  energy = e;
-	bodies = b;
-}
-/**
-@return the energies calculated with the input potential for this.bodies
-minus the ideal energies stored in this.energy.
-*/
-public double[] getDifference(Potential potential) {
-	double[] other = potential.getEnergy(bodies);
-  for (int i = 0; i < other.length; i++)
-  	other[i] -= energy[i];
-  return other;
-}
-public void printTo(EasyFile file) {
-	for (int i = 0; i < energy.length; i++)
-  	file.println(energy[i] + ": " + bodies[i]);
-}
+    /**
+     * @param e the energies, a copy is not made
+     * @param b the bodies, a copy is not made
+     */
+    public PotentialEnergyTestCase(double[] e, Bodies[] b) {
+        Error.assertTrue(e.length == b.length);
+        energy = e;
+        bodies = b;
+    }
+
+    /**
+     * @return the energies calculated with the input potential for this.bodies
+     * minus the ideal energies stored in this.energy.
+     */
+    public double[] getDifference(Potential potential) {
+        double[] other = potential.getEnergy(bodies);
+        for (int i = 0; i < other.length; i++)
+            other[i] -= energy[i];
+        return other;
+    }
+
+    public void printTo(EasyFile file) {
+        for (int i = 0; i < energy.length; i++)
+            file.println(energy[i] + ": " + bodies[i]);
+    }
 }

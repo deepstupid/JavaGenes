@@ -19,14 +19,16 @@
 package gov.nasa.javaGenes.evolvableDoubleList;
 
 abstract public class Selector implements java.io.Serializable {
-public final int MAXIMUM_TRIES = 100; // used to avoid inifinite loops in stochastic selection situations
+    public final int MAXIMUM_TRIES = 100; // used to avoid inifinite loops in stochastic selection situations
 
-final public int[] getIndicesArray(EvolvableDoubleList list) {
-	return getIndicesArray(list.getSize());
-}
-public int[] getIndicesArray(int size) {
-    Indices indices = getIndices(size);
-    return indices.getArray();
-}
-abstract protected Indices getIndices(int size);
+    final public int[] getIndicesArray(EvolvableDoubleList list) {
+        return getIndicesArray(list.getSize());
+    }
+
+    public int[] getIndicesArray(int size) {
+        Indices indices = getIndices(size);
+        return indices.getArray();
+    }
+
+    abstract protected Indices getIndices(int size);
 }

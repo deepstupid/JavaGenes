@@ -22,155 +22,163 @@ package gov.nasa.javaGenes.EOSscheduling;
 import junit.framework.TestCase;
 
 public class SSRTimelineTest extends TestCase {
-private SSRTimeline timeline;
-private Horizon horizon;
-private final int typicalTaskDuration = 2;
-private final int SSRcapacity = 10;
-private final int NOT_SCHEDULED = Timeline.NOT_SCHEDULED;
-private SchedulingData scheduleData;
-private String time[] = {
-    "1 Jan 2002 00:00:00.00",
-    "1 Jan 2002 00:00:10.00",
-    "2 Jan 2002 00:00:00.00",
-    "3 Jan 2002 00:00:00.00"
-};
+    private final int typicalTaskDuration = 2;
+    private final int SSRcapacity = 10;
+    private final int NOT_SCHEDULED = Timeline.NOT_SCHEDULED;
+    private SSRTimeline timeline;
+    private Horizon horizon;
+    private SchedulingData scheduleData;
+    private String time[] = {
+            "1 Jan 2002 00:00:00.00",
+            "1 Jan 2002 00:00:10.00",
+            "2 Jan 2002 00:00:00.00",
+            "3 Jan 2002 00:00:00.00"
+    };
 
-public SSRTimelineTest(String name) {super(name);}
-protected void setUp() {
-    horizon = new Horizon(time[0],time[1]);
-    Satellite satellite = new Satellite("satellite");
-    satellite.setSSR(SSRcapacity,horizon,typicalTaskDuration);
-    timeline = satellite.getSSRtimeline();
-    timeline.assertIsValid();
-    scheduleData = new SchedulingData();
-}
+    public SSRTimelineTest(String name) {
+        super(name);
+    }
 
-public void testGetNumberOfSSRsegments() {
-    assertTrue("1",timeline.getNumberOfSSRsegments() == 1);
-    timeline.insertDumpAt(3);
-    assertTrue("2",timeline.getNumberOfSSRsegments() == 2);
-    timeline.insertDumpAt(7);
-    assertTrue("3",timeline.getNumberOfSSRsegments() == 3);
-    timeline.insertDumpAt(9);
-    assertTrue("4",timeline.getNumberOfSSRsegments() == 4);
-}
-public void testFits() {
-    SchedulingData sd = new SchedulingData();
+    protected void setUp() {
+        horizon = new Horizon(time[0], time[1]);
+        Satellite satellite = new Satellite("satellite");
+        satellite.setSSR(SSRcapacity, horizon, typicalTaskDuration);
+        timeline = satellite.getSSRtimeline();
+        timeline.assertIsValid();
+        scheduleData = new SchedulingData();
+    }
 
-    sd.setSSRuse(5);
-    assertTrue("1", timeline.fits(3,sd));
-    sd.setSSRuse(10);
-    assertTrue("2", timeline.fits(3,sd));
-    sd.setSSRuse(11);
-    assertTrue("3", !timeline.fits(3,sd));
-    sd.setSSRuse(10);
-    assertTrue("4", timeline.fits(3,sd));
-    timeline.insertAt(3,sd); // see if crashes
+    public void testGetNumberOfSSRsegments() {
+        assertTrue("1", timeline.getNumberOfSSRsegments() == 1);
+        timeline.insertDumpAt(3);
+        assertTrue("2", timeline.getNumberOfSSRsegments() == 2);
+        timeline.insertDumpAt(7);
+        assertTrue("3", timeline.getNumberOfSSRsegments() == 3);
+        timeline.insertDumpAt(9);
+        assertTrue("4", timeline.getNumberOfSSRsegments() == 4);
+    }
 
-    assertTrue("noneTest", new SSRTimelineNone().fits(3,sd));
-}
-public void testConstructor() {
-    timeline.assertIsValid();
-    int[] correctTimes = {0};
-    double[] correctCapacity = {SSRcapacity};
-    check(correctTimes,correctCapacity,"constructor");
-}
-public void testInsertDumpAt() {
-    timeline.insertDumpAt(3);
-    int[] correctTimes = {0,3};
-    double[] correctCapacity = {SSRcapacity,SSRcapacity};
-    check(correctTimes,correctCapacity,"1");
+    public void testFits() {
+        SchedulingData sd = new SchedulingData();
 
-    timeline.insertDumpAt(8);
-    int[] correctTimes2 = {0,3,8};
-    double[] correctCapacity2 = {SSRcapacity,SSRcapacity,SSRcapacity};
-    check(correctTimes2,correctCapacity2,"2");
+        sd.setSSRuse(5);
+        assertTrue("1", timeline.fits(3, sd));
+        sd.setSSRuse(10);
+        assertTrue("2", timeline.fits(3, sd));
+        sd.setSSRuse(11);
+        assertTrue("3", !timeline.fits(3, sd));
+        sd.setSSRuse(10);
+        assertTrue("4", timeline.fits(3, sd));
+        timeline.insertAt(3, sd); // see if crashes
 
-    timeline.insertDumpAt(3);
-    int[] correctTimes3 = {0,3,8};
-    double[] correctCapacity3 = {SSRcapacity,SSRcapacity,SSRcapacity};
-    check(correctTimes3,correctCapacity3,"3");
+        assertTrue("noneTest", new SSRTimelineNone().fits(3, sd));
+    }
 
-    timeline.insertDumpAt(2);
-    int[] correctTimes4 = {0,2,3,8};
-    double[] correctCapacity4 = {SSRcapacity,SSRcapacity,SSRcapacity,SSRcapacity};
-    check(correctTimes4,correctCapacity4,"4");
+    public void testConstructor() {
+        timeline.assertIsValid();
+        int[] correctTimes = {0};
+        double[] correctCapacity = {SSRcapacity};
+        check(correctTimes, correctCapacity, "constructor");
+    }
 
-    scheduleData.setSSRuse(3);
-    correctTimes = correctTimes4;
-    timeline.insertAt(5,scheduleData);
-    double[] correctCapacity5 = {SSRcapacity,SSRcapacity,SSRcapacity-3,SSRcapacity};
-    check(correctTimes,correctCapacity5,"5");
+    public void testInsertDumpAt() {
+        timeline.insertDumpAt(3);
+        int[] correctTimes = {0, 3};
+        double[] correctCapacity = {SSRcapacity, SSRcapacity};
+        check(correctTimes, correctCapacity, "1");
 
-    timeline.insertAt(2,scheduleData);
-    double[] correctCapacity6 = {SSRcapacity,SSRcapacity-3,SSRcapacity-3,SSRcapacity};
-    check(correctTimes,correctCapacity6,"6");
+        timeline.insertDumpAt(8);
+        int[] correctTimes2 = {0, 3, 8};
+        double[] correctCapacity2 = {SSRcapacity, SSRcapacity, SSRcapacity};
+        check(correctTimes2, correctCapacity2, "2");
 
-    timeline.insertAt(0,scheduleData);
-    double[] correctCapacity7 = {SSRcapacity-3,SSRcapacity-3,SSRcapacity-3,SSRcapacity};
-    check(correctTimes,correctCapacity7,"7");
+        timeline.insertDumpAt(3);
+        int[] correctTimes3 = {0, 3, 8};
+        double[] correctCapacity3 = {SSRcapacity, SSRcapacity, SSRcapacity};
+        check(correctTimes3, correctCapacity3, "3");
 
-    scheduleData.setSSRuse(5);
-    timeline.insertAt(9,scheduleData);
-    double[] correctCapacity8 = {SSRcapacity-3,SSRcapacity-3,SSRcapacity-3,SSRcapacity-5};
-    check(correctTimes,correctCapacity8,"8");
-}
-public void testInsertAt() {
-    scheduleData.setSSRuse(3);
-    int[] correctTimes = {0};
+        timeline.insertDumpAt(2);
+        int[] correctTimes4 = {0, 2, 3, 8};
+        double[] correctCapacity4 = {SSRcapacity, SSRcapacity, SSRcapacity, SSRcapacity};
+        check(correctTimes4, correctCapacity4, "4");
 
-    timeline.insertAt(5,scheduleData);
-    double[]c = {SSRcapacity - 3};
-    check(correctTimes,c,"1");
+        scheduleData.setSSRuse(3);
+        correctTimes = correctTimes4;
+        timeline.insertAt(5, scheduleData);
+        double[] correctCapacity5 = {SSRcapacity, SSRcapacity, SSRcapacity - 3, SSRcapacity};
+        check(correctTimes, correctCapacity5, "5");
 
-    scheduleData.setSSRuse(1);
-    timeline.insertAt(3,scheduleData);
-    double[]c1 = {SSRcapacity - 3 - 1};
-    check(correctTimes,c1,"2");
+        timeline.insertAt(2, scheduleData);
+        double[] correctCapacity6 = {SSRcapacity, SSRcapacity - 3, SSRcapacity - 3, SSRcapacity};
+        check(correctTimes, correctCapacity6, "6");
 
-    scheduleData.setSSRuse(2);
-    timeline.insertAt(8,scheduleData);
-    double[]c2 = {SSRcapacity - 3 - 1 - 2};
-    check(correctTimes,c2,"3");
-    
+        timeline.insertAt(0, scheduleData);
+        double[] correctCapacity7 = {SSRcapacity - 3, SSRcapacity - 3, SSRcapacity - 3, SSRcapacity};
+        check(correctTimes, correctCapacity7, "7");
 
-    scheduleData.setSSRuse(1);
-    timeline.insertAt(5,scheduleData);
-    double[]c3 = {SSRcapacity - 3 - 1 - 2 - 1};
-    check(correctTimes,c3,"4");
-}
+        scheduleData.setSSRuse(5);
+        timeline.insertAt(9, scheduleData);
+        double[] correctCapacity8 = {SSRcapacity - 3, SSRcapacity - 3, SSRcapacity - 3, SSRcapacity - 5};
+        check(correctTimes, correctCapacity8, "8");
+    }
 
-public void testFindEarliest() {
-    scheduleData.setDuration(3);
-    scheduleData.setSSRuse(SSRcapacity-3);
-    assertTrue("1",timeline.findEarliest(0,5,scheduleData) == 0);
-    assertTrue("2",timeline.findEarliest(3,5,scheduleData) == 3);
-    assertTrue("3",timeline.findEarliest(9,9,scheduleData) == 9);
-    assertTrue("3",timeline.findEarliest(9,13,scheduleData) == 9);
+    public void testInsertAt() {
+        scheduleData.setSSRuse(3);
+        int[] correctTimes = {0};
 
-    scheduleData.setSSRuse(0);
-    assertTrue("4",timeline.findEarliest(9,9,scheduleData) == 9);
-    assertTrue("5",timeline.findEarliest(3,9,scheduleData) == 3);
+        timeline.insertAt(5, scheduleData);
+        double[] c = {SSRcapacity - 3};
+        check(correctTimes, c, "1");
 
-    scheduleData.setSSRuse(SSRcapacity);
-    assertTrue("7",timeline.findEarliest(9,9,scheduleData) == 9);
-    assertTrue("6",timeline.findEarliest(3,9,scheduleData) == 3);
+        scheduleData.setSSRuse(1);
+        timeline.insertAt(3, scheduleData);
+        double[] c1 = {SSRcapacity - 3 - 1};
+        check(correctTimes, c1, "2");
 
-    scheduleData.setSSRuse(SSRcapacity+1);
-    assertTrue("7",timeline.findEarliest(9,9,scheduleData) == NOT_SCHEDULED);
-    assertTrue("6",timeline.findEarliest(3,9,scheduleData) == NOT_SCHEDULED);
-}
-private void check(int[] correctTimes,double[] correctCapacity,String name) {
-    int[] timeLineTimes = timeline.getStartTimesArray();
-    assertTrue("start times length", correctTimes.length == timeLineTimes.length);
-    for(int i = 0; i < correctTimes.length; i++) 
-        assertTrue(i+" " +name, correctTimes[i] == timeLineTimes[i]);
+        scheduleData.setSSRuse(2);
+        timeline.insertAt(8, scheduleData);
+        double[] c2 = {SSRcapacity - 3 - 1 - 2};
+        check(correctTimes, c2, "3");
 
-    double[] capacity = timeline.getCapacityArray();
-    assertTrue("capacity length", capacity.length == correctCapacity.length);
-    for(int i = 0; i < capacity.length; i++)
-        assertTrue("capacity " + i  + " " + name, capacity[i] == correctCapacity[i]);
-}
+
+        scheduleData.setSSRuse(1);
+        timeline.insertAt(5, scheduleData);
+        double[] c3 = {SSRcapacity - 3 - 1 - 2 - 1};
+        check(correctTimes, c3, "4");
+    }
+
+    public void testFindEarliest() {
+        scheduleData.setDuration(3);
+        scheduleData.setSSRuse(SSRcapacity - 3);
+        assertTrue("1", timeline.findEarliest(0, 5, scheduleData) == 0);
+        assertTrue("2", timeline.findEarliest(3, 5, scheduleData) == 3);
+        assertTrue("3", timeline.findEarliest(9, 9, scheduleData) == 9);
+        assertTrue("3", timeline.findEarliest(9, 13, scheduleData) == 9);
+
+        scheduleData.setSSRuse(0);
+        assertTrue("4", timeline.findEarliest(9, 9, scheduleData) == 9);
+        assertTrue("5", timeline.findEarliest(3, 9, scheduleData) == 3);
+
+        scheduleData.setSSRuse(SSRcapacity);
+        assertTrue("7", timeline.findEarliest(9, 9, scheduleData) == 9);
+        assertTrue("6", timeline.findEarliest(3, 9, scheduleData) == 3);
+
+        scheduleData.setSSRuse(SSRcapacity + 1);
+        assertTrue("7", timeline.findEarliest(9, 9, scheduleData) == NOT_SCHEDULED);
+        assertTrue("6", timeline.findEarliest(3, 9, scheduleData) == NOT_SCHEDULED);
+    }
+
+    private void check(int[] correctTimes, double[] correctCapacity, String name) {
+        int[] timeLineTimes = timeline.getStartTimesArray();
+        assertTrue("start times length", correctTimes.length == timeLineTimes.length);
+        for (int i = 0; i < correctTimes.length; i++)
+            assertTrue(i + " " + name, correctTimes[i] == timeLineTimes[i]);
+
+        double[] capacity = timeline.getCapacityArray();
+        assertTrue("capacity length", capacity.length == correctCapacity.length);
+        for (int i = 0; i < capacity.length; i++)
+            assertTrue("capacity " + i + " " + name, capacity[i] == correctCapacity[i]);
+    }
 /*
 public void testIncompatibleSlewInMiddle() {
     SlewNode node = (SlewNode)allTimeNode();

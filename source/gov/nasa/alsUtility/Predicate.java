@@ -20,13 +20,13 @@ package gov.nasa.alsUtility;
 
 
 /**
-a predicate object is used to test other objects for truth or falsehood.
-
-@see ExtendedVector
-*/
+ * a predicate object is used to test other objects for truth or falsehood.
+ *
+ * @see ExtendedVector
+ */
 public interface Predicate extends java.io.Serializable {
-/**
-executes this predicate on object
-*/
-boolean execute(Object object);
+    /**
+     * executes this predicate on object
+     */
+    boolean execute(Object object);
 }

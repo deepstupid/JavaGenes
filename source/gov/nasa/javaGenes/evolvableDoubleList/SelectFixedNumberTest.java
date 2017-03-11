@@ -18,30 +18,33 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.RandomNumber;
 import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class SelectFixedNumberTest extends TestCase {
 
-public SelectFixedNumberTest(String name) {super(name);}
+    public SelectFixedNumberTest(String name) {
+        super(name);
+    }
 
-public void testSelectFixedNumber() {
-    RandomNumber.setSeed(990739400906L);   // to get deterministic results
-    assertTrue("1", testSelectFixedNumber(3, 8).length == 3);
-    assertTrue("2", testSelectFixedNumber(9, 8).length == 8);
-    assertTrue("3", testSelectFixedNumber(6, 8).length == 6);
-    assertTrue("4", testSelectFixedNumber(1, 8).length == 1);
-    assertTrue("5", testSelectFixedNumber(8, 8).length == 8);
-    int[] correct = {2,4,7};
-    assertTrue("6", Utility.equals(correct,testSelectFixedNumber(3,8))); // will fail if you change random number generation
-}
-public int[] testSelectFixedNumber(int numberToSelect, int evolvableLength) {
-    SelectFixedNumber selector = new SelectFixedNumber(numberToSelect);
-    int[] indices = selector.getIndicesArray(evolvableLength);
-    //for(int i = 0; i < indices.length; i++)
+    public void testSelectFixedNumber() {
+        RandomNumber.setSeed(990739400906L);   // to get deterministic results
+        assertTrue("1", testSelectFixedNumber(3, 8).length == 3);
+        assertTrue("2", testSelectFixedNumber(9, 8).length == 8);
+        assertTrue("3", testSelectFixedNumber(6, 8).length == 6);
+        assertTrue("4", testSelectFixedNumber(1, 8).length == 1);
+        assertTrue("5", testSelectFixedNumber(8, 8).length == 8);
+        int[] correct = {2, 4, 7};
+        assertTrue("6", Utility.equals(correct, testSelectFixedNumber(3, 8))); // will fail if you change random number generation
+    }
+
+    public int[] testSelectFixedNumber(int numberToSelect, int evolvableLength) {
+        SelectFixedNumber selector = new SelectFixedNumber(numberToSelect);
+        int[] indices = selector.getIndicesArray(evolvableLength);
+        //for(int i = 0; i < indices.length; i++)
         //System.out.print(indices[i] + " ");
-    //System.out.println();
-    return indices;
-}
+        //System.out.println();
+        return indices;
+    }
 }

@@ -20,16 +20,20 @@
 package gov.nasa.javaGenes.EOSscheduling;
 
 public class TakeImage extends Task {
-protected SensorType sensorType;
-protected int SSRuse;
+    protected SensorType sensorType;
+    protected int SSRuse;
 
-public TakeImage(int duration, SensorType inSensorType, int inSSRuse) {
-    super(duration);
-    sensorType = inSensorType;
-    SSRuse = inSSRuse;
-}
-public TakeImage(int duration, SensorType inSensorType) {
-    this(duration,inSensorType,0);
-}
-public int getSSRuse() {return SSRuse;}
+    public TakeImage(int duration, SensorType inSensorType, int inSSRuse) {
+        super(duration);
+        sensorType = inSensorType;
+        SSRuse = inSSRuse;
+    }
+
+    public TakeImage(int duration, SensorType inSensorType) {
+        this(duration, inSensorType, 0);
+    }
+
+    public int getSSRuse() {
+        return SSRuse;
+    }
 }

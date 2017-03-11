@@ -19,9 +19,17 @@
 package gov.nasa.alsUtility;
 
 public class ReinitializableFloatWithFactor extends ReinitializableFloat {
-protected float factor = 1;
+    protected float factor = 1;
 
-public void setFactor(float inFactor) {factor = inFactor;}
-public float getCurrent() {return super.getCurrent() * factor;}
-public float getInitial() {return super.getInitial() * factor;}
+    public void setFactor(float inFactor) {
+        factor = inFactor;
+    }
+
+    public float getCurrent() {
+        return super.getCurrent() * factor;
+    }
+
+    public float getInitial() {
+        return super.getInitial() * factor;
+    }
 }

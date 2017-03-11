@@ -23,8 +23,14 @@ import gov.nasa.javaGenes.core.Individual;
 
 abstract public class RestartPolicy implements java.io.Serializable {
 
-abstract boolean shouldRestart();
-void restarting() {}
-void childCreated(Individual kid, Individual parent) {}
-void lastChildAccepted() {}
+    abstract boolean shouldRestart();
+
+    void restarting() {
+    }
+
+    void childCreated(Individual kid, Individual parent) {
+    }
+
+    void lastChildAccepted() {
+    }
 }

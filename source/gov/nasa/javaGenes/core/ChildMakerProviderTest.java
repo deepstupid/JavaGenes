@@ -18,25 +18,27 @@
 //
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.Utility;
+import junit.framework.TestCase;
 
 public class ChildMakerProviderTest extends TestCase {
 
-public ChildMakerProviderTest(String name) {super(name);}
-public void testAddRemoveSize() {
-	ChildMakerProvider provider = new ChildMakerProvider();
-	Error.assertTrue(provider.size() == 0);
-	provider.add(new ChildMaker());
-	Error.assertTrue(provider.size() == 1);
-	provider.add(new ChildMaker());
-	Error.assertTrue(provider.size() == 2);
-	provider.removeLastChildMaker();
-	Error.assertTrue(provider.size() == 1);
-	provider.removeLastChildMaker();
-	Error.assertTrue(provider.size() == 0);
-	provider.removeLastChildMaker();
-	Error.assertTrue(provider.size() == 0);
-}
+    public ChildMakerProviderTest(String name) {
+        super(name);
+    }
+
+    public void testAddRemoveSize() {
+        ChildMakerProvider provider = new ChildMakerProvider();
+        Error.assertTrue(provider.size() == 0);
+        provider.add(new ChildMaker());
+        Error.assertTrue(provider.size() == 1);
+        provider.add(new ChildMaker());
+        Error.assertTrue(provider.size() == 2);
+        provider.removeLastChildMaker();
+        Error.assertTrue(provider.size() == 1);
+        provider.removeLastChildMaker();
+        Error.assertTrue(provider.size() == 0);
+        provider.removeLastChildMaker();
+        Error.assertTrue(provider.size() == 0);
+    }
 }

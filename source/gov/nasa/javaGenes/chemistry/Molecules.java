@@ -21,14 +21,22 @@ package gov.nasa.javaGenes.chemistry;
 import gov.nasa.alsUtility.ExtendedVector;
 
 public class Molecules {
-protected ExtendedVector molecules = new ExtendedVector();
+    protected ExtendedVector molecules = new ExtendedVector();
 
-public int size() {return molecules.size();}
-/**
-molecules will be keep in the order added. 
-FirstClusterLowestEnergyFitnessFunction depends on this.
-*/
-public void add(Molecule molecule) {molecules.addElement(molecule);}
-public Molecule get(int index) {return (Molecule)molecules.elementAt(index);}
+    public int size() {
+        return molecules.size();
+    }
+
+    /**
+     * molecules will be keep in the order added.
+     * FirstClusterLowestEnergyFitnessFunction depends on this.
+     */
+    public void add(Molecule molecule) {
+        molecules.addElement(molecule);
+    }
+
+    public Molecule get(int index) {
+        return (Molecule) molecules.elementAt(index);
+    }
 
 } 

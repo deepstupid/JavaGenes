@@ -17,13 +17,19 @@
 // DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE.
 //
 package gov.nasa.alsUtility;
-/**
-predicate to determine if object.Equals(another object)
-*/
-public class IsEqual implements Predicate {
-protected Object object;
 
-public IsEqual(Object o) {object = o;}
-public boolean execute(Object o) {return object.equals(o);}
+/**
+ * predicate to determine if object.Equals(another object)
+ */
+public class IsEqual implements Predicate {
+    protected Object object;
+
+    public IsEqual(Object o) {
+        object = o;
+    }
+
+    public boolean execute(Object o) {
+        return object.equals(o);
+    }
 }
 

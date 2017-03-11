@@ -22,14 +22,15 @@ import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.IntegerInterval;
 
 public class RandomEvolvableDoubleListProducer extends gov.nasa.javaGenes.core.RandomEvolvableProducer {
-protected IntegerInterval sizeRange;
+    protected IntegerInterval sizeRange;
 
-public RandomEvolvableDoubleListProducer(IntegerInterval sizeRange) {
-	Error.assertNotNull(sizeRange);
-	Error.assertTrue(sizeRange.isNonNegative());
-	this.sizeRange = new IntegerInterval(sizeRange);
-}
-public gov.nasa.javaGenes.core.Evolvable getRandomEvolvable() {
-	return new EvolvableDoubleList(sizeRange.random());
-}
+    public RandomEvolvableDoubleListProducer(IntegerInterval sizeRange) {
+        Error.assertNotNull(sizeRange);
+        Error.assertTrue(sizeRange.isNonNegative());
+        this.sizeRange = new IntegerInterval(sizeRange);
+    }
+
+    public gov.nasa.javaGenes.core.Evolvable getRandomEvolvable() {
+        return new EvolvableDoubleList(sizeRange.random());
+    }
 }

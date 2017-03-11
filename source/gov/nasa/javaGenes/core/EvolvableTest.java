@@ -18,29 +18,32 @@
 //
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.javaGenes.evolvableDoubleList.EvolvableDoubleList;
+import junit.framework.TestCase;
 
 public class EvolvableTest extends TestCase {
 
-public EvolvableTest(String name) {super(name);}
+    public EvolvableTest(String name) {
+        super(name);
+    }
 
-public void testGetSmallest() {
-    int[] a1 = {1,2,3};
-    testGetSmallest(a1, 1);
-    int[] a2 = {11,2,3};
-    testGetSmallest(a2, 2);
-    int[] a3 = {3};
-    testGetSmallest(a3, 3);
-    int[] a4 = {3,2,1};
-    testGetSmallest(a4, 1);
-}
-private void testGetSmallest(int[] sizes, int correctSize) {
-	Evolvable[] evolvables = new Evolvable[sizes.length];
-	for(int i = 0; i < sizes.length; i++)
-		evolvables[i] = new EvolvableDoubleList(sizes[i]);
-	Evolvable smallest = Evolvable.getSmallest(evolvables);
-	Error.assertTrue(smallest.getSize() == correctSize);
-}
+    public void testGetSmallest() {
+        int[] a1 = {1, 2, 3};
+        testGetSmallest(a1, 1);
+        int[] a2 = {11, 2, 3};
+        testGetSmallest(a2, 2);
+        int[] a3 = {3};
+        testGetSmallest(a3, 3);
+        int[] a4 = {3, 2, 1};
+        testGetSmallest(a4, 1);
+    }
+
+    private void testGetSmallest(int[] sizes, int correctSize) {
+        Evolvable[] evolvables = new Evolvable[sizes.length];
+        for (int i = 0; i < sizes.length; i++)
+            evolvables[i] = new EvolvableDoubleList(sizes[i]);
+        Evolvable smallest = Evolvable.getSmallest(evolvables);
+        Error.assertTrue(smallest.getSize() == correctSize);
+    }
 }

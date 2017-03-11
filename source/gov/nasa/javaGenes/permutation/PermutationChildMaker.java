@@ -23,8 +23,8 @@ import gov.nasa.javaGenes.core.ChildMaker;
 
 abstract public class PermutationChildMaker extends ChildMaker {
 
-// not used by Mutation
-protected void copyIndex(PermutationEvolvable from, int fromIndex, PermutationEvolvable to, int toIndex) {
-    to.setIndexAt(toIndex,from.getIndexAt(fromIndex));
-}
+    // not used by Mutation
+    protected void copyIndex(PermutationEvolvable from, int fromIndex, PermutationEvolvable to, int toIndex) {
+        to.setIndexAt(toIndex, from.getIndexAt(fromIndex));
+    }
 }

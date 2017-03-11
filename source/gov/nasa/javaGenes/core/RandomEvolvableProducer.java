@@ -19,5 +19,5 @@
 package gov.nasa.javaGenes.core;
 
 public abstract class RandomEvolvableProducer implements java.io.Serializable {
-public abstract Evolvable getRandomEvolvable();
+    public abstract Evolvable getRandomEvolvable();
 }

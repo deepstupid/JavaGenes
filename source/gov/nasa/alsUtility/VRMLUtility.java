@@ -19,9 +19,23 @@
 package gov.nasa.alsUtility;
 
 public class VRMLUtility {
-static public String header() {return "#VRML V2.0 utf8";}
-static public String simpleLighting() {return "DirectionalLight {ambientIntensity  0.5}";}
-static public String basicSetup() {return header() + "\n" + simpleLighting() + "\n";}
-static public String extension() {return "wrl";}
-static public String extensionWithDot() {return "." + extension();}
+    static public String header() {
+        return "#VRML V2.0 utf8";
+    }
+
+    static public String simpleLighting() {
+        return "DirectionalLight {ambientIntensity  0.5}";
+    }
+
+    static public String basicSetup() {
+        return header() + "\n" + simpleLighting() + "\n";
+    }
+
+    static public String extension() {
+        return "wrl";
+    }
+
+    static public String extensionWithDot() {
+        return "." + extension();
+    }
 }

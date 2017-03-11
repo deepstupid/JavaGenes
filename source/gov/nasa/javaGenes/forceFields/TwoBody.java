@@ -19,54 +19,70 @@
 package gov.nasa.javaGenes.forceFields;
 
 import gov.nasa.alsUtility.Error;
-import gov.nasa.alsUtility.Utility;
 import gov.nasa.javaGenes.chemistry.Atom;
 import gov.nasa.javaGenes.chemistry.UnitCell;
 
 public class TwoBody extends MultiBody {
 
-protected double _radialDistance = 1.4;
+    protected double _radialDistance = 1.4;
 
-// name must always have the earliest string in the alphabet first to simplify finding and comparing bodies
-public TwoBody(String atomi, String atomj, double distance) {
-  super(atomi.compareTo(atomj) <= 0 ? atomi + atomj : atomj + atomi);
-  _radialDistance = distance;
-  Error.assertTrue(isReasonable());
-}
-public TwoBody(String atomi, String atomj) {
-    this(atomi,atomj,1);
-}
-public TwoBody(Atom atomi, Atom atomj) {
-  this(atomi.toString(),atomj.toString(),atomi.getDistanceTo(atomj));
-}
-public TwoBody(Atom atomi, Atom atomj,UnitCell unitCell) {
-  this(atomi.toString(),atomj.toString(),unitCell.getDistance(atomi,atomj));
-}
-public double getR() {return _radialDistance;}
-public void setR(double r) {_radialDistance = r;}
-public void scaleLengthsBy(double scaleFactor) {
-  _radialDistance *= scaleFactor;
-  Error.assertTrue(isReasonable());
-}
-public boolean withinCutoff(Potential potential) {
-    if (potential == null)
-        return true;
-    final double cutoff = potential.getCutoff(this);
-    return withinCutoff(cutoff);
-}
-public boolean withinCutoff(double cutoff) {
-    return getR() < cutoff;
-}
-public boolean isReasonable() {return _radialDistance >= 0;}
-public String toString() {
-	return "(" + getName() + " " + getR() + ")";
-}
-public String tabSeparatedString() {
-	return getName() + "\t" + getHowMany() + "\t" + getR();
-}
+    // name must always have the earliest string in the alphabet first to simplify finding and comparing bodies
+    public TwoBody(String atomi, String atomj, double distance) {
+        super(atomi.compareTo(atomj) <= 0 ? atomi + atomj : atomj + atomi);
+        _radialDistance = distance;
+        Error.assertTrue(isReasonable());
+    }
 
-public boolean nearlyEqual(TwoBody other) {
-    return getName().equals(other.getName()) && gov.nasa.alsUtility.Utility.nearlyEqual(getR(),other.getR());
-}
+    public TwoBody(String atomi, String atomj) {
+        this(atomi, atomj, 1);
+    }
+
+    public TwoBody(Atom atomi, Atom atomj) {
+        this(atomi.toString(), atomj.toString(), atomi.getDistanceTo(atomj));
+    }
+
+    public TwoBody(Atom atomi, Atom atomj, UnitCell unitCell) {
+        this(atomi.toString(), atomj.toString(), unitCell.getDistance(atomi, atomj));
+    }
+
+    public double getR() {
+        return _radialDistance;
+    }
+
+    public void setR(double r) {
+        _radialDistance = r;
+    }
+
+    public void scaleLengthsBy(double scaleFactor) {
+        _radialDistance *= scaleFactor;
+        Error.assertTrue(isReasonable());
+    }
+
+    public boolean withinCutoff(Potential potential) {
+        if (potential == null)
+            return true;
+        final double cutoff = potential.getCutoff(this);
+        return withinCutoff(cutoff);
+    }
+
+    public boolean withinCutoff(double cutoff) {
+        return getR() < cutoff;
+    }
+
+    public boolean isReasonable() {
+        return _radialDistance >= 0;
+    }
+
+    public String toString() {
+        return "(" + getName() + " " + getR() + ")";
+    }
+
+    public String tabSeparatedString() {
+        return getName() + "\t" + getHowMany() + "\t" + getR();
+    }
+
+    public boolean nearlyEqual(TwoBody other) {
+        return getName().equals(other.getName()) && gov.nasa.alsUtility.Utility.nearlyEqual(getR(), other.getR());
+    }
 }
 

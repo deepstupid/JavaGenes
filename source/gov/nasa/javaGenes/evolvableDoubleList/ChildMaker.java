@@ -21,12 +21,17 @@ package gov.nasa.javaGenes.evolvableDoubleList;
 import gov.nasa.alsUtility.Error;
 
 public class ChildMaker extends gov.nasa.javaGenes.core.ChildMaker {
-protected Selector selector;
+    protected Selector selector;
 
-public ChildMaker() {} // some have no selector
-public ChildMaker(Selector selector) {
-    Error.assertNotNull(selector);
-    this.selector = selector;
-}
-public Selector getSelector() {return selector;}
+    public ChildMaker() {
+    } // some have no selector
+
+    public ChildMaker(Selector selector) {
+        Error.assertNotNull(selector);
+        this.selector = selector;
+    }
+
+    public Selector getSelector() {
+        return selector;
+    }
 }

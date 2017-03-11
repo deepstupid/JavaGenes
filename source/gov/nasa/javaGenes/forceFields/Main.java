@@ -21,9 +21,9 @@ package gov.nasa.javaGenes.forceFields;
 
 public class Main {
 
-public static void main(String[] arguments) {
-    RunChromosome run = new RunChromosome();
-    run.start(arguments);
-}
+    public static void main(String[] arguments) {
+        RunChromosome run = new RunChromosome();
+        run.start(arguments);
+    }
 
 }

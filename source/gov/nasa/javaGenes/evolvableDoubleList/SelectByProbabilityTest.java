@@ -18,21 +18,24 @@
 //
 package gov.nasa.javaGenes.evolvableDoubleList;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.RandomNumber;
+import junit.framework.TestCase;
 
 public class SelectByProbabilityTest extends TestCase {
 
-public SelectByProbabilityTest(String name) {super(name);}
+    public SelectByProbabilityTest(String name) {
+        super(name);
+    }
 
-public void testSelectByProbability() {
-    RandomNumber.setSeed(990739400906L);   // to get deterministic results
-    assertTrue("1", testSelectByProbability(0.5, 3, 8).length >= 3);
-    assertTrue("2", testSelectByProbability(0.001, 9, 8).length == 8);
-    assertTrue("3", testSelectByProbability(1, 6, 8).length == 8);
-}
-public int[] testSelectByProbability(double probability, int minimumNumberToSelect, int length) {
-    SelectByProbability selector = new SelectByProbability(probability,minimumNumberToSelect);
-    return selector.getIndicesArray(length);
-}
+    public void testSelectByProbability() {
+        RandomNumber.setSeed(990739400906L);   // to get deterministic results
+        assertTrue("1", testSelectByProbability(0.5, 3, 8).length >= 3);
+        assertTrue("2", testSelectByProbability(0.001, 9, 8).length == 8);
+        assertTrue("3", testSelectByProbability(1, 6, 8).length == 8);
+    }
+
+    public int[] testSelectByProbability(double probability, int minimumNumberToSelect, int length) {
+        SelectByProbability selector = new SelectByProbability(probability, minimumNumberToSelect);
+        return selector.getIndicesArray(length);
+    }
 }

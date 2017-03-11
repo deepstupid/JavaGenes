@@ -18,29 +18,32 @@
 //
 package gov.nasa.javaGenes.core;
 
-import junit.framework.TestCase;
 import gov.nasa.alsUtility.Error;
 import gov.nasa.alsUtility.LogComparisons;
+import junit.framework.TestCase;
 
 public class ChildMakerDownFractionComparatorTest extends TestCase {
 
-public ChildMakerDownFractionComparatorTest(String name) {super(name);}
-public void test() {
-	ChildMakerDownFractionComparator comparator = new ChildMakerDownFractionComparator();
-	ChildMaker c1 = new ChildMaker();
-	ChildMaker c2 = new ChildMaker();
-	String[] names = {"foo"};
-	c1.forEvolution = new LogComparisons(names);
-	c2.forEvolution = new LogComparisons(names);
-	Error.assertTrue("1", comparator.compare(c1,c2) == 0);
-	c1.forEvolution.setResults(0,0,1,1);
-	Error.assertTrue("2", comparator.compare(c1,c2) == 1);
-	c1.forEvolution.setResults(0,0,0,0);
-	c2.forEvolution.setResults(0,0,1,1);
-	Error.assertTrue("3", comparator.compare(c1,c2) == -1);
-	c1.forEvolution.setResults(0,0,1,0);
-	Error.assertTrue("4", comparator.compare(c1,c2) == -1);
-	c1.forEvolution.setResults(0,1,1,1);
-	Error.assertTrue("5", comparator.compare(c1,c2) == 1);
-}
+    public ChildMakerDownFractionComparatorTest(String name) {
+        super(name);
+    }
+
+    public void test() {
+        ChildMakerDownFractionComparator comparator = new ChildMakerDownFractionComparator();
+        ChildMaker c1 = new ChildMaker();
+        ChildMaker c2 = new ChildMaker();
+        String[] names = {"foo"};
+        c1.forEvolution = new LogComparisons(names);
+        c2.forEvolution = new LogComparisons(names);
+        Error.assertTrue("1", comparator.compare(c1, c2) == 0);
+        c1.forEvolution.setResults(0, 0, 1, 1);
+        Error.assertTrue("2", comparator.compare(c1, c2) == 1);
+        c1.forEvolution.setResults(0, 0, 0, 0);
+        c2.forEvolution.setResults(0, 0, 1, 1);
+        Error.assertTrue("3", comparator.compare(c1, c2) == -1);
+        c1.forEvolution.setResults(0, 0, 1, 0);
+        Error.assertTrue("4", comparator.compare(c1, c2) == -1);
+        c1.forEvolution.setResults(0, 1, 1, 1);
+        Error.assertTrue("5", comparator.compare(c1, c2) == 1);
+    }
 }
